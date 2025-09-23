@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AntPanel Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: #1a1a2e;
+      color: #dcdde1;
+    }
+
+    .dashboard {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 240px;
+      background: #252544;
+      padding: 2rem 1rem;
+      box-shadow: 2px 0 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar h2 {
+      font-size: 1.5rem;
+      color: #f5d94e;
+      margin-bottom: 2rem;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sidebar li {
+      margin-bottom: 1rem;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      user-select: none;
+      color: #aaa;
+      font-weight: 600;
+    }
+
+    .sidebar li.active,
+    .sidebar li:hover {
+      background: rgba(245, 217, 78, 0.1);
+      color: #f5d94e;
+    }
+
+    .content {
+      flex: 1;
+      padding: 2rem 3rem;
+      background: #282843;
+    }
+
+    .dashboard-header h1 {
+      font-size: 1.8rem;
+      margin: 0;
+      color: #ffffff;
+    }
+
+    .dashboard-header .status {
+      margin-top: 0.4rem;
+      font-weight: 500;
+      color: #6ddc9e;
+    }
+
+    .info-blocks {
+      margin-top: 2rem;
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .block {
+      background: #2e2e54;
+      padding: 1.5rem;
+      border-radius: 12px;
+      flex: 1;
+      min-width: 220px;
+      box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.05);
+    }
+
+    .block h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1rem;
+      color: #a7b1f8;
+    }
+
+    .block p {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #f0f0f5;
+    }
+
+    .verified {
+      color: #00e698;
+    }
+
+    .cta {
+      margin-top: 2.5rem;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #f5d94e, #f7bf22);
+      color: #3c2f00;
+      font-weight: bold;
+      padding: 0.9rem 1.6rem;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 3px 12px rgba(247, 191, 34, 0.4);
+      user-select: none;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #f5d94e;
+      padding: 0.9rem 1.6rem;
+      border: 1.5px solid #f5d94e;
+      border-radius: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* Tab content style */
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease forwards;
+      color: #dcdde1;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <aside class="sidebar">
+      
+      <h2>TradeBoard</h2> 
+      <nav>
+        <ul>
+          <li class="active" data-tab="overview">📋 Overview</li>
+          <li data-tab="orders">💳 Orders</li>
+          <li data-tab="invoices">🧾 Invoices</li>
+          <li data-tab="logistics">📦 Logistics</li>
+          <li data-tab="settings">⚙️ Settings</li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <section id="overview" class="tab-content active">
+        <header class="dashboard-header">
+          <h1>Welcome, <span id="userEmail">client@example.com</span></h1>
+          <p class="status success">✅ Email verified</p>
+        </header>
+
+        <section class="info-blocks">
+          <div class="block">
+            <h3>Registration Date</h3>
+            <p id="regDate">2025-08-25</p>
+          </div>
+          <div class="block">
+            <h3>Verification Status</h3>
+            <p class="verified">Verified</p>
+          </div>
+          <div class="block">
+            <h3>Preferred Contact</h3>
+            <p>Telegram / Email</p>
+          </div>
+        </section>
+
+        <section class="cta">
+          <button class="btn-primary">🔄 Request Bulk Price</button>
+          <button class="btn-outline">📥 View Past Orders</button>
+        </section>
+      </section>
+
+      <section id="orders" class="tab-content">
+        <h2>Orders</h2>
+        <p>You have no orders yet.</p>
+      </section>
+
+      <section id="invoices" class="tab-content">
+        <h2>Invoices</h2>
+        <p>No invoices available.</p>
+      </section>
+
+      <section id="logistics" class="tab-content">
+        <h2>Logistics</h2>
+        <p>Shipping and delivery info will be here.</p>
+      </section>
+
+      <section id="settings" class="tab-content">
+        <h2>Settings</h2>
+        <p>Manage your account preferences.</p>
+      </section>
+    </main>
+  </div>
+
+
+
+  <script src="/dashboard/dashboard.js"></script> 
+
+  <script> 
+
+document.addEventListener("DOMContentLoaded", () => {
+  // 辅助：解析 URL 查询参数
+  function getQueryParams() {
+    const params = {};
+    window.location.search
+      .substring(1)
+      .split("&")
+      .forEach((pair) => {
+        const [key, value] = pair.split("=");
+        if (key) params[decodeURIComponent(key)] = decodeURIComponent(value || "");
+      });
+    return params;
+  }
+
+  // 从 URL 或 localStorage 取值，优先 URL
+  const params = getQueryParams();
+
+  // 邮箱优先从 URL 拿，没有则 localStorage，最后默认值
+  const email = params.email || localStorage.getItem("userEmail") || "client@example.com";
+  const regDate = params.regDate || localStorage.getItem("regDate") || "2025-08-25";
+
+  // 验证状态，优先从 URL 解析，默认 false
+  const verified = params.verified === "true" || localStorage.getItem("verified") === "true";
+
+  // 更新页面显示
+  document.getElementById("userEmail").innerText = email;
+  document.getElementById("regDate").innerText = regDate;
+
+  const statusEl = document.querySelector(".dashboard-header .status");
+  if (verified) {
+    statusEl.classList.add("success");
+    statusEl.classList.remove("error");
+    statusEl.innerText = "✅ Email verified";
+  } else {
+    statusEl.classList.remove("success");
+    statusEl.classList.add("error");
+    statusEl.innerText = "⚠️ Email not verified";
+  }
+
+  // 保存最新状态到 localStorage
+  try {
+    localStorage.setItem("userEmail", email);
+    localStorage.setItem("regDate", regDate);
+    localStorage.setItem("verified", verified);
+  } catch (e) {
+    console.warn("localStorage is not available:", e);
+  }
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  // 你现有的初始化代码...
+
+  // 侧边栏菜单切换
+  const tabs = document.querySelectorAll('.sidebar ul li');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+      tab.classList.add('active');
+
+      const targetId = tab.getAttribute('data-tab');
+      const targetContent = document.getElementById(targetId);
+      if (targetContent) targetContent.classList.add('active');
+    });
+  });
+});
+</script> 
+
+</body>
+</html> 

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HiMiner 机械·科幻 首页</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset & 基础样式 */
+/* --- 通用 Reset & 字体 --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #0a0a0f;
+  color: #e0e6ff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+  padding: 20px 40px;
+}
+
+/* --- Logo & Nav --- */
+.logo-panel {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+  color: #55c6ff;
+  font-weight: 700;
+  font-size: 1.4rem;
+  text-shadow: 0 0 6px #55c6ffaa;
+}
+
+.logo-panel img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 4px #55c6ff);
+}
+
+nav {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 40px;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+nav a {
+  color: #55c6ff;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+  background-color: #55c6ff33;
+  text-shadow: 0 0 10px #55c6ffcc;
+}
+
+/* --- 产品头部展示 --- */
+.product-hero {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.product-hero__left img {
+  width: 320px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #ffc958aa;
+  transition: transform 0.3s ease;
+}
+
+.product-hero__left img:hover {
+  transform: scale(1.05);
+}
+
+.product-hero__right {
+  max-width: 480px;
+}
+
+.product-hero__right h1 {
+  font-size: 2.8rem;
+  color: #ffc958;
+  text-shadow: 0 0 8px #ffc958cc;
+  margin-bottom: 12px;
+}
+
+.product-price {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #55c6ff;
+  margin-bottom: 8px;
+  text-shadow: 0 0 6px #55c6ffbb;
+}
+
+.stock-status {
+  font-size: 1.1rem;
+  color: #a0f6a0;
+  margin-bottom: 20px;
+  font-weight: 600;
+  text-shadow: 0 0 4px #a0f6a0cc;
+}
+
+/* 按钮 - 金色霓虹风 */
+.btn-gold {
+  background: linear-gradient(90deg, #ffd85f, #ffb400);
+  color: #1e1b14;
+  font-weight: 700;
+  border: none;
+  padding: 14px 30px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1.25rem;
+  box-shadow:
+    0 0 6px #ffd85f,
+    0 0 20px #ffb400;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.btn-gold:hover {
+  box-shadow:
+    0 0 15px #ffd85f,
+    0 0 40px #ffb400;
+  transform: scale(1.05);
+}
+
+/* --- 技术参数 Specs --- */
+.product-specs {
+  margin-bottom: 50px;
+  max-width: 700px;
+}
+
+.product-specs h2 {
+  font-size: 2rem;
+  color: #55c6ff;
+  margin-bottom: 15px;
+  text-shadow: 0 0 10px #55c6ffbb;
+}
+
+.product-specs ul {
+  list-style: none;
+  border-left: 3px solid #ffc958;
+  padding-left: 20px;
+}
+
+.product-specs ul li {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #cbd2ff;
+  padding-left: 10px;
+  position: relative;
+}
+
+.product-specs ul li strong {
+  color: #ffc958;
+}
+
+/* --- 产品说明 --- */
+.product-description {
+  margin-bottom: 50px;
+  max-width: 700px;
+}
+
+.product-description h2 {
+  font-size: 2rem;
+  color: #55c6ff;
+  margin-bottom: 15px;
+  text-shadow: 0 0 10px #55c6ffbb;
+}
+
+.product-description p {
+  margin-bottom: 15px;
+  font-size: 1.15rem;
+  color: #d0d8ff;
+  line-height: 1.5;
+}
+
+/* --- 支付 & 物流信息 --- */
+.purchase-info {
+  margin-bottom: 50px;
+  max-width: 700px;
+}
+
+.purchase-info h2 {
+  font-size: 2rem;
+  color: #55c6ff;
+  margin-bottom: 15px;
+  text-shadow: 0 0 10px #55c6ffbb;
+}
+
+.purchase-info ul {
+  list-style: none;
+  padding-left: 20px;
+  border-left: 3px solid #55c6ff;
+}
+
+.purchase-info ul li {
+  margin-bottom: 12px;
+  font-size: 1.15rem;
+  color: #cbd2ff;
+  position: relative;
+  padding-left: 26px;
+}
+
+/* 简单 Emoji 图标作为自定义项目符号 */
+.purchase-info ul li::before {
+  content: '➡️';
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 1.2rem;
+}
+
+/* --- 推荐产品 --- */
+.related-products {
+  margin-bottom: 60px;
+}
+
+.related-products h2 {
+  font-size: 2rem;
+  color: #55c6ff;
+  margin-bottom: 30px;
+  text-shadow: 0 0 10px #55c6ffbb;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap: 24px;
+}
+
+.product-card {
+  background-color: #14141b;
+  border-radius: 12px;
+  box-shadow: 0 0 15px #55c6ff44;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.product-card:hover {
+  box-shadow: 0 0 30px #ffc958aa;
+}
+
+.product-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-bottom: 3px solid #55c6ff;
+}
+
+.product-info {
+  padding: 15px 18px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.product-info h3 {
+  color: #ffc958;
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+  text-shadow: 0 0 6px #ffc958bb;
+}
+
+.product-meta {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #55c6ff;
+  margin-bottom: 12px;
+  text-shadow: 0 0 4px #55c6ffbb;
+}
+
+.product-btn button {
+  width: 100%;
+  padding: 10px 0;
+  border-radius: 25px;
+  border: none;
+  font-weight: 700;
+  font-size: 1rem;
+  background: linear-gradient(90deg, #ffd85f, #ffb400);
+  color: #1e1b14;
+  box-shadow:
+    0 0 6px #ffd85f,
+    0 0 20px #ffb400;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.product-btn button:hover {
+  box-shadow:
+    0 0 15px #ffd85f,
+    0 0 40px #ffb400;
+  transform: scale(1.05);
+}
+
+/* --- 联系方式 --- */
+.contact {
+  max-width: 600px;
+  margin-bottom: 40px;
+}
+
+.contact h2 {
+  font-size: 2rem;
+  color: #55c6ff;
+  margin-bottom: 15px;
+  text-shadow: 0 0 10px #55c6ffbb;
+}
+
+.contact p {
+  font-size: 1.15rem;
+  margin-bottom: 10px;
+  color: #cbd2ff;
+}
+
+.contact a {
+  color: #ffc958;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.contact a:hover {
+  text-decoration: underline;
+  text-shadow: 0 0 8px #ffc958cc;
+}
+
+/* --- 页脚 --- */
+footer {
+  text-align: center;
+  padding: 15px 0;
+  font-size: 0.9rem;
+  color: #555a7f;
+  border-top: 1px solid #22223a;
+  user-select: none;
+  font-style: italic;
+}
+
+/* --- 响应式 --- */
+@media (max-width: 860px) {
+  .product-hero {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .product-hero__left img {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .product-hero__right {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  nav {
+    justify-content: center;
+    gap: 18px;
+  }
+}
+
+@media (max-width: 400px) {
+  body {
+    padding: 12px 16px;
+  }
+}
+
+
+
+ </style>
+</head>
+<body>
+<!-- LOGO & 导航栏（复用） -->
+<div class="logo-panel">
+  <!-- Logo 图标 & 标题已定义样式 -->
+  <img src="images/logo.png" alt="Logo">
+  <div>
+    <div class="title-primary">GhostNode™</div>
+    <div class="title-secondary">MINER LABS</div>
+  </div>
+</div>
+
+<nav>
+  <a href="/">Home</a>
+  <a href="/products">Products</a>
+  <a href="/contact">Contact</a>
+</nav>
+
+<!-- 产品头部展示 -->
+<section class="product-hero">
+  <div class="product-hero__left">
+    <img src="https://i.ytimg.com/vi/h7e8VLzmaEU/maxresdefault.jpg" alt="Bitmain Antminer S21 XP">
+  </div>
+  <div class="product-hero__right">
+    <h1>Bitmain Antminer S21 XP</h1>
+    <p class="product-price">$5,849.00</p>
+    <p class="stock-status">✅ In Stock • Ships within 48 hours</p>
+    <button class="btn-gold">Buy Now</button>
+  </div>
+</section>
+
+<!-- 技术参数 -->
+<section class="product-specs">
+  <h2>Technical Specifications</h2>
+  <ul>
+    <li><strong>Hashrate:</strong> 270 TH/s</li>
+    <li><strong>Power Consumption:</strong> 3645 W</li>
+    <li><strong>Efficiency:</strong> 13.5 J/TH</li>
+    <li><strong>Dimensions (w/o package):</strong> 449 × 219 × 293 mm</li>
+    <li><strong>Dimensions (with package):</strong> 640 × 360 × 450 mm</li>
+    <li><strong>Weight (Net / Gross):</strong> 18.7 kg / 21.5 kg</li>
+    <li><strong>Noise Level:</strong> 76 dBA</li>
+    <li><strong>Voltage:</strong> 220–277 V AC</li>
+    <li><strong>Interface:</strong> RJ45 Ethernet 10/100M</li>
+    <li><strong>Operating Temp:</strong> –20 ~ 45 °C</li>
+    <li><strong>Storage Temp:</strong> –20 ~ 70 °C</li>
+    <li><strong>Humidity:</strong> 10 %–90 % RH</li>
+    <li><strong>Warranty:</strong> 365 Days</li>
+  </ul>
+</section>
+
+<!-- 产品说明 -->
+<section class="product-description">
+  <h2>Product Overview</h2>
+  <p>
+    The Bitmain Antminer S21 XP is a high-performance SHA‑256 Bitcoin miner delivering 270 TH/s while maintaining excellent energy efficiency of 13.5 J/TH.
+  </p>
+  <p>
+    It features robust air cooling and is engineered for reliability in heavy-duty mining operations. Comes with PSU included and supports global express shipping — ideal for serious miners who demand both power and speed.
+  </p>
+</section>
+
+<!-- 支付 & 物流信息 -->
+<section class="purchase-info">
+  <h2>Shipping & Payment</h2>
+  <ul>
+    <li>🚚 Express shipping via DHL, FedEx, UPS, ARAMEX, TNT — dispatches within 48 hours</li>
+    <li>💳 Payments accepted: Wire Transfer (3–7 business days) or Cryptocurrency (instant)</li>
+    <li>📦 Optional DDP service available — covers duties and taxes (country-dependent, pre-arranged)</li>
+  </ul>
+</section>
+
+<!-- 推荐产品 -->
+<section class="related-products">
+  <h2>Related Miners</h2>
+  <div class="products-grid">
+    <div class="product-card">
+      <img src="images/whatsminer-m60.jpg" alt="WhatsMiner M60">
+      <div class="product-info">
+        <h3>WhatsMiner M60</h3>
+        <div class="product-meta">
+          <span class="price">$3,339</span>
+          <span class="rating">★ 4.5</span>
+        </div>
+        <div class="product-btn">
+          <button class="btn-gold">View</button>
+        </div>
+      </div>
+    </div>
+    <!-- 可复制更多 product-card -->
+  </div>
+</section>
+
+<!-- 联系方式 -->
+<section class="contact">
+  <h2>Contact</h2>
+  <p>Email: <a href="mailto:miner@protonmail.com">miner@protonmail.com</a></p>
+  <p>Secure, anonymous communication. No tracking.</p>
+</section>
+
+<!-- 页脚 -->
+<footer>
+  © 2025 Labs — All rights reserved. | Powered by GhostNode™ Infra
+</footer>
+
+
+</body>
+
+
+
+
+
+
+
+
+
+</html>   

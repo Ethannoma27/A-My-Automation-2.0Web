@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>📨 LinkWina 内部发送</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+:root {
+  --bg-gradient: linear-gradient(135deg, #d0eaff, #f1eaff);
+  --card-bg: rgba(255, 255, 255, 0.55);
+  --text: #333;
+  --accent: #7a5cf0;
+  --muted: #666;
+  --border-radius: 16px;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  --glass-blur: blur(20px);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: var(--bg-gradient);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 100vw;
+}
+
+.page-wrapper {
+  flex: 1 1 auto;
+  padding: 20px 20px 0 20px; /* 适当内边距 */
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100vw;
+  max-height: 100vh;
+  min-height: 0;
+  scrollbar-width: none;
+}
+
+.page-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* 顶部对齐 */
+  width: 100%;
+  max-width: 540px;
+  min-height: auto;
+}
+
+.form-card {
+  background: var(--card-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 24px 30px;
+  width: 100%;
+  /* 取消 height: 100%; 让高度自适应 */
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: 1.7rem;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+input, textarea {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 0.9rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin-bottom: 12px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #222;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  flex-shrink: 0;
+}
+
+input:focus, textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(122, 92, 240, 0.3);
+  outline: none;
+}
+
+textarea {
+  resize: none;
+  height: 100px;
+}
+
+.submit-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #7a5cf0, #a78afc);
+  color: white;
+  font-size: 1.1rem;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-weight: 600;
+  box-shadow: 0 6px 16px rgba(122, 92, 240, 0.4);
+  margin-top: 20px; /* 适当间距 */
+}
+
+.submit-btn:hover {
+  background: linear-gradient(135deg, #664ce0, #9474f8);
+  box-shadow: 0 8px 22px rgba(122, 92, 240, 0.5);
+  transform: translateY(-1px);
+}
+
+.status-message {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.page-footer {
+  height: 28px;
+  line-height: 28px;
+  position: sticky;
+  bottom: 0;
+  background: transparent;
+  margin-top: 12px;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--muted);
+  user-select: none;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  z-index: 10;
+}
+
+@media (max-width: 600px) {
+  .form-card {
+    padding: 24px 20px; /* 上下padding增大 */
+  }
+
+  h1 {
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem; /* 标题底部间距加大 */
+  }
+
+  label {
+    margin-bottom: 10px; /* 标签底部间距加大 */
+  }
+
+  input, textarea {
+    font-size: 0.9rem;
+    padding: 12px; /* 输入框padding加大 */
+    margin-bottom: 18px; /* 输入框底部间距加大 */
+  }
+
+  .submit-btn {
+    font-size: 1rem;
+    padding: 14px; /* 按钮padding加大 */
+    margin-top: 24px; /* 按钮顶部间距加大 */
+  }
+}
+
+
+  </style> 
+</head>
+<body>
+
+  <div class="page-wrapper">
+    <div class="container">
+      <div class="form-card">
+        <h1>📨 秒级邮件发送</h1>
+        <form id="emailForm">
+          <input type="hidden" name="from_email" value="noreply@linkwina.com" />
+
+          <label>收件人邮箱 ( 可留空 或填写抄送邮箱)</label> 
+          <input type="email" name="to_email" placeholder="例如 HR@linkwina.com" />
+
+          <label>主题</label>
+          <input type="text" name="subject" required placeholder="请输入邮件主题" />
+
+          <label>内容</label>
+          <textarea name="content" required placeholder="请输入邮件内容..."></textarea> 
+
+            <!-- ✅ 添加密码输入框 -->
+         <input type="password" name="email_password" placeholder="访问密码" required />
+
+          <button type="submit" class="submit-btn">📤 发送</button>
+        </form>
+        <div class="status-message" id="statusMsg"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    <div>© 2025 LinkWina · 专注企业级自动化服务 · 数字化赋能未来</div>
+  </footer>
+
+
+  <script>
+    const form = document.getElementById("emailForm");
+    const statusMsg = document.getElementById("statusMsg");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      statusMsg.textContent = "🚀 正在发送中...";
+
+      const formData = Object.fromEntries(new FormData(form));
+
+      // ✅ 如果收件人为空，则使用默认 HR
+      if (!formData.to_email || formData.to_email.trim() === "") {
+        formData.to_email = "HR@linkwina.com";
+      }
+
+      try {
+        const res = await fetch("https://my-netlify-hof.netlify.app/.netlify/functions/send-email", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        });
+
+        const result = await res.json();
+
+        if (res.ok) {
+          statusMsg.textContent = "✅ 邮件已发送并同步Datebase！";
+          form.reset();
+        } else {
+          statusMsg.textContent = `❌ 发送失败：${result.error || "未知错误"}`;
+        }
+      } catch (err) {
+        statusMsg.textContent = "❌ 网络错误，请稍后重试";
+        console.error(err);
+      }
+    });
+  </script>
+
+</body>
+
+</html>  

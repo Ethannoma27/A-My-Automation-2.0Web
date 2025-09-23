@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LOGO图片与文字上下边缘对齐</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #0f0f0f;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .top-logo {
+      display: flex;
+      align-items: center; /* 图片和文字垂直居中 */
+      gap: 16px;
+      height: 90px; /* 保持和图片一样高 */
+    }
+
+    .top-logo img {
+      height: 90px;
+      width: auto;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.6));
+      display: block; /* 去除底部空白 */
+    }
+
+      /* 给 Hi 这个文字添加特别样式 */
+/* Hi 的样式 */
+.hiwin-text.cyan div:first-child {
+  font-weight: 900;
+  font-size: 48px;
+  letter-spacing: 8px;
+  color: #3caefa; /* 纯蓝色 */
+  text-shadow:
+    0 0 8px #66baff,
+    0 0 15px #3399ff,
+    0 0 20px #1a75ff,
+    0 2px 5px rgba(0,0,139,0.8);
+  animation: bounce 2s ease-in-out infinite;
+  user-select: none;
+}
+
+/* Win 的样式和 Miner 一样 */
+
+
+.hiwin-text.cyan div:last-child {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 50px;       /* 调小字体 */
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  color: #d4af37;
+  text-shadow:
+    0 0 10px rgba(212, 175, 55, 0.95),
+    0 2px 6px rgba(0, 0, 0, 0.85);
+  user-select: none;
+  line-height: 1;
+  margin: 0;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-10px) scale(1.1); }
+}
+
+    .hiwin-text.cyan {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 90px; /* 和图片高度一致 */
+      color: rgba(58,142,230,0.5);
+      letter-spacing: 1.5px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.7);
+      font-weight: 900;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .hiwin-text.cyan div {
+      line-height: 45px; /* 两行平均高度 */
+      font-size: 45px;
+      user-select: none;
+    }
+
+    .main-logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 60px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      color: #d4af37;
+      text-shadow:
+        0 0 10px rgba(212, 175, 55, 0.95),
+        0 2px 6px rgba(0, 0, 0, 0.85);
+      user-select: none;
+      line-height: 1;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo-container">
+    <div class="top-logo">
+      <img src="hiwin-logo.png" alt="Hiwin Logo" />
+      <div class="hiwin-text cyan">
+        <div>Hi</div>
+        <div>Miner </div>
+      </div>
+    </div>
+    <div class="main-logo"></div>
+  </div>
+</body>
+</html> 

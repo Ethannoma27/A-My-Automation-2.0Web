@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>机械风 LOGO DEMO</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      background-color: #ffffff; 
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .logo-panel {
+      position: absolute; 
+      width: 300px; /* 或任意你需要的宽度 */
+      top: 30px;
+      left: 30px;
+      display: flex;
+      align-items: center;
+      padding: 20px 30px;
+      background: linear-gradient(145deg, #2e2e2e, #0d0d0d);
+      border: 2px solid #444;
+      border-radius: 16px;
+      box-shadow:
+        0 0 20px rgba(0, 255, 255, 0.3),
+        inset 0 0 10px rgba(255, 255, 255, 0.04);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 装饰用：机械螺丝 */
+    .logo-panel::before,
+    .logo-panel::after {
+      content: "";
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: radial-gradient(circle, #bbb 30%, #333);
+      border-radius: 50%;
+      z-index: 2;
+    }
+
+    .logo-panel::before {
+      top: 10px;
+      left: 10px;
+    }
+
+    .logo-panel::after {
+      bottom: 10px;
+      right: 10px;
+    }
+
+
+       /* 左侧 LOGO 图标区域 */
+    .logo-box {
+      background-color: #1b1b1b;
+      border-radius: 14px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #00dfff;
+      box-shadow:
+        0 0 18px rgba(0, 223, 255, 0.7),
+        inset 0 0 6px rgba(255, 255, 255, 0.15);   
+
+
+      /* 高级电路板SVG背景 */
+      background-image: url('data:image/svg+xml;utf8,\
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140" viewBox="0 0 140 140">\
+  <defs>\
+    <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">\
+      <stop offset="0%" stop-color="%2300fff7" />\
+      <stop offset="100%" stop-color="%230066ff" />\
+    </linearGradient>\
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">\
+      <feDropShadow dx="0" dy="0" stdDeviation="1.5" flood-color="%2300ffff" flood-opacity="0.6"/>\
+      <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="%230099ff" flood-opacity="0.4"/>\
+    </filter>\
+  </defs>\
+  <g stroke="url(%23grad)" stroke-width="1.2" fill="none" filter="url(%23glow)">\
+    <line x1="15" y1="15" x2="125" y2="15"/>\
+    <line x1="15" y1="40" x2="125" y2="40"/>\
+    <line x1="15" y1="65" x2="125" y2="65"/>\
+    <line x1="15" y1="90" x2="125" y2="90"/>\
+    <line x1="15" y1="115" x2="125" y2="115"/>\
+    <line x1="15" y1="140" x2="125" y2="140"/>\
+    <line x1="15" y1="15" x2="15" y2="140"/>\
+    <line x1="40" y1="15" x2="40" y2="140"/>\
+    <line x1="65" y1="15" x2="65" y2="140"/>\
+    <line x1="90" y1="15" x2="90" y2="140"/>\
+    <line x1="115" y1="15" x2="115" y2="140"/>\
+  </g>\
+  <g stroke="url(%23grad)" stroke-width="1.8" fill="none" filter="url(%23glow)">\
+    <path d="M15 15 L40 40 L65 40 L90 65 L115 65 L125 90"/>\
+    <path d="M40 115 L65 90 L90 90 L115 65"/>\
+    <path d="M90 140 L115 115 L125 115"/>\
+  </g>\
+  <g fill="url(%23grad)" stroke="%2300ccff" stroke-width="1.1" filter="url(%23glow)">\
+    <circle cx="15" cy="15" r="3"/>\
+    <circle cx="40" cy="40" r="3"/>\
+    <circle cx="65" cy="40" r="3"/>\
+    <circle cx="90" cy="65" r="3"/>\
+    <circle cx="115" cy="65" r="3"/>\
+    <circle cx="125" cy="90" r="3"/>\
+    <circle cx="40" cy="115" r="3"/>\
+    <circle cx="65" cy="90" r="3"/>\
+    <circle cx="90" cy="90" r="3"/>\
+    <circle cx="115" cy="65" r="3"/>\
+    <circle cx="90" cy="140" r="3"/>\
+    <circle cx="115" cy="115" r="3"/>\
+    <circle cx="125" cy="115" r="3"/>\
+  </g>\
+  <g fill="%2300ccff" stroke="%230099dd" stroke-width="0.5" filter="url(%23glow)">\
+    <circle cx="65" cy="65" r="1.5"/>\
+    <circle cx="90" cy="90" r="1.5"/>\
+    <circle cx="115" cy="115" r="1.5"/>\
+  </g>\
+</svg>');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+
+    .logo-box img {
+      height: 90px;
+      width: auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* 右侧文字 */
+    .text-box {
+      margin-left: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hiwin-text {
+      font-weight: 900;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      user-select: none;
+    }
+
+    .hiwin-text .main-title {
+      font-size: 48px;
+      color: #3caefa;
+      text-shadow:
+        0 0 8px #66baff,
+        0 0 15px #3399ff,
+        0 0 20px #1a75ff,
+        0 2px 5px rgba(0, 0, 139, 0.8);
+      animation: bounce 2.2s ease-in-out infinite;
+    }
+
+    .hiwin-text .sub-title {
+      font-size: 36px;
+      color: #d4af37;
+      margin-top: 8px;
+      text-shadow:
+        0 0 10px rgba(212, 175, 55, 0.95),
+        0 2px 6px rgba(0, 0, 0, 0.85);
+    }
+
+    /* 扫描线动画 */
+    .logo-panel::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 255, 255, 0.08) 0px,
+        rgba(0, 255, 255, 0.08) 1px,
+        transparent 1px,
+        transparent 4px
+      );
+      animation: scan 5s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+
+    /* 右侧文字 */
+    .text-box {
+      margin-left: 20px;
+      width: 220px; /* 自定义你想要的长度 */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hiwin-text {
+      font-weight: 900;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      user-select: none;
+    }
+
+    .hiwin-text .main-title {
+      font-size: 48px;
+      color: #3caefa;
+      text-shadow:
+        0 0 8px #66baff,
+        0 0 15px #3399ff,
+        0 0 20px #1a75ff,
+        0 2px 5px rgba(0, 0, 139, 0.8);
+      animation: bounce 2.2s ease-in-out infinite;
+    }
+
+    .hiwin-text .sub-title {
+      font-size: 36px;
+      color: #d4af37;
+      margin-top: 8px;
+      text-shadow:
+        0 0 10px rgba(212, 175, 55, 0.95),
+        0 2px 6px rgba(0, 0, 0, 0.85);
+    }
+
+
+    .main-title .win {
+  font-size: 20px;
+  margin-left: 8px;
+  padding: 2px 6px;
+  color: rgba(255, 255, 255, 0.2);
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  letter-spacing: 2px;
+  position: relative;
+  top: -8px;
+  text-shadow: none;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.02);
+  box-shadow:
+    0 0 4px rgba(0, 255, 255, 0.1),
+    inset 0 0 2px rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+    /* 扫描线动画 */
+    .logo-panel::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 255, 255, 0.08) 0px,
+        rgba(0, 255, 255, 0.08) 1px,
+        transparent 1px,
+        transparent 4px
+      );
+      animation: scan 5s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+
+  </style>
+</head>
+<body>
+
+  <div class="logo-panel">
+    <div class="logo-box">
+      <img src="hiwin-logo.png" alt="Hiwin Logo" />
+    </div>
+    <div class="text-box">
+      <div class="hiwin-text">
+        <div class="main-title">Hi<span class="win">WIN</span> 
+        <div class="sub-title">Miner</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html> 

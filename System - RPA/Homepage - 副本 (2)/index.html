@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HiMiner 机械·科幻 首页</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset & 基础样式 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    body {
+      background: #0f0f0f;
+      color: #eee;
+      font-family: 'Orbitron', sans-serif;
+      line-height: 1.5;
+      min-height: 100vh;
+      scroll-padding-top: 72px; /* 让导航高度偏移生效 */
+    }
+
+    /* LOGO 区 */
+    .logo-panel {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      align-items: center;
+      padding: 16px 24px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, #2e2e2e, #1a1a1a);
+      border: 2px solid #00dfff;
+      box-shadow:
+        0 0 16px rgba(0, 223, 255, 0.6),
+        inset 0 0 8px rgba(255, 255, 255, 0.1);
+      z-index: 1000;
+    }
+    .logo-panel img {
+      height: 60px;
+      margin-right: 16px;
+      filter: drop-shadow(0 0 4px #00dfff);
+      flex-shrink: 0;
+    }
+    .logo-panel div > div:first-child {
+      font-size: 24px;
+      color: #3caefa;
+      letter-spacing: 1.2px;
+      line-height: 1;
+    }
+    .logo-panel div > div:last-child {
+      font-size: 28px;
+      color: #d4af37;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-shadow: 0 0 8px #d4af37;
+      line-height: 1;
+    }
+
+    /* 顶部导航 */
+nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 72px;
+
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 48px;
+  background: rgba(0, 0, 0, 0.55);
+  border-bottom: 1px solid #005a7a;
+  backdrop-filter: saturate(180%) blur(8px);
+  z-index: 999;
+  font-size: 18px;
+  user-select: none;
+
+  display: flex;
+  justify-content: flex-end; /* ✅ 冗余 - 上面已有 */
+  gap: 16px;
+}
+
+
+    
+    nav a {
+      color: #11BAFC;
+      font-weight: 600;
+      text-decoration: none;
+      margin-left: 36px;
+      position: relative;
+      transition: color 0.3s ease;
+      letter-spacing: 0.04em;
+      line-height: 1;
+      padding: 6px 0;
+    }
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0;
+      height: 3px;
+      background: #11BAFC;
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+    nav a:hover,
+    nav a:focus {
+      color: #0ff;
+      outline: none;
+    }
+    nav a:hover::after,
+    nav a:focus::after {
+      width: 100%;
+    }
+    nav a.login {
+      color: #d4af37;
+      font-weight: bold;
+    }
+    nav a.register {
+      color: #11BAFC;
+      font-weight: bold;
+    }
+
+    /* 主横幅 hero */
+    .hero {
+      height: 70vh;
+      padding-left: 60px;
+      padding-top: 90px; /* 避免被固定导航遮挡 */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      background: url('hero-bg.jpg') center/cover no-repeat;
+      position: relative;
+      overflow: hidden;
+      max-width: 100vw;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 223, 255, 0.18);
+      mix-blend-mode: overlay;
+      animation: pulse 6s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 0.5; }
+    }
+    .hero h1 {
+      font-size: 56px;
+      color: #3caefa;
+      text-shadow:
+        0 0 12px #3caefa,
+        0 0 24px #11BAFC;
+      margin-bottom: 16px;
+      z-index: 2;
+      max-width: 700px;
+      letter-spacing: 0.05em;
+      line-height: 1.1;
+    }
+    .hero p {
+      font-size: 26px;
+      color: #d4af37;
+      text-shadow: 0 0 12px #d4af37;
+      margin-bottom: 16px; /* 之前是32px，调小即可 */
+      max-width: 600px;
+      font-weight: 600;
+      z-index: 2;
+      line-height: 1.3;
+    }
+    .hero .cta {
+      background: linear-gradient(90deg, #11BAFC, #00fff7);
+      border: none;
+      border-radius: 12px;
+      padding: 14px 40px;
+      font-size: 22px;
+      font-weight: 700;
+      color: #0f0f0f;
+      cursor: pointer;
+      box-shadow:
+        0 0 16px rgba(17, 186, 252, 0.8),
+        inset 0 0 12px rgba(255, 255, 255, 0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      z-index: 2;
+      letter-spacing: 0.06em;
+      user-select: none;
+    }
+    .hero .cta:hover,
+    .hero .cta:focus {
+      transform: scale(1.1);
+      box-shadow:
+        0 0 24px rgba(17, 186, 252, 1),
+        inset 0 0 16px rgba(255, 255, 255, 0.7);
+      outline: none;
+    }
+
+    .hero::before {
+  content: "";
+  position: absolute;
+  top: -60%;
+  left: -30%;
+  width: 200%;
+  height: 200%;
+  background: repeating-conic-gradient(
+    from 45deg,
+    rgba(17, 186, 252, 0.08) 0deg 10deg,
+    transparent 10deg 20deg
+  );
+  animation: spin 120s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  opacity: 0.4;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(360deg);}
+}
+
+
+    /* 产品展示区 */
+    .products-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 48px 80px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 32px;
+      perspective: 800px;
+    }
+    .product-card {
+      background: linear-gradient(145deg, #121212, #1d1d1d);
+      border-radius: 16px;
+      box-shadow:
+        0 0 20px rgba(0, 223, 255, 0.4),
+        inset 0 0 15px rgba(255, 255, 255, 0.05);
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .product-card:hover,
+    .product-card:focus-within {
+      transform: translateY(-12px) rotateX(6deg);
+      box-shadow:
+        0 12px 40px rgba(0, 223, 255, 0.8),
+        inset 0 0 24px rgba(255, 255, 255, 0.12);
+      outline: none;
+    }
+
+    .product-card img {
+      border-radius: 12px;
+      max-width: 100%;
+      margin-bottom: 16px;
+      box-shadow: 0 0 12px rgba(17, 186, 252, 0.6);
+      object-fit: cover;
+      aspect-ratio: 4 / 3;
+      user-select: none;
+    }
+    .product-info h3 {
+      color: #11BAFC;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      z-index: 1;
+      text-shadow: 0 0 8px #11BAFC;
+      line-height: 1.2;
+    }
+    .product-desc {
+      flex-grow: 1;
+      color: #ddd;
+      font-size: 16px;
+      line-height: 1.4;
+      margin-bottom: 12px;
+      z-index: 1;
+      user-select: text;
+    }
+    .product-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      font-size: 16px;
+      color: #bbb;
+      z-index: 1;
+      letter-spacing: 0.05em;
+      user-select: none;
+    }
+    .price {
+      color: #d4af37;
+      font-weight: 700;
+      text-shadow: 0 0 6px #d4af37;
+    }
+    .rating {
+      color: #11BAFC;
+      text-shadow: 0 0 6px #11BAFC;
+    }
+    .buy-btn {
+      align-self: flex-start;
+      padding: 12px 28px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f0f0f;
+      background: linear-gradient(90deg, #d4af37, #f4d86a);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow:
+        0 0 12px rgba(212, 175, 55, 0.7),
+        inset 0 0 6px rgba(255, 255, 255, 0.3);
+      transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+      z-index: 1;
+      letter-spacing: 0.05em;
+      user-select: none;
+    }
+    .buy-btn:hover,
+    .buy-btn:focus {
+      background: linear-gradient(90deg, #f4d86a, #d4af37);
+      box-shadow:
+        0 0 20px rgba(255, 223, 90, 1),
+        inset 0 0 10px rgba(255, 255, 255, 0.5);
+      transform: scale(1.05);
+      outline: none;
+    }
+
+    /* 分页 */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin: 0 auto 80px;
+      max-width: 600px;
+      padding: 0 24px;
+      user-select: none;
+      font-size: 16px;
+    }
+    .page-btn {
+      padding: 10px 18px;
+      font-weight: 700;
+      color: #11BAFC;
+      background: #121212;
+      border: 2px solid #11BAFC;
+      border-radius: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      user-select: none;
+      line-height: 1;
+    }
+    .page-btn:hover,
+    .page-btn:focus {
+      background: #11BAFC;
+      color: #0f0f0f;
+      box-shadow:
+        0 0 14px #11BAFC;
+      outline: none;
+      transform: scale(1.1);
+      text-decoration: none;
+    }
+
+
+    .page-btn.active {
+  background: #d4af37;
+  color: #0f0f0f;
+  border-color: #d4af37;
+  box-shadow:
+    0 0 18px #d4af37;
+  cursor: default;
+  pointer-events: none;
+  transform: none;
+}
+
+
+/* 品牌筛选区域 */
+.miner-brands {
+  max-width: 1000px;
+
+  margin: 20px auto 60px;
+  padding: 0 48px;
+  background: #181818;
+  border-radius: 14px;
+  box-shadow:
+    inset 0 0 20px rgba(212, 175, 55, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.miner-brands h2 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #c9a43c;
+  margin-bottom: 28px;
+  letter-spacing: 0.06em;
+  text-shadow: 0 0 6px #c9a43c;
+  user-select: none;
+  width: 100%;
+  text-align: center;
+}
+
+.miner-brand-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  user-select: none;
+  justify-content: center;
+  padding-bottom: 32px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.miner-brand-list span,
+.miner-brand-item {
+  background: linear-gradient(145deg, #2a260f, #1f1a07);
+  border: 2px solid #c9a43c;
+  border-radius: 12px;
+  padding: 12px 28px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #c9a43c;
+  cursor: pointer;
+  transition: 
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.2s ease;
+  user-select: none;
+  box-shadow: 0 0 8px rgba(201, 164, 60, 0.4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.miner-brand-list span:hover,
+.miner-brand-list span:focus {
+  background-color: #c9a43c;
+  color: rgba(102, 230, 255, 0.9);  
+  border-color: #a6851f;
+  box-shadow: 0 0 18px #c9a43c;
+  outline: none;
+  transform: scale(1.05);
+}
+
+.miner-brand-list span.active {
+  background-color: #d4af37;
+  color: #0f0f0f;
+  border-color: #d4af37;
+  box-shadow: 0 0 20px #d4af37;
+  cursor: default;
+  pointer-events: none;
+  transform: none;
+}
+
+/* 产品列表区域 */
+.products-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 24px 80px; /* 左右padding调小一点 */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); /* min宽度略大更合理 */
+  gap: 32px;
+  perspective: 800px;
+}
+
+/* 安全理念展示 */
+.safe-info {
+  max-width: 900px;
+  margin: 0 auto 80px;
+  padding: 0 24px;
+  color: #ccc;
+  font-size: 18px;
+  line-height: 1.6;
+  text-align: center;
+  user-select: none;
+}
+
+/* 联系我们 */
+.contact {
+  max-width: 600px;
+  margin: 0 auto 60px;
+  padding: 0 24px;
+  color: #ccc;
+  font-size: 18px;
+  line-height: 1.6;
+  text-align: center;
+  user-select: none;
+}
+.contact a {
+  color: #11BAFC;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.contact a:hover,
+.contact a:focus {
+  color: #0ff;
+  outline: none;
+}
+
+
+.product-display {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 24px;
+  padding: 40px 20px;
+  background: #121212;
+}
+
+.product-card-new {
+  background: #1b1b1b;
+  padding: 16px;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 8px rgba(0,223,255,0.3);
+  transition: transform 0.3s;
+}
+
+
+.product-card-new:hover {
+  transform: translateY(-6px);
+}
+
+.product-card-new::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(17,186,252,0.08), rgba(17,186,252,0.08) 1px,
+    transparent 1px, transparent 6px
+  );
+  pointer-events: none;
+}
+
+.product-title {
+  color: #11BAFC;
+  margin-bottom: 8px;
+}
+
+.product-desc {
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.product-btn {
+  padding: 8px 16px;
+  background: #d4af37;
+  color: #0f0f0f;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(212,175,55,0.5);
+}
+
+
+.brand-products {
+  max-width: 1200px;
+  margin: 0 auto 80px;
+  padding: 40px 48px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  background: transparent;  /* 取消背景色 */
+  border-radius: 0;         /* 取消圆角 */
+  box-shadow: none;         /* 取消阴影 */ 
+
+}
+
+.brand-product-card {
+  background: linear-gradient(145deg, #202020, #2a2a2a);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow:
+    0 0 12px rgba(212, 175, 55, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.brand-product-card:hover {
+  transform: translateY(-6px);
+}
+
+.brand-product-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #d4af37;
+  margin-bottom: 12px;
+  text-shadow: 0 0 8px #d4af37;
+  user-select: none;
+}
+
+.brand-product-desc {
+  flex-grow: 1;
+  font-size: 16px;
+  color: #eee;
+  margin-bottom: 20px;
+  line-height: 1.4;
+  user-select: text;
+}
+
+.brand-product-btn {
+  padding: 12px 28px;
+  background: linear-gradient(90deg, #d4af37, #f4d86a);
+  color: #0f0f0f;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow:
+    0 0 14px rgba(212, 175, 55, 0.7),
+    inset 0 0 8px rgba(255, 255, 255, 0.3);
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  user-select: none;
+}
+
+
+
+.miner-display {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 24px;
+  padding: 40px 20px;
+  background: #181818; /* 深灰，保持沉稳 */
+}
+
+.miner-card {
+  background: #2f2a1a; /* 稳重的深棕 */
+  padding: 16px;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3); /* 轻柔金色阴影 */
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.miner-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 16px rgba(212, 175, 55, 0.5); /* 悬浮时稍增强 */
+}
+
+.miner-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(212, 175, 55, 0.05), rgba(212, 175, 55, 0.05) 1px,
+    transparent 1px, transparent 6px
+  ); /* 非常淡的金色条纹 */
+  pointer-events: none;
+}
+
+.miner-title {
+  color: #c9a43c; /* 柔和金色 */
+  margin-bottom: 8px;
+  text-shadow: 0 0 3px rgba(201, 164, 60, 0.5);
+  font-weight: 600;
+}
+
+.miner-desc {
+  color: #ddd7b1; /* 浅米黄，柔和且易读 */
+  margin-bottom: 12px;
+  font-weight: 400;
+}
+
+.miner-btn {
+  padding: 8px 16px;
+  background: #c9a43c; /* 统一柔和金色 */
+  color: #2b2300; /* 深棕文字 */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 0 6px rgba(201, 164, 60, 0.4);
+  transition: background 0.3s ease;
+}
+
+.miner-btn:hover {
+  background: #e0c55e; /* 悬浮时稍亮 */
+}
+
+
+  /* 主导航操作区域，设为相对定位，定位搜索浮动面板 */
+  .main-nav__actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: relative; /* 这里很重要，search-float-panel 依赖此定位 */
+  }
+
+  /* 搜索按钮 */
+  .main-nav__search-toggle {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  .main-nav__search-toggle img {
+    width: 24px;
+    height: 24px;
+    filter: invert(1);
+    transition: filter 0.3s;
+  }
+  .main-nav__search-toggle:hover img {
+    filter: invert(0.6) sepia(1) saturate(5) hue-rotate(170deg);
+  }
+
+  /* 搜索浮动面板样式 */
+  .search-float-panel {
+    display: none; /* 默认隐藏 */
+    position: absolute;
+    top: 100%;       /* 导航下方 */
+    right: 0;        /* 右对齐 */
+    margin-top: 8px;
+    backdrop-filter: blur(20px);
+    background: rgba(17, 17, 17, 0.7);
+    padding: 20px 24px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.15);
+    width: 320px;
+    max-width: 90vw;
+    z-index: 9999;
+    transition: opacity 0.3s ease;
+  }
+  .search-float-panel.active {
+    display: block;
+  }
+
+  /* 搜索框 */
+  #search-box {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    outline: none;
+  }
+  #search-box::placeholder {
+    color: #aaa;
+  }
+
+  /* 搜索结果列表 */
+  #search-results {
+    margin-top: 12px;
+    max-height: 180px;
+    overflow-y: auto;
+    list-style: none;
+    padding-left: 0;
+    color: #fff;
+    font-size: 14px;
+  }
+
+  /* 搜索结果项 */
+  #search-results li {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.2s;
+  }
+  #search-results li:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+
+
+  .main-nav__links {
+  display: flex;
+  gap: 30px;
+  margin-left: 80px; /* 👈 调整这个值控制右移程度 */
+}
+
+.main-nav__actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto; /* 👈 将它推到最右边 */
+}
+
+/* 页脚 */
+footer {
+  text-align: center;
+  padding: 24px 12px;
+  font-size: 14px;
+  color: #555;
+  user-select: none;
+  border-top: 1px solid #222;
+  background: #0a0a0a;
+}
+
+ </style>
+</head>
+<body>
+
+
+
+  <!-- 左上角 Logo 模块 -->
+  <div class="logo-panel">
+    <img src="images/logo.png" alt="Logo">
+    <div>
+      <div style="font-size:24px;color:#3caefa;">LOGO</div>
+      <div style="font-size:28px;color:#d4af37;">Miner</div>
+    </div>
+  </div>
+
+<!-- 顶部导航 -->
+
+<nav> 
+    <div class="main-nav__links"> 
+  <a href="#">Home</a>
+  <a href="#">Products</a>
+  <a href="#">Brands</a>
+  <a href="#">About</a>
+  <a href="#">Contact</a>
+</div> 
+
+  <div class="main-nav__actions">
+    <div class="main-nav__search-toggle" title="Search" aria-label="Open Search Box">
+      <img src="images/Search.png" alt="Search Icon" />
+    </div>
+
+    <a href="#" style="color:#d4af37;font-weight:bold;">Login</a>
+    <a href="#" style="color:#11BAFC;font-weight:bold;">Register</a>
+
+    <div id="search-float-panel" class="search-float-panel" role="search" aria-hidden="true">
+      <input id="search-box" type="search" placeholder="Search miners..." aria-label="Search miners" autocomplete="off" />
+      <ul id="search-results" role="listbox"></ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- 主横幅 -->
+  <section class="hero">
+    <h1>Unlock High‑Tech Mining</h1>
+    <p>Advanced ASICs & Futuristic Gear for Next‑Gen Crypto</p>
+    <button class="cta">Explore Now</button>
+  </section>
+
+
+  <!-- 产品展示 -->
+<section class="product-display">
+  <div class="product-card-new">
+    <h3 class="product-title">ASIC Miner X100</h3>
+    <p class="product-desc">High performance. Low energy.</p>
+    <button class="product-btn">Buy Now</button>
+  </div>
+  <div class="product-card-new">
+    <h3 class="product-title">Quantum Rig Pro</h3>
+    <p class="product-desc">Next-level mining efficiency.</p>
+    <button class="product-btn">Buy Now</button>
+  </div>
+  <div class="product-card-new">
+    <h3 class="product-title">Cyber Cooling Unit</h3>
+    <p class="product-desc">Keep your rigs icy.</p>
+    <button class="product-btn">Buy Now</button>
+  </div>
+  <!-- 可按需增加更多卡片 -->
+</section>
+
+
+
+  <!-- 品牌筛选区域 -->
+<section class="miner-brands">
+  <h2>Supported Brands</h2>
+  <div class="miner-brand-list">
+    <span>Bitmain</span>
+    <span>WhatsMiner</span>
+    <span>iPollo</span>
+    <span>Goldshell</span>
+    <span>Jasminer</span>
+    <span>StrongU</span>
+    <span>Innosilicon</span>
+  </div>
+</section>
+
+
+
+<!-- 新产品展示 -->
+<section class="miner-display">
+  <div class="miner-card">
+    <h3 class="miner-title">ASIC Miner X100</h3>
+    <p class="miner-desc">High performance. Low energy.</p>
+    <button class="miner-btn">Buy Now</button>
+  </div>
+  <div class="miner-card">
+    <h3 class="miner-title">Quantum Rig Pro</h3>
+    <p class="miner-desc">Next-level mining efficiency.</p>
+    <button class="miner-btn">Buy Now</button>
+  </div>
+  <div class="miner-card">
+    <h3 class="miner-title">Cyber Cooling Unit</h3>
+    <p class="miner-desc">Keep your rigs icy.</p>
+    <button class="miner-btn">Buy Now</button>
+  </div>
+  <!-- 可按需增加更多卡片 -->
+</section>
+
+
+  <!-- 分页 -->
+  <section class="pagination">
+    <a href="#" class="page-btn active">1</a>
+    <a href="#" class="page-btn">2</a>
+    <a href="#" class="page-btn">3</a>
+    <a href="#" class="page-btn">Next »</a>
+  </section>
+
+  <!-- 安全理念展示 -->
+  <section class="safe-info">
+    <h2>Why Shop With Us?</h2>
+    <p>We specialize in discreet, peer-to-peer crypto miner delivery with anonymous USDT payments and worldwide shipping. No registration. No data trails. Your business stays yours.</p>
+  </section>
+
+  <!-- 联系我们 -->
+  <section class="contact">
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:miner@protonmail.com">miner@protonmail.com</a></p>
+    <p>Secure communication. Encrypted. No tracking.</p>
+  </section>
+
+  <!-- 页脚 -->
+  <footer>
+    © 2025 Labs — All rights reserved. | Powered by GhostNode™ Infra
+  </footer> 
+
+
+<script>
+
+const searchBtn = document.querySelector('.main-nav__search-toggle');
+  const searchPanel = document.getElementById('search-float-panel');
+  const searchBox = document.getElementById('search-box');
+  const searchResults = document.getElementById('search-results');
+
+  // 示例搜索数据
+  const miners = [
+    'Gold Miner',
+    'Silver Miner',
+    'Copper Miner',
+    'Diamond Miner',
+    'Crypto Miner',
+    'Coal Miner',
+    'Uranium Miner',
+    'Salt Miner',
+    'Gem Miner',
+    'Oil Miner'
+  ];
+
+  searchBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isActive = searchPanel.classList.contains('active');
+
+    if (isActive) {
+      // 关闭搜索面板
+      searchPanel.classList.remove('active');
+      searchPanel.setAttribute('aria-hidden', 'true');
+      searchBox.value = '';
+      clearResults();
+    } else {
+      // 打开搜索面板，并聚焦输入框
+      searchPanel.classList.add('active');
+      searchPanel.setAttribute('aria-hidden', 'false');
+      setTimeout(() => searchBox.focus(), 100);
+    }
+  });
+
+  // 点击页面空白处关闭搜索面板
+  document.addEventListener('click', (e) => {
+    if (!searchPanel.contains(e.target) && !searchBtn.contains(e.target)) {
+      searchPanel.classList.remove('active');
+      searchPanel.setAttribute('aria-hidden', 'true');
+      searchBox.value = '';
+      clearResults();
+    }
+  });
+
+  // 输入框输入事件，简单过滤示例
+  searchBox.addEventListener('input', () => {
+    const query = searchBox.value.trim().toLowerCase();
+    clearResults();
+
+    if (!query) return;
+
+    const filtered = miners.filter(miner => miner.toLowerCase().includes(query));
+
+    filtered.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = item;
+      li.tabIndex = 0;
+      li.setAttribute('role', 'option');
+      li.addEventListener('click', () => alert(`你点击了: ${item}`));
+      li.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          li.click();
+        }
+      });
+      searchResults.appendChild(li);
+    });
+  });
+
+  function clearResults() {
+    searchResults.innerHTML = '';
+  }
+
+</script> 
+
+</body>
+
+
+
+
+
+</html>   

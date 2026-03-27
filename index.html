@@ -1,300 +1,2026 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LinkWina · 品牌愿景</title>
-  <style>
-   :root {
-  --bg: #f5f5f8;
-  --card-bg: #ffffff;
-  --text: #1a1a1a;
-  --accent: #6a4fb6;
-  --muted: #777;
-  --border-radius: 12px;
-  --shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>外贸自动化系统 Demo</title> 
+<style>
 
-* {
-  box-sizing: border-box;
+/* ===== 全局 body ===== */
+body {
   margin: 0;
-  padding: 0;
-}
-
-html, body {
-  width: 100%;
-  height: 100%;
-  font-family: "Helvetica Neue", "PingFang SC", "Noto Sans SC", sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.7;
-  overflow: hidden; /* 禁用滚动，确保单页展示 */
+  font-family: Arial, sans-serif;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 100vh;
+  cursor: default; /* 默认系统光标 */
+  overflow: hidden;
+  position: relative;
 }
 
-.hero {
-  max-width: 880px;
-  width: 100%;
-  padding: 32px 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: auto;
+/* ===== 中间客户列表 ===== */
+.main {
+  width: 35%;
+  border-right: 1px solid #ddd;
+  padding: 15px;
+  overflow-y: auto;
+  position: relative;
 }
 
-h1 {
-  font-size: 2.4rem;
-  font-weight: 700;
-  color: var(--accent);
-  margin-bottom: 0.8rem;
+/* ===== 列表项 ===== */
+.customer {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  transition: background 0.5s;
+}
+.customer:hover {
+  background: #f5f5f5;
 }
 
-h2 {
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--muted);
-
-
-  margin-bottom: 1.5rem; /* 缩短下间距 */
+/* ===== 右侧详情 ===== */
+.detail {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  position: relative;
 }
 
-.statement {
-  background: var(--card-bg);
-  padding: 24px;
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow);
-  font-size: 0.95rem;
-  color: var(--text);
-  margin-bottom: 1.5rem;
-  border-left: 4px solid var(--accent);
+/* ===== 通用块元素 ===== */
+.section { margin-bottom: 20px; }
+.tag {
+  display: inline-block;
+  background: #e0f2fe;
+  padding: 3px 8px;
+  margin-right: 5px;
+  border-radius: 5px;
+  font-size: 12px;
 }
+.timeline { font-size: 13px; color: #555; }
+.timeline div { margin-bottom: 6px; transition: color 0.5s; }
 
-.highlight {
-  color: var(--accent);
-  font-weight: 600;
-}
-
-.signature {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #444;
-  margin-top: 0.5rem;
-}
-
-.signature span {
+/* ===== 自定义光标 ===== */
+.cursor {
+  position: fixed;
+  width: 30px;
+  height: 50px;
+  pointer-events: none;
+  transform: translate(-50%, -50%) rotate(-30deg);
+  z-index: 1000;
   display: block;
-  margin-top: 0.4rem;
-  font-size: 0.8rem;
-  color: var(--muted);
-} 
+}
+.arrow {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 25px solid #7f00ff;
+  filter: drop-shadow(0 0 6px #7f00ff) drop-shadow(0 0 12px #00ffff);
+  margin: 0 auto;
+}
+.tail {
+  width: 4px;
+  height: 15px;
+  background: linear-gradient(to bottom, #7f00ff, #00ffff);
+  filter: drop-shadow(0 0 6px #7f00ff) drop-shadow(0 0 10px #00ffff);
+  margin: 0 auto;
+  border-radius: 2px;
+}
 
-.top-button {
-  position: fixed;
-  top: 24px;
-
-  width: 150px;
-  right: 100px;
-  background: linear-gradient(135deg, #6a4fb6, #9c7de9);
-  color: white;
-  padding: 10px 18px;
-  font-size: 0.95rem;
-  font-weight: 500;
+/* ===== Demo 按钮 ===== */
+.demo-btn {
+  margin-top: 20px;
+  padding: 6px 12px;
+  background: #7f00ff;
+  color: #fff;
   border: none;
-  border-radius: 8px;
-  text-decoration: none;
-  box-shadow: 0 4px 12px rgba(106, 79, 182, 0.3);
-  transition: all 0.25s ease-in-out;
-  z-index: 999;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.top-button:hover {
-  background: linear-gradient(135deg, #5a3fa1, #8669d1);
-  box-shadow: 0 6px 16px rgba(106, 79, 182, 0.4);
-
-}  
-
-/* PC端两个按钮垂直排列 */
-.top-button:first-of-type {
-  top: 50px; /* 第一个按钮顶端 */
-}
-
-.top-button.secondary-button {
-  top: 105px; /* 第二个按钮下移，避免重叠 */
-}
-
-
-/* 👇 第二个按钮风格可略有区分 */
-.secondary-button {
-  background: linear-gradient(135deg, #a6c1ee, #fbc2eb);
-  color: #2b2346;
-}
-
-.secondary-button:hover {
-  background: linear-gradient(135deg, #94b4e3, #f0a8d6);
-  color: #1f1a30;
-}
-
-.insight {
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: #2b2346;
-  margin: 12px 0;
-}
-
-
-.belief-button {
-  display: inline-flex;          /* 改为 flex 方便居中 */
-  align-items: center;           /* 垂直居中 */
-  justify-content: center;       /* 水平居中 */
-  padding: 4px 10px;
-
-  width: 65px;                   /* 固定宽度 */
-  margin-right: 4px;
-  background-color: #6a4fb6;
+/* ===== 左侧栏 ===== */
+.sidebar {
+  width: 220px;
+  background: #1f2937;
   color: white;
-  border-radius: 16px;
-  font-size: 0.9rem;
-  font-weight: 600;              /* 字体加粗，和 .insight 对齐 */
-  font-family: inherit;          /* 继承父元素字体，保证统一 */
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-  white-space: nowrap;           /* 防止换行 */
+  padding: 16px 20px;
+}
+.sidebar h2 { font-size: 16px; margin-bottom: 20px; }
+
+/* 左侧菜单分组 */
+.menu-group {
+  margin-top: 18px; 
+  font-size: 12px;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.belief-button:hover {
-  background-color: #593aa5;
+/* 左侧菜单项 */
+.sidebar div[data-page] {
+  margin: 8px 0;
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.sidebar div[data-page]:hover {
+  background: #374151;
+  transform: translateX(4px);
 }
 
-
-
-/* 页脚固定底部，始终可见 */
-
-.page-footer {
+/* ===== 提示框 ===== */
+#demo-tip {
   position: fixed;
-  bottom: 0;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  width: 100%;
-  height: 36px;
-  line-height: 36px;
-  text-align: center;
-  font-size: 0.8rem;
-  color: var(--muted);
-  user-select: none;
-  font-style: italic;
-  letter-spacing: 0.02em;
-  background: var(--bg); /* 可选：避免透明悬浮 */
-  z-index: 1000;
+  background: #facc15;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  opacity: 0;
+  transition: opacity 0.5s;
 }
 
-@media (max-width: 768px) {
-  html, body {
-    overflow: auto; /* 小屏可滚动 */
-    display: block;
-  }
+/* Demo 按钮样式 */
+#demo-button {
+  margin-top: 6px;
+  padding: 8px 12px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+#demo-button:hover { background: #2563eb; } 
 
-  h1 {
-    font-size: 2rem;
-  }
+/* ===== 顶部 Global Timeline ===== */
+#global-timeline {
+  position: fixed;
+  top: 0;
+  left: 260px; /* 对齐 sidebar */
+  right: 0;
+  height: 40px;
+  background: #111827;  
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 30px;
+  font-size: 13px;
+  z-index: 999;
+  overflow: hidden;
+}
 
-  .statement {
-    padding: 20px;
-    font-size: 0.9rem;
-  }
+/* 给主体让出顶部空间 */
+.main, .detail {
+  padding-top: 40px; /* 给顶部条留空 */
+  margin-top: 0;
+  box-sizing: border-box;
+}
 
-  .hero {
-    padding: 24px 16px;
-  }
+/* timeline 事件动画 */
+.event {
+  opacity: 0.8;
+  white-space: nowrap;
+  animation: fadeIn 0.4s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 0.8; transform: translateY(0); }
+}
+
+/* ===== 自动化 Flow ===== */
+.flow {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.node {
+  padding: 10px 20px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #7f00ff, #00ffff);
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.node:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+}
+.node.highlight {
+  background: linear-gradient(90deg, #facc15, #f59e0b);
+}
+
+/* Flow 连接器 */
+.connector {
+  width: 4px;
+  height: 20px;
+  border-radius: 2px;
+  background: linear-gradient(to bottom, #7f00ff, #00ffff);
+  margin-left: 10px; /* 对齐节点起点 */
 } 
 
-/* ✅ 新增：适配手机端按钮位置 */
-   @media (max-width: 768px) {
- 
-     .top-button:first-of-type {
-    top: 80px !important;
-    right: 16px !important;
-    padding: 9px 14px;
-    font-size: 0.85rem;
-    border-radius: 6px;
-    box-shadow: 0 3px 10px rgba(106, 79, 182, 0.25);
+/* ===== 微信弹窗优化 ===== */
+
+#wechat-popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 420px;        /* 保持原来的大小 */
+  height: 380px;       /* 保持原来的大小 */
+  background: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 9999;
+  
+  display: flex;        /* flex 列布局 */
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* 顶部标题栏 */
+#wechat-popup > .header {
+  background: #7f00ff;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 10px 10px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 聊天内容区 */
+#wechat-chat-area {
+  flex: 1;             /* 占满剩余空间 */
+  overflow-y: auto;    /* 可以滚动 */
+  padding: 10px;
+  font-size: 14px;
+  background: white;
+}
+
+/* 输入区固定在底部 */
+#wechat-input-area {
+  display: flex;
+  gap: 5px;
+  padding: 10px;
+  background: #f5f5f5;
+}
+
+#wechat-input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+#wechat-send {
+  padding: 8px 12px;
+  background: #07C160;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+/* 容器 */
+.custom-select {
+  position: relative;
+  display: inline-block;
+  width: 230px;              /* 根据文字长度调整 */
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* 显示选中项 */
+.custom-select .selected {
+  padding: 4px 28px 4px 8px;  /* 右侧留给折线箭头 */
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  background-color: #fff;
+  line-height: 1.5;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* 折线箭头（像原生 select） */
+.custom-select .selected::after {
+  content: "";
+  position: absolute;
+  right: 10px;              /* 右边距离 */
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-left: 2px solid #333;
+  border-bottom: 2px solid #333;
+  transform: translateY(-50%) rotate(-45deg);  /* 旋转形成折线 “∨” */
+  pointer-events: none;
+}
+
+/* 下拉选项列表 */
+.custom-select .options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 0;
+  overflow: hidden;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  margin-top: 2px;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+/* 打开状态 */
+.custom-select.open .options {
+  max-height: 250px;
+  opacity: 1;
+  overflow-y: auto;
+}
+
+/* 每个选项 */
+.custom-select .options li {
+  padding: 4px 6px;
+  list-style: none;
+  line-height: 1.5;
+  white-space: nowrap;
+  margin-left: 0;
+}
+
+/* hover 效果 */
+.custom-select .options li:hover {
+  background-color: #f5f5f5;
+}
+
+.demo-footer {
+  position: fixed;        /* 固定在屏幕 */
+  right: 20px;            /* 右边距 */
+  bottom: 2px;            /* 下边距 */
+  font-size: 11px;        /* 小字 */
+  color: #aaa;            /* 银灰色 */
+  opacity: 0.8;           /* 稍微透明，避免抢眼 */
+  pointer-events: none;   /* 鼠标可以穿透，不挡操作 */
+  font-family: "Arial", sans-serif;
+} 
+
+
+</style> 
+</head> 
+
+<body>  
+
+  <!-- Mini Profile 容器 -->
+
+<div id="mini-profile" style="position: fixed; bottom: 20px; right: 20px; width: 300px; background: white; box-shadow: 0 6px 16px rgba(0,0,0,0.25); border-radius: 12px; padding: 16px; font-family: Arial, sans-serif; display: none; z-index: 1001; transition: transform 0.4s, opacity 0.4s;"></div> 
+
+  <!-- 内容由 JS 填充 -->
+</div>
+
+<!-- 微信聊天弹窗（保持在 body 下，唯一） -->
+<div id="wechat-popup" style="
+  width:420px;
+  height:500px;
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  display:none;
+  flex-direction:column;
+  border-radius:10px;
+  overflow:hidden;
+  background:#f5f5f5;
+  z-index:9999;
+">
+  <!-- 弹窗头部 -->
+  <div style="background:#7f00ff; color:white; padding:10px; display:flex; justify-content:space-between; align-items:center;">
+    <strong>客服小助手</strong>
+    <button id="close-wechat-popup" style="background:transparent; border:none; color:white; font-size:18px; cursor:pointer;">&times;</button>
+  </div>
+  <!-- 聊天内容区 -->
+  <div id="wechat-chat-area" style="flex:1; overflow-y:auto; padding:10px; background:white;"></div>
+  <!-- 输入区 -->
+  <div style="display:flex; gap:5px; padding:10px; background:#f5f5f5;">
+    <input id="wechat-input" placeholder="请输入您的信息..." style="flex:1; padding:8px; border-radius:5px; border:1px solid #ccc;">
+    <button id="wechat-send" style="padding:8px 12px; background:#07C160; color:white; border:none; border-radius:5px; cursor:pointer;">发送</button>
+  </div>
+</div> 
+
+
+<!-- 左侧栏（升级版：增长漏斗结构 + 对齐真实系统） -->
+<div class="sidebar">
+  <h2>🚀 外贸增长引擎</h2> 
+
+  <div class="menu-group">数据入口</div>
+  <div data-page="inbox">📥 Inbox</div>
+
+  <div class="menu-group">客户管理</div>
+  <div data-page="pipeline">👥 Customers</div>  
+  <div data-page="events">📊 Events</div>
+
+  <div class="menu-group">自动化流程</div>
+  <div data-page="automation">⚙️ Automation</div> 
+  <div data-page="actions">📡 Actions</div>
+
+  <div class="menu-group">订单单据</div> 
+  <div data-page="deals">💰 PI CI</div> 
+
+
+  <div class="menu-group">分析</div>
+  <div data-page="analytics">📊 Analytics</div>
+
+  <button id="demo-button">▶️ 自动演示 Demo</button> 
+
+
+  <!-- 页面右下角 Demo 提示 -->
+<div class="demo-footer">系统为 Demo 版本，仅供演示</div> 
+
+</div> 
+
+<!-- 顶部全局事件流（新增） -->
+<div id="global-timeline"></div>
+
+<!-- 中间 -->
+<div class="main" id="main-content"></div>
+
+<!-- 右侧 -->
+<div class="detail" id="detail-content"></div>
+
+<!-- 提示 -->
+<div id="demo-tip"></div>
+
+<!-- 虚拟鼠标 -->
+<div id="virtual-mouse" class="cursor">
+  <div class="arrow"></div>
+  <div class="tail"></div> 
+
+</div> 
+
+
+
+<script> 
+
+
+
+// ================== 页面数据（动态全链路演示版） ==================  
+
+// ================== 🎬 1️⃣ 客户导入（Inbox） ==================   
+
+
+const pages = {
+  inbox: {
+    main: `
+      <h3>Inbox（数据入口）</h3>
+      <button id="import-email">导入邮箱列表</button>
+      <button id="import-csv">导入客户CSV</button>
+      <hr/>
+      <div>🟡 今日导入：<span id="today-imported">0</span></div>
+      <div>🟢 已入库：<span id="already-stored">0</span></div>
+      <div class="system-title">System Reaction</div>
+      <div id="inbox-system-feedback"></div>
+
+<div style="overflow-x: auto;">
+  <table id="inbox-customer-table" border="1"
+         style="width: 100%; border-collapse: collapse; font-size: 14px; table-layout: fixed;">
+    <thead style="background: #f0f0f0;">
+   <tr>
+        <th style="width: 8%; word-break: break-word;">customerId</th>
+        <th style="width: 12%; word-break: break-word;">name</th>
+        <th style="width: 20%; word-break: break-word;">company</th>
+        <th style="width: 15%; word-break: break-word;">email</th>
+        <th style="width: 10%; word-break: break-word;">country</th>
+        <th style="width: 20%; word-break: break-word;">source</th>
+        <th style="width: 15%; word-break: break-word;">status</th>
+      </tr> 
+    </thead>
+    <tbody>
+      <!-- 客户数据将在这里动态插入 -->
+    </tbody>
+  </table>
+
+    `,
+    detail: `
+      <h2>数据进入系统</h2>
+      <div class="section">客户通过导入进入系统（非自动抓取）</div>
+      <div class="section">写入可追踪数据库，如 Notion 或自建 CRM</div>
+      <div class="section">系统自动执行：去重 / 标签化 / 数据结构化 / CID 分配</div>
+      <div class="section">每位客户因自动化跟进能有效转化价值</div> 
+      <div class="section system-title">System Reaction</div> 
+      <div class="section">✅ 新客户生成唯一 customerId，等待进入 Pipeline</div>
+    `
+  },
+  pipeline: {
+    main: `<h3>Pipeline 页面</h3>`,
+    detail: `<h3>Pipeline Detail</h3>` 
+
+
+  },  
+
+  // ================== 2️⃣ 客户流转（Pipeline） ==================
+  pipeline: {
+    main: `
+      <h3>Pipeline（客户流转）</h3>
+      <div class="customer" data-cid="C001"><strong>ABC Import Ltd</strong><br/>🟢 engaged · score 72</div>
+      <div class="customer" data-cid="C002"><strong>Global Trade GmbH</strong><br/>🟡 new · score 40</div>
+      <div>🟣 客户池集中管理 → 自动触发下一步跟进动作</div>
+    `,
+    detail: `
+      <h2>客户档案</h2>
+      <div class="section"><strong>当前状态：</strong> engaged</div>
+      <div class="section"><strong>评分：</strong> 72 / 100</div>
+      <div class="section"><strong>下次动作：</strong> 3天后</div>
+      <div class="section"><strong>来源：</strong> Email 导入</div>
+      <div class="section">系统自动记录行为和阶段，可用于后续自动化触发</div>
+    `
+  },
+
+  // ================== 3️⃣ 行为事件（Events） ==================
+  events: {
+    main: `
+      <h3>Events（行为事件）</h3>
+      <div class="customer">🟢 打开邮件</div>
+      <div class="customer">🔵 点击产品链接</div>
+      <div class="customer">🟣 回复邮件</div>
+      <div>🟡 系统自动捕捉客户行为，形成可分析事件</div>
+    `,
+    detail: `
+      <h2>事件记录</h2>
+      <div class="section">所有客户行为通过 tracking 系统记录</div>
+      <div class="section">来源：邮件像素 / 链接标签 / 自动生成 CID</div>
+      <div class="section">写入 Notion 或自建事件数据库</div>
+      <div class="section">作为自动化规则触发依据，实现闭环操作</div>
+    `
+  },
+
+  // ================== 4️⃣ 自动化决策（Automation） ==================
+  automation: {
+    main: `
+      <h3>Automation（自动决策）</h3>
+      <div class="flow">
+        <div class="node">客户打开邮件</div>
+        <div class="connector"></div>
+        <div class="node">评分 +10</div>
+        <div class="connector"></div>
+        <div class="node">状态 → engaged</div>
+        <div class="connector"></div>
+        <div class="node highlight">3天后发送跟进</div> 
+      </div>
+      <div>🟡 事件驱动触发，无需人工经验判断</div>
+    `,
+    detail: `
+      <h2>自动化规则</h2>
+      <div class="section">基于事件触发（非实时扫描）</div>
+      <div class="section">通过定时任务 (cron) 执行操作</div>
+      <div class="section">更新客户状态并安排下一步动作</div>
+      <div class="section">系统推动客户流转，实现标准化管理</div>
+    `
+  },
+
+  // ================== 5️⃣ 执行动作（Outreach） ==================
+  actions: {
+    main: `
+      <h3>Actions（触达执行）</h3>
+      <div class="customer">📧 Email（Resend）</div>
+      <div class="customer">💬 WhatsApp</div>
+      <div>🟡 自动触发，无需人工逐条操作</div>
+    `,
+    detail: `
+      <h2>触达执行</h2>
+      <div class="section">系统自动发送邮件 / WhatsApp 消息</div>
+      <div class="section">发送记录写回数据库，便于追踪</div>
+      <div class="section">提升团队效率，减少客户遗漏</div>
+    `
+  },
+
+
+
+  // ================== 6️⃣ 发票面板（ PI CI ） ==================
+
+
+deals: { 
+  
+   main: ` 
+
+<h3>PI / CI 发票面板</h3>
+
+<!-- 客户选择下拉（JS 动态生成 option） -->
+<div style="margin-bottom:10px;">
+  <label for="select-customer">选择客户：</label>
+  <select id="select-customer">
+    <!-- option 将由 JS 动态生成 -->
+  </select>
+</div> 
+
+<!-- 发票面板 -->
+<div id="invoice-panel" style="border:1px solid #ccc;padding:20px;background:#fff;min-height:500px;">
+  <div style="font-family:Arial;">
+    <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
+ <div><img src="https://logoipsum.com/logo/1.svg" alt="LOGO" width="120" height="40"></div> 
+      <div style="text-align:right;">
+        <div><strong>Proforma Invoice</strong></div>
+        <div>No: PI-0000</div>
+        <div>Date: --/--/----</div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px;">
+      <!-- 占位符，供 JS 动态填充 -->
+      <div><strong>客户公司:</strong> <span id="invoice-customer-company">暂无客户数据</span></div>
+      <div><strong>联系人:</strong> <span id="invoice-customer-name">-</span></div>
+      <div><strong>邮箱:</strong> <span id="invoice-customer-email">-</span></div>
+      <div><strong>国家:</strong> <span id="invoice-customer-country">-</span></div>
+    </div>
+
+    <!-- 商品表格 -->
+    <table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse:collapse; text-align:center;">
+      <thead>
+        <tr style="background:#f5f5f5;">
+          <th>商品</th>
+          <th>数量</th>
+          <th>单价</th>
+          <th>总计</th>
+        </tr>
+      </thead>
+      <tbody id="invoice-items">
+        <!-- 商品行将在 JS 中动态生成 -->
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3" style="text-align:right;font-weight:bold;">总金额</td>
+          <td style="font-weight:bold;" id="invoice-total">--</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <div style="margin-top:10px; font-size:12px; color:#666;">
+      此为形式发票，仅供报价参考
+    </div>
+  </div>
+</div>
+
+<!-- 下载 PDF -->
+<div style="margin-top:10px;">
+  <button id="btn-download-pi">⬇️ 下载 PI PDF</button>
+  <button id="btn-download-ci">⬇️ 下载 CI PDF</button>
+</div> 
+
+<!-- detail -->
+<h2>客户信息</h2>
+<div class="section">客户名称：<span id="detail-customer-company">-</span></div>
+<div class="section">联系人：<span id="detail-customer-name">-</span></div>
+<div class="section">邮箱：<span id="detail-customer-email">-</span></div>
+<div class="section">国家：<span id="detail-customer-country">-</span></div>
+
+    
+  `,
+  detail: `
+
+<h2>发票生成</h2> 
+
+<div class="section">根据业务员选择，系统自动同步客户信息</div>   
+<div class="section">内容同步客户订单数据，整个流程清晰顺畅</div>  
+<div class="section">支持 PI / CI 切换，与样式定制</div>  
+
+<div class="section">总金额自动计算</div> 
+<div class="section">可直接导出为 PDF</div>  
+
+  `
+}, 
+  // ================== 7️⃣ 数据分析（Analytics） ==================
+  analytics: {
+    main: `
+      <h3>Analytics（分析）</h3>
+      <div class="customer">转化率：12.4%</div>
+      <div class="customer">跟进覆盖率：92%</div>
+      <div>🟡 全流程数据可追踪，支持持续优化自动化策略</div>
+    `,
+    detail: `
+      <h2>数据分析</h2>
+      <div class="section">展示全流程可追踪数据</div>
+      <div class="section">支持持续优化自动化策略</div>
+      <div class="section">系统价值：销售转化率提升、客户跟进遗漏率明显下降</div> 
+
+    `
   }
 
-  .top-button.secondary-button {
-    top: 130px !important;
-    right: 16px !important;
-    padding: 9px 14px;
-    font-size: 0.85rem;
-    border-radius: 6px;
-    box-shadow: 0 3px 10px rgba(106, 79, 182, 0.25);
+};
+
+// ================== DOM ==================
+const mainEl = document.getElementById('main-content');
+const detailEl = document.getElementById('detail-content');
+const sidebarItems = document.querySelectorAll('.sidebar div[data-page]');
+const demoBtn = document.getElementById('demo-button');
+const demoTip = document.getElementById('demo-tip');
+const vMouse = document.getElementById('virtual-mouse'); 
+
+// ✅ 初始隐藏虚拟光标
+vMouse.style.display = 'none';
+vMouse.style.left = '0px';
+vMouse.style.top = '0px'; 
+
+
+// ================== 页面加载 ==================
+function loadPage(page){
+  if(!pages[page]) return;
+  mainEl.innerHTML = pages[page].main;
+  detailEl.innerHTML = pages[page].detail;
+
+  // Flow节点点击
+  document.querySelectorAll('.node').forEach(n=>{
+    n.onclick = ()=>alert("编辑自动化节点");
+  });
+
+  // Inbox 页面按钮绑定
+  if(page === 'inbox') bindInboxButtons();
+}
+
+sidebarItems.forEach(item=>{
+  item.addEventListener('click', ()=>loadPage(item.getAttribute('data-page')));
+});
+
+// 初始加载页面
+loadPage('pipeline');   
+
+// ================== 全局事件 Timeline ==================
+const timelineEvents = [
+  "🟢 John 打开邮件",
+  "🔵 Mike 点击产品",
+  "🟣 Anna 回复",
+  "🟡 新客户进入系统",
+  "🟠 客户完成下单"
+];
+let lastEventIndex = -1;
+
+function pushEvent(){
+  const timeline = document.getElementById("global-timeline");
+  if(!timeline) return;
+
+  let index;
+  do{
+    index = Math.floor(Math.random()*timelineEvents.length);
+  }while(index===lastEventIndex && timelineEvents.length>1);
+
+  lastEventIndex = index;
+
+  const el = document.createElement("div");
+  el.className="event";
+  el.textContent = timelineEvents[index];
+  timeline.appendChild(el);
+
+  if(timeline.children.length>5) timeline.removeChild(timeline.firstChild);
+
+  const nextInterval = 1500 + Math.random()*1500;
+  setTimeout(pushEvent, nextInterval);
+}
+
+// 启动全局 Timeline
+setTimeout(pushEvent, 1000);   
+
+// ================== Demo Timeline ==================
+function demoPushEvent(msg){
+  const timeline = document.getElementById("global-timeline");
+  if(!timeline) return;
+
+  const el = document.createElement("div");
+  el.className="event";
+  el.textContent = msg || timelineEvents[Math.floor(Math.random()*timelineEvents.length)];
+  timeline.appendChild(el);
+
+  if(timeline.children.length>5) timeline.removeChild(timeline.firstChild);
+}
+
+function demoPushEventFade(msg) {
+  const timeline = document.getElementById('global-timeline');
+  if (!timeline) return;
+  const el = document.createElement('div');
+  el.className = 'event';
+  el.textContent = msg;
+  el.style.opacity = 0;
+  el.style.transform = 'translateY(6px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  timeline.appendChild(el);
+  requestAnimationFrame(() => {
+    el.style.opacity = 1;
+    el.style.transform = 'translateY(0)';
+  });
+  if (timeline.children.length > 5) {
+    const first = timeline.firstChild;
+    first.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+    first.style.opacity = 0;
+    first.style.transform = 'translateY(-6px)';
+    setTimeout(() => timeline.removeChild(first), 400);
   }
 }
 
-  </style>
-</head>
-<body> 
-
-<a href="https://linkwina.com/OfferRPA/" class="top-button" target="_blank" rel="noopener noreferrer">招聘自动化系统</a>
-
-  <a href="https://linkwina.com/Systematic/" class="top-button secondary-button" target="_blank" rel="noopener noreferrer">
-    系统概念展示 
-  </a> 
-  <section class="hero">
-    <h1>
-      LinkWina<sup style="font-size: 0.5em; top: -0.6em; position: relative;">®</sup> · 联结无价 
-    </h1>
-
-    <h2>一个开放信任的工具平台，一种无需功利的联结方式</h2>
-
-    <div class="statement">
-      LinkWina 是我在数字系统开发经验中的一次自然延伸。<br>
-      <span class="highlight">Link</span> 代表技术连接、数据自动化，也代表人与人之间的信任流动。<br>
-      <span class="highlight">Wina</span> 源自过往品牌的延续，象征陪伴、赋能与共赢。<br>  
- <p class="insight">
-  致力于成就顶级智能系统：因90%的企业只有展示型网站，根本触达不到 
-  <a href="https://linkwina.com/System/" class="belief-button">系统层</a>。
-</p>
-
-      免费开放20名额，欢迎随意输入邮箱与数据测试。正式版有安全Token，用户数据100%私有化，开发者无权访问。<br> 
-      我主营跨境赛道，出于联结兴趣开发此产品，目前没有将这个子品牌商业化的计划，无功利运作。<br> 
-      这更像是一种“数字化能力的共享”，让有需要的朋友，可以轻松使用自动化招聘流程、与人才联结场景。<br><br>
-      无愧于心，顺应自然，坦然无畏，作为民营企业创业者的一员，我们值得越来越好。欢迎联结，秒级 <a href="https://linkwina.com/EmailATS/" class="belief-button">探索✉️</a>。
-
-      <br>
-      祝愿中国的民营企业，得到世界的祝福，坦然、开放而无畏。<br><br>
-
-<a href="#" id="play-audio" class="belief-button">我相信</a>在未来的世界，真正有价值的绝对不是资本物化与标签，更需要 
-<span class="highlight">利他开放的技术 + 法制而非人治的商业环境 + 人与人真诚信任的联结</span>。
-
-<audio id="belief-audio" src="public/MP3/I believe.mp3"></audio>
 
 
-    <div class="signature">
-      —— 创始人 Janney 品牌愿景<br />
+// ================== 工具函数 ==================
+function pause(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
 
-    </div> 
+async function showTip(msg, duration = 1500) {
+  demoTip.textContent = msg;
+  demoTip.style.opacity = 1;
+  await sleep(duration);
+  demoTip.style.opacity = 0;
+}
 
-      </section>   
+async function moveMouseTo(el, duration = 800) {
+  if (!el) return;
+  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  await sleep(300);
+  const rect = el.getBoundingClientRect();
+  const endX = rect.left + rect.width / 2;
+  const endY = rect.top + rect.height / 2;
+  const startX = parseFloat(vMouse.style.left) || 0;
+  const startY = parseFloat(vMouse.style.top) || 0;
+  const steps = 30;
+  vMouse.style.display = 'block';
+  for (let i = 1; i <= steps; i++) {
+    const x = startX + (endX - startX) * i / steps;
+    const y = startY + (endY - startY) * i / steps;
+    vMouse.style.left = x + 'px';
+    vMouse.style.top = y + 'px';
+    await sleep(duration / steps);
+  }
+}
 
-     <div class="page-footer">
-      <div>© 2025 LinkWina · 企业级自动化服务 · 成就顶尖智能</div>
+async function safeClick(el) {
+  if (!el) return;
+  await moveMouseTo(el);
+  el.style.transition = 'transform 0.2s ease';
+  el.style.transform = 'scale(0.95)';
+  await sleep(150);
+  el.style.transform = '';
+  await sleep(150);
+}
+
+
+
+// ================== Inbox 客户导入 ==================
+async function addCustomerToTable(customers) {
+  const tbody = document.querySelector('#inbox-customer-table tbody');
+  const todayEl = document.getElementById('today-imported');
+  const storedEl = document.getElementById('already-stored');
+
+  let imported = parseInt(todayEl?.textContent || 0);
+  let stored = parseInt(storedEl?.textContent || 0);
+
+  for (let customer of customers) {
+    imported++;
+    if(todayEl) todayEl.textContent = imported;
+
+    const tr = document.createElement('tr');
+ tr.innerHTML = `
+  <td style="word-break: break-word; overflow-wrap: break-word;">${customer.customerId}</td>
+  <td style="word-break: break-word; overflow-wrap: break-word;">${customer.name}</td>
+  <td style="word-break: break-word; overflow-wrap: break-word;">${customer.company}</td>
+  <td style="word-break: break-word; overflow-wrap: break-word;">${customer.email}</td>
+  <td style="word-break: break-word; overflow-wrap: break-word;">${customer.country}</td>
+  <td style="word-break: break-word; overflow-wrap: break-word;">${customer.source}</td>
+  <td style="word-break: break-word; overflow-wrap: break-word;">${customer.status}</td>
+`; 
+    tbody?.appendChild(tr);
+
+    await pause(300);
+
+    stored++;
+    if(storedEl) storedEl.textContent = stored;
+
+    demoPushEventFade(`客户 ${customer.name} (${customer.email}) 已入库`);
+  }
+}
+
+// ================== Inbox 页面按钮绑定 ==================
+function bindInboxButtons() {
+  const emailBtn = document.getElementById('import-email');
+  const csvBtn = document.getElementById('import-csv');
+
+  if (emailBtn) {
+    emailBtn.addEventListener('click', async () => {
+      await addCustomerToTable(demoCustomers.slice(0, 3));
+    });
+  }
+
+  if (csvBtn) {
+    csvBtn.addEventListener('click', async () => {
+      await addCustomerToTable(demoCustomers.slice(3));
+    });
+  }
+}
+
+// ================== Demo 客户导入 ==================
+const demoCustomers = [
+  { customerId: 'c001', name: '张三', company: 'ABC Import Ltd', email: 'abc@mail.com', country: 'USA', source: '阿里巴巴询盘', status: '新客户' },
+  { customerId: 'c002', name: '李四', company: 'XYZ Trading Co.', email: 'xyz@mail.com', country: 'China', source: '外贸展会', status: '新客户' },
+  { customerId: 'c003', name: '王五', company: 'Global Supplies', email: 'global@mail.com', country: 'UK', source: 'LinkedIn', status: '新客户' },
+  { customerId: 'c004', name: '赵六', company: 'Sunshine Export', email: 'sun@mail.com', country: 'Germany', source: '阿里巴巴询盘', status: '新客户' },
+  { customerId: 'c005', name: '钱七', company: 'Ocean Importers', email: 'ocean@mail.com', country: 'France', source: '外贸展会', status: '新客户' }
+];
+
+// Demo 客户数据
+const demoInvoiceCustomers = [
+  { customerId: 'c001', name: '张三', company: 'ABC Import Ltd', email: 'abc@mail.com', country: 'USA' },
+  { customerId: 'c002', name: '李四', company: 'XYZ Trading Co.', email: 'xyz@mail.com', country: 'China' },
+  { customerId: 'c003', name: '王五', company: 'Global Supplies', email: 'global@mail.com', country: 'UK' },
+  { customerId: 'c004', name: '赵六', company: 'Sunshine Export', email: 'sun@mail.com', country: 'Germany' },
+  { customerId: 'c005', name: '钱七', company: 'Ocean Importers', email: 'ocean@mail.com', country: 'France' }
+];
+
+// Demo 商品数据
+const demoProducts = [
+  { name: 'Product A' },
+  { name: 'Product B' },
+  { name: 'Product C' }
+];
+
+// 暂停函数
+function sleep(ms){ return new Promise(resolve => setTimeout(resolve, ms)); }
+
+
+
+// 更新发票和 detail
+async function updateInvoice(customerIndex){
+  const customer = demoInvoiceCustomers[customerIndex];
+  if(!customer) return;
+
+  // 更新 main 面板
+  document.getElementById('invoice-customer-company').textContent = customer.company;
+  document.getElementById('invoice-customer-name').textContent = customer.name;
+  document.getElementById('invoice-customer-email').textContent = customer.email;
+  document.getElementById('invoice-customer-country').textContent = customer.country;
+
+  // 更新 detail
+  document.getElementById('detail-customer-company').textContent = customer.company;
+  document.getElementById('detail-customer-name').textContent = customer.name;
+  document.getElementById('detail-customer-email').textContent = customer.email;
+  document.getElementById('detail-customer-country').textContent = customer.country;
+
+
+  // 商品表格动态生成 + 淡入动画（固定 3 行）
+const tbody = document.getElementById('invoice-items');
+tbody.innerHTML = '';
+let totalSum = 0;
+
+for (let p of demoProducts) {
+    // 固定数量和单价，保证每个商品只生成一行
+    const qty = Math.floor(Math.random() * 10) + 1;  
+    const price = (Math.random() * 100).toFixed(2);
+    const total = (qty * price).toFixed(2);
+    totalSum += parseFloat(total);
+
+    const tr = document.createElement('tr');
+    tr.style.opacity = 0;
+    tr.style.transform = 'translateY(6px)';
+    tr.innerHTML = `<td>${p.name}</td><td>${qty}</td><td>${price}</td><td>${total}</td>`;
+    tbody.appendChild(tr);
+
+    await sleep(150);
+    tr.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    tr.style.opacity = 1;
+    tr.style.transform = 'translateY(0)';
+} 
+
+  document.getElementById('invoice-total').textContent = totalSum.toFixed(2);
+}
+
+
+
+// 动态生成自定义下拉
+function renderCustomerSelect() {
+  const select = document.getElementById('select-customer');
+  if (!select) return;
+
+  // 隐藏原生 select
+  select.style.display = 'none';
+
+  // 创建自定义下拉容器
+  let custom = document.getElementById('custom-select');
+  if (!custom) {
+    custom = document.createElement('div');
+    custom.id = 'custom-select';
+    custom.className = 'custom-select';
+    custom.innerHTML = `
+      <div class="selected">请选择客户</div>
+      <ul class="options"></ul>
+    `;
+    select.parentNode.appendChild(custom);
+  }
+
+  const optionsUl = custom.querySelector('.options');
+  optionsUl.innerHTML = ''; // 清空
+
+  demoInvoiceCustomers.forEach((c, i) => {
+    const li = document.createElement('li');
+    li.textContent = `${c.name} - ${c.company}`;
+    li.dataset.index = i;
+
+    li.onclick = async () => {
+      // 更新显示
+      custom.querySelector('.selected').textContent = li.textContent;
+      custom.classList.remove('open');
+
+      // 调用原生逻辑更新发票
+      await updateInvoice(i);
+    };
+
+    optionsUl.appendChild(li);
+  });
+
+  // 点击 selected 展开/收起下拉
+  custom.querySelector('.selected').onclick = () => {
+    custom.classList.toggle('open');
+  };
+}
+
+// 绑定下载按钮和初始化自定义下拉
+function bindInvoiceEvents() {
+  renderCustomerSelect();
+
+  // 下载按钮
+  const btnPI = document.getElementById('btn-download-pi');
+  const btnCI = document.getElementById('btn-download-ci');
+  if (btnPI) btnPI.onclick = () => alert('PI PDF 已生成');
+  if (btnCI) btnCI.onclick = () => alert('CI PDF 已生成');
+
+  // 默认显示第一个客户
+  const custom = document.getElementById('custom-select');
+  if (demoInvoiceCustomers[0]) {
+    custom.querySelector('.selected').textContent =
+      `${demoInvoiceCustomers[0].name} - ${demoInvoiceCustomers[0].company}`;
+    updateInvoice(0);
+  }
+}
+
+// 初始化发票页面
+function initDealsPage(){
+  bindInvoiceEvents(); 
+   
+
+} 
+
+// loadPage 中调用 initDealsPage() 时即可 
+
+// ================== 修改 loadPage 调用 ==================
+// 假设你原本的 loadPage 函数里：
+function loadPage(page){
+  if(!pages[page]) return;
+  mainEl.innerHTML = pages[page].main;
+  detailEl.innerHTML = pages[page].detail;
+
+  // Inbox 页面绑定
+  if(page === 'inbox') bindInboxButtons();
+
+  // Deals 页面绑定
+  if(page === 'deals') initDealsPage();
+} 
+
+// ===== 24小时弹窗逻辑 =====
+const PROFILE_KEY = 'demoMiniProfileLastClosed';
+const HOURS_24 = 24 * 60 * 60 * 1000;
+
+const miniProfile = document.getElementById('mini-profile');
+
+// 初始化 HTML
+miniProfile.innerHTML = `
+  <h3 style="margin-top:0; color:#7f00ff;">🚀 简要背书</h3>
+
+<ul class="mini-summary" style="font-size:14px; padding-left:18px; margin:6px 0; line-height:1.8;">
+  <li>2018年个人单笔订单：<strong>百万级</strong></li>  
+  <li>2021年团队销售额：<strong>1500万+</strong></li> 
+  <li>2026年团队效率提升：<strong>200%+</strong></li>  
+  
+</ul> 
+
+  <div class="mini-details" style="
+    font-size:13px; 
+    color:#333; 
+    max-height:0; 
+    overflow-y:auto; 
+    transition:max-height 0.5s ease;
+    padding:8px;
+    background:#f9f9f9;
+    border-left:3px solid #7f00ff;
+    border-radius:4px;
+    margin-top:6px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.05);
+    line-height:1.5;
+  ">
+    <!-- 标题优化 -->
+    <p style="font-weight:bold; color:#7f00ff; margin-bottom:6px;">🏅 简要背书 / 详细案例</p>  
+
+    <!-- 战绩与标签 -->
+    <p>外贸创业操盘者，从 0 → 1500万</p>  
+    <div style="margin-bottom:6px;">
+      <span style="margin-right:4px; background:#eee; padding:2px 6px; border-radius:4px; font-size:12px;">外贸实战</span>
+      <span style="margin-right:4px; background:#eee; padding:2px 6px; border-radius:4px; font-size:12px;">自动化</span>
+      <span style="margin-right:4px; background:#eee; padding:2px 6px; border-radius:4px; font-size:12px;">系统搭建</span>
     </div>
+
+    <!-- 真实经历 -->
+    <p>📈 真实经历：</p>
+    <ul style="padding-left:18px;">
+      <li>2012.7：创维校招会5轮面试过程被选拔到研发部（600人 → 录取6人）</li> 
+      <li>2014.9：主动决定转型外贸电商（运营岗 → 外贸主管） </li>  
+      <li>2017.9：正式创业（阿里国际站 单店）</li>  
+      <li>2018.10：个人单笔百万订单</li>  
+      <li>2018.11：借助朋友整层工厂一部分场地承接测试打包</li> 
+      <li>2019.2：扩展独立小仓库，实现订单测试包装直发货代全流程</li> 
+      <li>2020.12：开始拓展业务团队</li> 
+      <li>2021.9：扩大经营（阿里国际站 1四星金品店 1普通店）</li> 
+      <li>2021.10：在深圳龙华大区阿里圈战54家企业PK，当月企业业绩178万，并荣获冠军军团长荣誉</li> 
+      <li>2021.12：含仓库团队共7人，场地400平，年销售额 1500万</li> 
+
+
+      <li>2022.3：创业4年半，团队管理过度依赖负责人，精力消耗巨大，难以发挥核心价值</li> 
+      <li>2022.5：主动解散传统模式团队，决定探索转型</li> 
+      <li>2023.8：尝试转型直播，但发现短期红利期有限</li>  
+      <li>2024.9：开始探索技术驱动模式</li>    
+      <li>2024.12：正式开始协同研发数字化升级系统架构</li>  
+      <li>2026.3：自研系统测试预计2026.4月上线（历时16个月）</li>    
+    </ul> 
+
+    <!-- 系统认知 -->
+    <p>🧠 为什么做系统：</p>
+    <p style="font-style:italic; color:#555;">
+
+      我从工科出身到转型业务管理，但是发现人治管理模式<br/>
+      成本巨大，转型数字化升级是未来企业核心   
+    </p>
+    <ul style="padding-left:18px;">
+      <li>✔ 客户跟进混乱 → 标准化</li> 
+      <li>✔ 人员不稳定 → 自动化</li> 
+      <li>✔ 平台客户易流失 → 自建系统</li> 
+      <li>✔ 转化不可控 → 数据驱动</li> 
+    </ul> 
+
+    <!-- 合作方式 -->
+    <p>🤝 合作方式：</p>
+    <p style="font-weight:bold; color:#3b82f6;">以外贸数字化升级为核心模式驱动探索合作</p> 
+    <ul style="padding-left:18px;">
+      <li>✔ 提升转化率</li> 
+      <li>✔ 降低人工依赖</li> 
+      <li>✔ 优化成本效率</li> 
+      <li>✔ 实现自动化跟进</li> 
+    </ul>
+
+    <p>更多合作详谈可在 Demo 后联系我</p>
   </div>
 
-<script>
-  document.getElementById('play-audio').addEventListener('click', function (e) {
-    e.preventDefault();
-    const audio = document.getElementById('belief-audio');
-    if (audio.paused) {
-      audio.play();
-    } else {
-      audio.currentTime = 0;
-      audio.play();
+  <button id="expand-profile" style="
+    margin-top:6px;
+    padding:6px 12px;
+    background:#3b82f6;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    transition:background 0.3s;
+  ">查看更多案例</button>
+
+  <button id="close-profile" style="
+    position:absolute;
+    top:8px;
+    right:8px;
+    border:none;
+    background:transparent;
+    font-size:16px;
+    cursor:pointer;
+    color:#999;
+  ">&times;</button>
+`;
+
+const expandBtn = miniProfile.querySelector('#expand-profile');
+const detailsDiv = miniProfile.querySelector('.mini-details');
+const summary = miniProfile.querySelector('.mini-summary');
+
+// 原来的展开/收起逻辑 + 折叠简要背书
+expandBtn.addEventListener('click', () => {
+  if (!detailsDiv.style.maxHeight || detailsDiv.style.maxHeight === '0px') {
+    detailsDiv.style.maxHeight = '250px'; // 限制展开最大高度，可滚动
+    expandBtn.textContent = '收起';
+    summary.style.display = 'none'; // 展开时隐藏简要背书
+  } else {
+    detailsDiv.style.maxHeight = '0px';
+    expandBtn.textContent = '查看更多案例';
+    summary.style.display = 'block'; // 收起时显示
+  }
+}); 
+
+// 显示弹窗
+function showMiniProfile() {
+  miniProfile.style.display = 'block';
+  miniProfile.style.transform = 'translateY(20px)';
+  miniProfile.style.opacity = '0';
+  detailsDiv.style.maxHeight = '0px';
+  setTimeout(() => {
+    miniProfile.style.transform = 'translateY(0)';
+    miniProfile.style.opacity = '1';
+  }, 50);
+}
+
+// 隐藏弹窗
+function hideMiniProfile() {
+  miniProfile.style.transform = 'translateY(20px)';
+  miniProfile.style.opacity = '0';
+  // 记录关闭时间
+  localStorage.setItem(PROFILE_KEY, Date.now().toString());
+  setTimeout(() => { miniProfile.style.display = 'none'; }, 400);
+}
+
+// 关闭按钮绑定
+miniProfile.querySelector('#close-profile').addEventListener('click', hideMiniProfile);
+
+// 触发弹窗（24小时内显示有效）
+function triggerMiniProfile() {
+  const lastClosed = localStorage.getItem(PROFILE_KEY);
+  const now = Date.now();
+
+  // 如果没有关闭记录，或者距离上次关闭不到24小时，显示弹窗
+  if (!lastClosed || now - parseInt(lastClosed) <= HOURS_24) {
+    showMiniProfile();
+  }
+}
+
+// 使用事件委托，动态客户点击也能触发
+document.getElementById('main-content').addEventListener('click', (e) => {
+  const customer = e.target.closest('.customer');
+  if (customer) {
+    triggerMiniProfile();
+  }
+});
+
+// 页面加载后延迟触发
+setTimeout(triggerMiniProfile, 1000);  
+
+// ================== 完整优化 Demo Timeline ==================
+demoBtn.addEventListener('click', async () => {
+  demoBtn.disabled = true;
+
+  const pause = t => sleep(t);
+
+  // ----------------------
+  // 鼠标移动 + 缓动显示
+  // ----------------------
+  const safeMove = async el => {
+    if (!el) return;
+    vMouse.style.display = 'block';
+    vMouse.style.transition = 'left 0.5s ease, top 0.5s ease';
+    const rect = el.getBoundingClientRect();
+    const endX = rect.left + rect.width / 2;
+    const endY = rect.top + rect.height / 2;
+    vMouse.style.left = endX + 'px';
+    vMouse.style.top = endY + 'px';
+    await pause(600 + Math.random() * 100);
+  };
+
+  // ----------------------
+  // 鼠标点击 + 轻微缩放（高级感）
+  // ----------------------
+  const safeClick = async el => {
+    if (!el) return;
+    await safeMove(el);
+    el.style.transition = 'transform 0.2s ease';
+    el.style.transform = 'scale(0.95)';
+    await pause(150);
+    el.style.transform = '';
+    await pause(150);
+  };
+
+  // ----------------------
+  // 鼠标移动 + 同步显示解说
+  // ----------------------
+  const moveAndTip = async (el, msg, duration = 1800) => {
+    const move = safeMove(el);
+    const tip = showTip(msg, duration);
+    await Promise.all([move, tip]);
+  };
+
+  // ----------------------
+  // Timeline事件淡入 + 微位移
+  // ----------------------
+  const demoPushEventFade = msg => {
+    const timeline = document.getElementById('global-timeline');
+    if (!timeline) return;
+
+    const el = document.createElement('div');
+    el.className = 'event';
+    el.textContent = msg || timelineEvents[Math.floor(Math.random() * timelineEvents.length)];
+
+    el.style.opacity = 0;
+    el.style.transform = 'translateY(6px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+
+    timeline.appendChild(el);
+
+    requestAnimationFrame(() => {
+      el.style.opacity = 1;
+      el.style.transform = 'translateY(0)';
+    });
+
+    // 保持最多5条
+    if (timeline.children.length > 5) {
+      const first = timeline.firstChild;
+      first.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+      first.style.opacity = 0;
+      first.style.transform = 'translateY(-6px)';
+      setTimeout(() => timeline.removeChild(first), 400);
     }
-  });
-</script>
+  }; 
 
-</body>
 
-</html>   
+  // ================== Demo 全链路演示 ================== 
+
+  // =========================
+  // 🎬 1️⃣ 客户导入（Inbox）
+  // ========================= 
+
+  await showTip('大多数团队的问题，不是缺客户，而是客户线索未被高效管理', 2000);
+  await pause(400); 
+
+
+
+  await showTip('而系统赋能下，每条线索可批量导入', 1800); 
+  await pause(400); 
+ 
+
+ loadPage('inbox');
+  await pause(600);
+
+  const inboxSources = [
+    { id: 'import-email', event: '🟡 邮箱列表导入客户' },
+    { id: 'import-csv', event: '🔵 CSV 导入客户' }
+  ];
+
+for (let src of inboxSources) {
+  demoPushEventFade(src.event);
+  const btn = document.getElementById(src.id);
+  await safeClick(btn); // 先做鼠标动画
+  btn.click();           // ⚡ 触发按钮绑定的导入逻辑
+  await pause(400);
+}
+
+
+// =========================
+// 🎬 2️⃣ 客户标准化 + 唯一ID（Pipeline）
+// =========================  
+
+
+
+await showTip(
+  '系统通过自动去重、标签化，并为每位客户分配唯一 CID',  
+  1800
+);
+await pause(600); 
+
+
+const customers = [
+  { name: 'ABC Import Ltd', cid: 'C001', status: 'engaged', score: 72 },
+  { name: 'Global Trade GmbH', cid: 'C002', status: 'new', score: 40 }
+];
+
+for (let c of customers) {
+  await showTip(`示例客户：${c.name} → ${c.cid}`, 900);
+  await pause(600); 
+}
+
+await showTip(
+  '通过自动化跟进，实现业务价值最大化',  
+  2000
+);
+await pause(600); 
+
+// =========================
+// 🎬 3️⃣ 客户池流转（Pipeline）
+// =========================
+await showTip(
+  '传统模式下，人工分配与批量跟进效率低，易出现遗漏', 
+  1800
+);
+await pause(400);
+
+await showTip(
+  '但系统可以有效集中客户池管理，自动触发下一步跟进动作', 
+  1800
+);
+await pause(400);
+
+for (let c of customers) {
+  demoPushEventFade(`🟡 ${c.cid} 已进入客户池`);
+  await pause(400);
+}
+
+await showTip(
+  '节省约 50% 基础人工操作，实现流程标准化',
+  2000
+);
+await pause(600);
+
+
+// =========================
+// 🎬 4️⃣ 查看客户档案（Pipeline → 客户详情）
+// =========================
+
+
+const menuPipeline = document.querySelector('[data-page="pipeline"]');
+await safeClick(menuPipeline);
+loadPage('pipeline');
+await pause(600);
+
+const firstCustomer = mainEl.querySelector('.customer');
+firstCustomer.dataset.cid = 'C001';
+await safeClick(firstCustomer);
+
+
+
+// =========================
+// 🎬 5️⃣ 行为事件捕捉（Events）
+// =========================
+await showTip(
+  '在传统团队模式下，销售机会难以量化，依赖人工判断成本高', 
+  1800
+);
+await pause(400);
+
+await showTip(
+  '系统驱动下，可自动捕捉客户行为，生成可分析事件',  
+  1800
+);
+await pause(400);
+
+const menuEvents = document.querySelector('[data-page="events"]');
+await safeClick(menuEvents);
+loadPage('events');
+await pause(600);
+
+demoPushEventFade(`🟢 ${firstCustomer.dataset.cid} 打开邮件`);
+demoPushEventFade(`🔵 ${firstCustomer.dataset.cid} 点击产品链接`);
+demoPushEventFade(`🟣 ${firstCustomer.dataset.cid} 回复邮件`);
+
+const timelineItems = detailEl.querySelectorAll('.timeline div');
+for (let item of timelineItems) {
+  await safeMove(item);
+  item.style.color = 'red';
+  await pause(350);
+  item.style.color = '';
+}
+
+await showTip(
+  '自动评估潜在成交机会，减少对人工经验依赖', 
+  1200 
+);
+await pause(600); 
+
+
+// =========================
+// 🎬 6️⃣ 自动化触发（Automation）
+// =========================
+vMouse.style.display = 'none';
+await showTip(
+  '事件驱动触发自动化决策：评分调整 → 延迟跟进 → 自动发送邮件',
+  2000
+);
+
+demoPushEventFade(`🔵 自动化触发 ${firstCustomer.dataset.cid}`);
+
+const menuAutomation = document.querySelector('[data-page="automation"]');
+await safeClick(menuAutomation);
+loadPage('automation');
+await pause(600);
+
+const nodes = document.querySelectorAll('.node');
+for (let n of nodes) {
+  n.classList.add('highlight');
+  await pause(600);
+  n.classList.remove('highlight'); 
+
+}
+
+
+// =========================
+// 🎬 7️⃣ 执行动作（Outreach）
+// ========================= 
+
+await showTip(
+  '系统根据客户阶段与行为自动发送 Email / WhatsApp',
+  1800
+);
+await pause(900);  
+
+await showTip(
+  '不依赖人工逐条操作，大幅降低人工成本',
+  2300
+);
+await pause(600); 
+
+
+// =========================
+// 🎬 7️⃣ 执行动作（Outreach）
+// =========================
+
+
+demoPushEventFade(`🟣 已发送报价 → ${firstCustomer.dataset.cid}`);
+
+const menuOutreach = document.querySelector('[data-page="outreach"]');
+await safeClick(menuOutreach);
+loadPage('outreach');
+await pause(700);
+
+await showTip(
+  '人工操作下，一天仅能跟进 20–30 个客户',
+  2000
+);
+await pause(400);
+
+await showTip(
+  '自动化系统每人可跟进 100–200 个客户，显著减少漏单',
+  2000
+);
+await pause(600); 
+
+
+
+// =========================
+// 🎬 8️⃣ 成交闭环（Deals）
+// =========================
+
+// 第一段解说
+await showTip('触达节奏正确时，成交自然发生', 1800);
+demoPushEventFade(`🟠 成交 $5000 → ${firstCustomer.dataset.cid}`);
+await pause(900);
+
+// 第二段解说
+await showTip('系统推动从线索到成交的闭环，实现流程自动化', 2200);
+await pause(500);
+
+
+await showTip(
+  '当客户进入成交阶段，系统可一键生成标准化 PI / CI 发票',
+  2000
+);
+
+const menuDeals = document.querySelector('[data-page="deals"]');
+await safeClick(menuDeals);
+loadPage('deals');
+await pause(800);
+
+
+await showTip(
+  '让整个销售链路清晰可视、易于追踪',  
+  1500 
+);
+await pause(500); 
+
+
+await showTip(
+  '业务员只需选择 系统已录入的客户', 
+  1800 
+); 
+
+await pause(900);  
+
+
+// =========================
+// 模拟鼠标真实操作选择客户
+// =========================
+const customSelect = document.querySelector('#custom-select');
+const selectedDiv = customSelect.querySelector('.selected');
+const options = customSelect.querySelectorAll('li');
+
+// 1️⃣ 鼠标移动到 select 框中心
+const rectSelect = selectedDiv.getBoundingClientRect();
+vMouse.style.left = `${rectSelect.left + rectSelect.width / 2}px`;
+vMouse.style.top = `${rectSelect.top + rectSelect.height / 2}px`;
+await pause(300);
+
+// 2️⃣ 模拟点击展开下拉
+customSelect.classList.add('open');
+await pause(400);
+
+// 3️⃣ 鼠标移动到目标 option（第二个客户）
+const targetOption = options[1];
+const rectOption = targetOption.getBoundingClientRect();
+vMouse.style.left = `${rectOption.left + rectOption.width / 2}px`;
+vMouse.style.top = `${rectOption.top + rectOption.height / 2}px`;
+await pause(500);
+
+// 4️⃣ 点击选中客户（触发自定义逻辑）
+targetOption.click();
+demoPushEventFade(`🟠 成交 $5000 → ${demoInvoiceCustomers[1].customerId}`);
+
+// 5️⃣ 鼠标停留一段时间，再移出
+await pause(2000);
+vMouse.style.left = `${rectOption.left + rectOption.width + 50}px`;
+vMouse.style.top = `${rectOption.top}px`; 
+
+
+await showTip(
+  '系统自动填充 公司、联系人、邮箱与国家信息等内容',  
+   1500 
+);
+await pause(400);   
+
+// =========================
+// 🎬 9️⃣ 数据分析（Analytics）
+// =========================   
+
+await showTip(
+  '通过全面整合全流程业务流，实现可追踪、可优化和持续改进的效能提升',  
+ 2000 
+); 
+
+await pause(1500);   
+
+const menuAnalytics = document.querySelector('[data-page="analytics"]');
+await safeClick(menuAnalytics);
+loadPage('analytics');
+await pause(600);
+
+const stats = mainEl.querySelectorAll('.customer');
+for (let s of stats) {
+  await safeMove(s);
+await pause(600); 
+
+} 
+
+// =========================
+// 🎬 数据洞察（痛点 + 系统价值强化）
+// =========================
+
+await showTip(
+  '研究表明：中小企业主要瓶颈在于，多数企业人治管理模式', 
+  2500
+);
+await pause(600); 
+
+await showTip(
+  '因认知或技术限制，难以升级为系统化管理流程',  
+  2500
+);
+await pause(600); 
+
+
+await showTip(
+  '数据表明：数字化升级仍占少数企业，但引入 自动化 后',  
+  2500
+);
+await pause(600); 
+
+await showTip(
+  '效率显著提升，转化率 5% → 提升至 12–15%',  
+  2500
+);
+await pause(600);  
+
+await showTip(
+  '借助系统赋能的业务员，客户漏跟进率，竟下降约 70%',   
+  2500
+);
+await pause(600); 
+
+
+// =========================
+// 🎬 总结浮层（系统 vs 传统团队）
+// =========================
+await showTip('最后看一个总结 👇',1500);
+
+// 创建浮层容器
+const summaryLayer = document.createElement('div');
+summaryLayer.id = 'summary-layer';
+summaryLayer.style.position = 'fixed';
+summaryLayer.style.top = '50%';
+summaryLayer.style.left = '50%';
+summaryLayer.style.transform = 'translate(-50%, -50%)';
+summaryLayer.style.background = 'rgba(255,255,255,0.95)';
+summaryLayer.style.borderRadius = '12px';
+summaryLayer.style.boxShadow = '0 6px 20px rgba(0,0,0,0.25)';
+summaryLayer.style.padding = '25px 30px';
+summaryLayer.style.zIndex = '10000';
+summaryLayer.style.display = 'flex';
+summaryLayer.style.flexDirection = 'column';
+summaryLayer.style.alignItems = 'center';
+summaryLayer.style.maxWidth = '500px';
+summaryLayer.style.opacity = '0';
+summaryLayer.style.transition = 'opacity 0.8s';
+
+// 添加标题
+const title = document.createElement('h3');
+title.innerText = '团队能力对比总结';
+title.style.marginBottom = '20px';
+title.style.fontSize = '16px';
+title.style.color = '#111';
+summaryLayer.appendChild(title);
+
+// 创建左右对比
+const compareContainer = document.createElement('div');
+compareContainer.style.display = 'flex';
+compareContainer.style.justifyContent = 'space-between';
+compareContainer.style.width = '100%';
+
+// 传统团队
+const traditional = document.createElement('div');
+traditional.style.textAlign = 'center';
+traditional.style.flex = '1';
+traditional.style.marginRight = '10px';
+traditional.innerHTML = `
+  <div style="font-size:32px;">👤</div>
+  <div style="font-weight:bold; margin:5px 0;">传统团队</div>
+  <div style="font-size:13px; color:#555; margin-bottom:5px;">手动 Excel / 基础 CRM</div>
+  <div style="font-size:12px; color:#777;">人均日跟进 20–30 客户</div> 
+  <div style="font-size:12px; color:#777;">流程依赖个人经验 → 高遗漏率</div>
+  <div style="font-size:12px; color:#777;">零散数据 → 成交不可复制</div>
+  <div style="font-size:12px; color:#777;">增长受限 → 难以规模化</div> 
+`;
+
+// 数字化驱动团队
+const system = document.createElement('div');
+system.style.textAlign = 'center';
+system.style.flex = '1';
+system.style.marginLeft = '10px';
+system.innerHTML = `
+  <div style="font-size:32px;">🤖</div> 
+  <div style="font-weight:bold; margin:5px 0;">数字化驱动团队</div>
+  <div style="font-size:13px; color:#555; margin-bottom:5px;">自动化流程 + 全链路管理 + 数据可追踪</div>
+  <div style="font-size:12px; color:#777;">结合系统杠杆可覆盖 100–200 客户</div>
+  <div style="font-size:12px; color:#777;">流程标准化 → 稳定高效</div>
+  <div style="font-size:12px; color:#777;">成交来源清晰 → 可复制增长</div>
+  <div style="font-size:12px; color:#777;">人工成本可降低 50%</div>
+  <div style="font-size:12px; color:#777;">销售转化率提升至 12–15%</div>
+  <div style="font-size:12px; color:#777;">客户跟进遗漏率下降约 70%</div> 
+`; 
+
+compareContainer.appendChild(traditional);
+compareContainer.appendChild(system);
+summaryLayer.appendChild(compareContainer);
+document.body.appendChild(summaryLayer);
+
+// 淡入动画
+setTimeout(() => { summaryLayer.style.opacity = '1'; }, 100);
+
+// 自动淡出或点击关闭
+setTimeout(() => {
+  summaryLayer.style.transition = 'opacity 0.8s';
+  summaryLayer.style.opacity = '0';
+  setTimeout(() => { summaryLayer.remove(); }, 800);
+}, 6000); // 显示 6 秒 
+
+  // =========================
+  // 🎬 结束（收口）
+  // =========================
+  vMouse.style.display = 'none';
+  demoBtn.disabled = false; 
+
+  // ✅ Demo 完成，6 秒后切换右下角弹窗
+setTimeout(() => {
+  switchToContactPopup();
+}, 6000); 
+
+}); 
+
+
+
+// 🎬 Demo 完成后调用 
+
+function switchToContactPopup() { 
+
+  const miniProfile = document.getElementById('mini-profile'); // ✅ 先获取元素
+
+
+  // ===== Mini Profile 动画 =====
+miniProfile.style.display = 'block';
+miniProfile.style.transform = 'translateY(20px)';
+miniProfile.style.opacity = '0';
+setTimeout(() => {
+  miniProfile.style.transform = 'translateY(0)';
+  miniProfile.style.opacity = '1';
+}, 50);
+
+
+
+// ===== 插入 HTML（完整不省略）=====
+miniProfile.innerHTML = `
+  <h3 style="margin-top:0; color:#7f00ff;">🚀 合作洽谈</h3>
+  <p style="font-size:14px; color:#555;">
+    欢迎与我们沟通合作 🤝<br>
+    填写信息后即可快速联系：
+  </p>
+  <div id="contact-popup" style="margin-top:10px;">
+    <input type="text" id="user-name" placeholder="姓名（可选）" style="width:100%; padding:6px; margin-bottom:6px;">
+    <textarea id="user-message" placeholder="简单说明您的需求（可选）" style="width:100%; padding:6px; margin-bottom:6px; min-height:60px;"></textarea>
+    <button id="wechat-button" style="width:100%; padding:10px; background:#07C160; color:white; border:none; border-radius:5px; cursor:pointer; font-size:16px;">
+      📱 立即用 WeChat 联系
+    </button>
+    <div style="margin-top:10px; text-align:center; font-size:12px; color:#888;">
+      或国际客户可用：
+      <a id="whatsapp-link" href="#" target="_blank" style="color:#25D366; text-decoration:none; margin-left:5px;">WhatsApp</a>
+    </div>
+    <p id="status-msg" style="margin-top:6px; color:green;"></p>
+  </div>
+
+  <button id="close-profile" style="position:absolute; top:8px; right:8px; border:none; background:transparent; font-size:16px; cursor:pointer; color:#999;">&times;</button>
+
+  <!-- 微信弹窗 -->
+  <div id="wechat-popup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width:400px; background:white; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.25); z-index:10000;">
+    <div style="background:#7f00ff; color:white; padding:10px 15px; border-radius:10px 10px 0 0; display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <strong>客服小助手</strong>
+        <div style="font-size:12px; color:#ddd;">在线</div>
+      </div>
+      <button id="close-wechat-popup" style="background:transparent; border:none; color:white; font-size:18px; cursor:pointer;">&times;</button>
+    </div>
+
+    <div id="wechat-chat-area" style="height:300px; overflow-y:auto; padding:10px; font-size:14px;">
+      <div style="text-align:center; color:#888; margin-bottom:10px;">
+        欢迎与我们沟通合作 🤝
+      </div>
+    </div>
+
+    <div style="padding:10px; display:flex; gap:5px; background:#f5f5f5;">
+      <input id="wechat-input" placeholder="请输入您的信息..." style="flex:1; padding:8px; border-radius:5px; border:1px solid #ccc;">
+      <button id="wechat-send" style="padding:8px 12px; background:#07C160; color:white; border:none; border-radius:5px; cursor:pointer;">发送</button>
+    </div>
+  </div>
+`;
+// ===== 获取元素 =====
+const closeBtn = miniProfile.querySelector('#close-profile');
+const openBtn = miniProfile.querySelector('#wechat-button');
+const whatsappLink = miniProfile.querySelector('#whatsapp-link');
+
+const wechatPopup = miniProfile.querySelector('#wechat-popup');
+const closeWechatBtn = miniProfile.querySelector('#close-wechat-popup');
+
+// ===== 主弹窗关闭 =====
+closeBtn.onclick = () => {
+  miniProfile.style.display = 'none';
+};
+
+// ===== WhatsApp 链接 =====
+whatsappLink.href = "https://wa.me/YOUR_NUMBER";
+
+
+// ===== 打开微信弹窗（高级感版）=====
+openBtn.onclick = () => {
+  wechatPopup.innerHTML = `
+    <style>
+      .wechat-card {
+        background: linear-gradient(135deg, #7f00ff, #e100ff);
+        border-radius: 12px;
+        width: 320px;
+        padding: 20px;
+        text-align: center;
+        position: relative;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+        color: white;
+        font-family: sans-serif;
+        overflow: hidden;
+      }
+
+      .wechat-card::after {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+          120deg,
+          rgba(255,255,255,0) 40%,
+          rgba(255,255,255,0.25) 50%,
+          rgba(255,255,255,0) 60%
+        );
+        transform: rotate(25deg);
+        animation: shine 4s ease-in-out infinite;
+      }
+
+      @keyframes shine {
+        0% { transform: translate(-100%, -100%) rotate(25deg); }
+        60% { transform: translate(100%, 100%) rotate(25deg); }
+        100% { transform: translate(100%, 100%) rotate(25deg); }
+      }
+
+      .qr-code {
+        width: 180px;
+        height: 180px;
+        margin-bottom: 12px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        animation: qr-breath 4s ease-in-out infinite;
+      }
+
+      @keyframes qr-breath {
+        0% {
+          transform: scale(1);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        }
+        50% {
+          transform: scale(1.04);
+          box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+        }
+        100% {
+          transform: scale(1);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        }
+      }
+
+      .title {
+        margin-bottom: 15px;
+        font-size: 18px;
+        font-weight: bold;
+        text-shadow: 0 0 4px rgba(0,0,0,0.3);
+      }
+
+      .wechat-text {
+        margin-bottom: 12px;
+        font-size: 14px;
+      }
+
+      .copy-btn {
+        padding: 8px 16px;
+        background: #07C160;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.2s;
+      }
+
+      .copy-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        border: none;
+        background: transparent;
+        font-size: 20px;
+        cursor: pointer;
+        color: #fff;
+      }
+    </style>
+
+    <div class="wechat-card">
+      <button id="close-wechat-popup" class="close-btn">&times;</button>
+
+      <h3 class="title">📱 添加微信</h3>
+
+      <img src="images/QRcode.jpg" alt="微信二维码" class="qr-code"/>
+
+      <p class="wechat-text">
+        微信号：<strong id="wechat-id">HawinMaster</strong>
+      </p>
+
+      <button id="copy-wechat-btn" class="copy-btn">复制微信号</button>
+    </div>
+  `;
+
+  // 重新绑定关闭按钮
+  const closeBtnInner = wechatPopup.querySelector('#close-wechat-popup');
+  closeBtnInner.onclick = () => {
+    wechatPopup.style.display = 'none';
+  };
+
+  // 绑定复制按钮
+  const copyBtn = wechatPopup.querySelector('#copy-wechat-btn');
+  copyBtn.onclick = () => {
+    const wechatId = wechatPopup.querySelector('#wechat-id').textContent;
+    navigator.clipboard.writeText(wechatId).then(() => {
+      alert('微信号已复制✅'); 
+    }).catch(() => {
+      alert('复制失败，请手动复制微信号');
+    });
+  };
+
+  // 显示弹窗（居中+渐变背景）
+  wechatPopup.style.display = 'flex';
+  wechatPopup.style.justifyContent = 'center';
+  wechatPopup.style.alignItems = 'center';
+  wechatPopup.style.position = 'fixed';
+  wechatPopup.style.inset = '0';
+  wechatPopup.style.background = 'rgba(0,0,0,0.4)'; // 半透明蒙层
+  wechatPopup.style.zIndex = '10000';
+}; 
+
+} 
+</script>  
+
+</body> 
+</html>        

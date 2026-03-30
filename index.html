@@ -420,7 +420,7 @@ body {
     overflow: hidden;          /* 避免横向滚动 body */
   } 
 
-  /* ===== Sidebar → 左侧窄列导航 ===== */
+  /* ===== Sidebar → 左侧宽列导航 ===== */
   .sidebar {
     width: 100px;                  /* 略宽，让菜单舒展 */
     display: flex;
@@ -486,7 +486,7 @@ body {
   .main { 
     margin-left: 100px;  /* 与 sidebar 宽度一致 */
     flex: 1;                  /* 占据剩余空间 */
-    padding: 50px 12px 12px 12px; /* 上 50px，下 12px，左右 12px */ 
+    padding: 50px 20px 12px 12px; /* 上 50px，下 12px，右边缓冲 */
     overflow-x: auto;         /* 👉 允许横向滚动 */
     overflow-y: auto;         /* 纵向滚动 */
     position: relative;       /* 让内部绝对元素基于 main 定位 */
@@ -496,8 +496,8 @@ body {
   #global-timeline {
     position: fixed;       /* 固定顶部 */
     top: 0;
-    left: 100px;         /* 与 sidebar 宽度一致 */ 
-    right: 0;
+    left: 100px;           /* 与 sidebar 宽度一致 */ 
+    right: 10px;           /* 右边缓冲 */
     height: 36px;
     background: #1f2937;
     color: #fff;
@@ -563,32 +563,32 @@ body {
 
   /* Tip / 演示解说文字 */
   .demo-tip {
-    position: fixed;       /* 固定在屏幕底部上方 */ 
-    bottom: 150px;          /* 距离底部 150px，上移一些 */ 
-    left: 80px;            /* 避开左栏 */ 
-    right: 10px;           /* 保持右边边距 */ 
-    max-width: calc(100% - 100px);
+    position: fixed;
+    bottom: 150px;
+    left: 120px;               /* 避开左栏 + 缓冲 */
+    right: 10px;               /* 保持右边距 */
+    max-width: calc(100% - 130px);  /* 左栏 + 缓冲 */
     font-size: 14px;
     z-index: 1500;
-    background: rgba(0,0,0,0.6);  /* 可选，半透明背景更醒目 */ 
-    color: #fff;                  /* 文字颜色 */
-    padding: 6px 10px;            /* 内边距 */
-    border-radius: 6px;           /* 圆角 */
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 6px;
   } 
 
   #demo-button {
-    display: flex;              /* flex 容器 */
-    flex-direction: column;     /* 垂直排列 */
-    align-items: center;        /* 水平居中 */
-    justify-content: center;    /* 垂直居中 */
-    white-space: normal;        /* 允许换行 */
-    text-align: center;         /* 文字居中 */
-    line-height: 1.4;           /* 行间距 */
-    padding: 12px 18px;         /* 手指触控舒适 */
-    font-size: 16px;            /* 手机端字体 */
-    word-break: break-word;     /* 允许单词断行 */
+    display: flex;              
+    flex-direction: column;     
+    align-items: center;        
+    justify-content: center;    
+    white-space: normal;        
+    text-align: center;         
+    line-height: 1.4;           
+    padding: 12px 18px;         
+    font-size: 16px;            
+    word-break: break-word;     
   }
-}
+} 
 
 </style> 
 

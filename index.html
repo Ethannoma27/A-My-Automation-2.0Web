@@ -410,7 +410,7 @@ body {
 } 
 
 /* ================== 📱 Mobile Final ================== */
-@media (max-width: 768px) {
+@media (max-width: 768px) { 
 
   /* ===== 整体结构：纵向 ===== */
   body {
@@ -424,8 +424,8 @@ body {
     width: 100%;
     display: flex;
     overflow-x: auto;
-    gap: 8px;
-    padding: 10px;
+    gap: 6px;           /* 略窄一些 */
+    padding: 8px;        /* 较小 padding，轻盈感 */
     background: #1f2937;
     position: sticky;
     top: 0;
@@ -440,7 +440,7 @@ body {
   /* 菜单按钮 */
   .sidebar div[data-page] {
     flex: 0 0 auto;
-    padding: 6px 12px;
+    padding: 5px 10px;   /* 略小，更紧凑 */
     background: #374151;
     border-radius: 6px;
     font-size: 13px;
@@ -472,7 +472,7 @@ body {
     padding-top: 50px; /* 避开 timeline */
   }
 
-  /* ❌ 隐藏 detail（由 JS 控制） */
+  /* 隐藏 detail（由 JS 控制） */
   .detail {
     display: none;
   }
@@ -520,9 +520,49 @@ body {
   /* ===== Demo 提示 ===== */
   .demo-footer {
     display: none; /* 手机隐藏 */
+  } 
+
+  #demo-button {
+    bottom: 120px;   
+    right: 15px;     
+    padding: 12px 18px; 
+    font-size: 16px;    
+  } 
+
+  /* Tip / 演示解说文字 */
+  .demo-tip {
+    bottom: 180px;  
+    left: 10px;
+    right: 10px;
+    max-width: calc(100% - 20px);
+    font-size: 14px;
+    position: fixed; 
+    z-index: 1500;
+  } 
+
+  /* ===== 手机端 Demo 按钮：左侧固定 ===== */
+  .demo-section #demo-button {
+    position: fixed;
+    top: 60px;          /* 顶部横滑菜单下方 */
+    left: 10px;         
+    z-index: 1200;
+    padding: 12px 18px;
+    font-size: 16px;
+    background: linear-gradient(135deg, #7f00ff, #d93fff);
+    color: #fff;
+    border-radius: 12px; /* 圆角更高级感 */
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
   }
 
-} 
+  .demo-section #demo-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+  }
+
+
+}  
 </style> 
 </head> 
 
@@ -594,7 +634,7 @@ body {
   <!-- 页面右下角 Demo 提示 -->
 <div class="demo-footer">系统为 Demo 版本，仅供演示</div> 
 
-</div> 
+</div>  
 
 <!-- 顶部全局事件流（新增） -->
 <div id="global-timeline"></div>
@@ -2459,18 +2499,14 @@ wechatPopup.querySelector('#copy-wechat-btn').onclick = () => {
         inline: "center",
         block: "nearest"
       });
-
     });
   });
 
 })(); 
 
+
 </script>  
 
 </body>   
-
-
-
-
 
 </html>            

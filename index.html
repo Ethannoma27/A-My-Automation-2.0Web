@@ -484,7 +484,7 @@ body {
 
   /* ===== 主内容区域 ===== */
   .main { 
-    margin-left: 100px;  /* 与 sidebar 宽度一致 */
+    margin-left: 10px;  
     flex: 1;                  /* 占据剩余空间 */
     padding: 50px 20px 12px 12px; /* 上 50px，下 12px，右边缓冲 */
     overflow-x: auto;         /* 👉 允许横向滚动 */
@@ -562,12 +562,12 @@ body {
   }
 
   /* Tip / 演示解说文字 */
-  .demo-tip {
+.demo-tip {
     position: fixed;
     bottom: 150px;
-    left: 120px;               /* 避开左栏 + 缓冲 */
-    right: 10px;               /* 保持右边距 */
-    max-width: calc(100% - 130px);  /* 左栏 + 缓冲 */
+    left: 100px;                 /* 整体右移，避开左栏 */
+    right: 20px;                 /* 保持右边间距 */
+    max-width: calc(100% - 120px);
     font-size: 14px;
     z-index: 1500;
     background: rgba(0,0,0,0.6);

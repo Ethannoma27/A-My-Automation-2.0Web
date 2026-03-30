@@ -412,12 +412,12 @@ body {
 /* ================== 📱 Mobile Final (重构纵向左栏版) ================== */
 @media (max-width: 768px) {
 
-  /* ===== 整体布局：纵向 + 左栏固定 ===== */
+  /* ===== 整体布局：左栏 + 主内容并排 ===== */
   body {
     display: flex;
     flex-direction: row;       /* 左栏 + 主内容并排 */
     height: 100vh;             /* 手机视口全高 */
-    overflow: hidden;          /* 避免横向滚动 */
+    overflow: hidden;          /* 避免横向滚动 body */
   }
 
   /* ===== Sidebar → 左侧窄列导航 ===== */
@@ -433,7 +433,7 @@ body {
     left: 0;
     height: 100vh;
     z-index: 1000;
-    overflow-y: auto;          /* 超出可滚动 */
+    overflow-y: auto;          /* 超出纵向滚动 */
   }
 
   /* 隐藏标题 */
@@ -463,11 +463,21 @@ body {
   .main {
     flex: 1;                  /* 占据剩余空间 */
     padding: 12px;
-    overflow-y: auto;         /* 内容纵向滚动 */
+    overflow-x: auto;         /* 👉 允许横向滚动 */
+    overflow-y: auto;         /* 纵向滚动 */
     position: relative;       /* 让内部绝对元素基于 main 定位 */
   }
 
-  /* 隐藏 detail（由 JS 控制） */
+  /* ===== Timeline 上边栏对齐左栏 ===== */
+  #global-timeline {
+    margin-left: 70px;        /* 左侧栏宽度对齐 */
+    height: 36px;
+    font-size: 12px;
+    padding: 0 10px;
+    gap: 15px;
+  }
+
+  /* ===== 隐藏 detail（由 JS 控制） ===== */
   .detail {
     display: none;
   }
@@ -495,7 +505,7 @@ body {
   /* ===== 表格 ===== */
   table {
     font-size: 12px;
-    min-width: 500px;         /* 保证横向滚动 */
+    min-width: 600px;         /* 保证横向滚动 */
   }
 
   /* ===== 微信弹窗 ===== */
@@ -513,7 +523,7 @@ body {
   }
 
 
-}  
+} 
 
 </style> 
 </head> 

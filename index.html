@@ -2486,12 +2486,48 @@ wechatPopup.querySelector('#copy-wechat-btn').onclick = () => {
 
 })(); 
 
+(function() {
+  // 监听窗口大小变化，保持自适应
+  function updateMobileTip() {
+    const tip = document.querySelector('.demo-tip');
+    if (!tip) return;
+
+    if (window.innerWidth <= 768) { // 仅手机端生效
+      const sidebarWidth = 90;   // 左栏宽度
+      const leftBuffer = 16;     // 左边缓冲
+      const rightBuffer = 10;    // 右边缓冲
+
+      tip.style.position = 'fixed';
+      tip.style.left = `${sidebarWidth + leftBuffer}px`;
+      tip.style.right = `${rightBuffer}px`;
+      tip.style.bottom = `${window.innerHeight * 0.1}px`; // 底部自适应
+      tip.style.maxWidth = `${window.innerWidth - sidebarWidth - leftBuffer - rightBuffer}px`;
+      tip.style.boxSizing = 'border-box';
+    } else {
+      // PC 端不改动
+      tip.style.position = '';
+      tip.style.left = '';
+      tip.style.right = '';
+      tip.style.bottom = '';
+      tip.style.maxWidth = '';
+    }
+  }
+
+  // 每次显示 tip 时调用
+  const originalShowTip = window.showTip;
+  window.showTip = async function(text, duration) {
+    const result = originalShowTip(text, duration);
+    updateMobileTip(); // 立即调整位置
+    return result;
+  };
+
+  // 监听窗口大小变化
+  window.addEventListener('resize', updateMobileTip);
+})(); 
+
 </script>  
 
 </body>   
-
-
-
 
 
 

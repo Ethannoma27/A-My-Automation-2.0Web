@@ -420,8 +420,6 @@ body {
     overflow: hidden;          /* 避免横向滚动 body */
   } 
 
-
-
   /* ===== Sidebar → 左侧窄列导航 ===== */
   .sidebar {
     width: 70px;               /* 左栏窄 */
@@ -464,7 +462,7 @@ body {
   /* ===== 主内容区域 ===== */
   .main {
     flex: 1;                  /* 占据剩余空间 */
-    padding: 12px;
+     padding: 50px 12px 12px 12px; /* 上 50px，下 12px，左右 12px */ 
     overflow-x: auto;         /* 👉 允许横向滚动 */
     overflow-y: auto;         /* 纵向滚动 */
     position: relative;       /* 让内部绝对元素基于 main 定位 */
@@ -529,10 +527,15 @@ body {
 
   /* ===== Mini Profile ===== */
   #mini-profile {
-    width: 90% !important;
-    right: 5%;
-    bottom: 10px;
-  }
+    width: 80% !important;      /* 原来 90%，稍微缩小 */
+    right: 10%;                  /* 靠右一些 */
+    bottom: 10px;                /* 保持底部位置 */
+    padding: 12px;               /* 内边距适中 */
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    background: #1f2937;         /* 背景颜色，可选 */
+    color: #fff;
+  } 
 
   /* ===== Demo 提示隐藏 ===== */
   .demo-footer {
@@ -553,6 +556,30 @@ body {
     padding: 6px 10px;            /* 内边距 */
     border-radius: 6px;           /* 圆角 */
   } 
+
+    #demo-button {
+    display: flex;                /* 变成 flex 容器 */
+    flex-direction: column;       /* 垂直排列图标和文字 */
+    align-items: center;          /* 水平居中 */
+    justify-content: center;      /* 垂直居中 */
+    white-space: normal;          /* 允许换行 */
+    text-align: center;           /* 文字居中 */
+    line-height: 1.4;             /* 行高调整，使三行间距合适 */
+    padding: 12px 18px;           /* 手指触控舒适 */
+    font-size: 16px;              /* 手机端字体 */
+  }
+
+  /* 强制拆行：通过 ::after 覆盖原文字（可选） */
+  #demo-button::before {
+    content: "▶️";                /* 第一行：图标 */
+    display: block;
+  }
+
+  #demo-button::after {
+    content: "自动演示\nDemo";     /* 第二、三行文字 */
+    display: block;
+    white-space: pre-line;        /* 让 \n 换行生效 */
+  }
 
 }  
 
@@ -1281,7 +1308,7 @@ const miniProfile = document.getElementById('mini-profile');
 
 // ================== 初始化 HTML ==================
 miniProfile.innerHTML = `
-  <h3 style="margin-top:0; color:#7f00ff;">🚀 简要背书</h3>
+  <h3 style="margin-top:0; color:#7f00ff;">🚀 简要背书</h3> 
 
   <ul class="mini-summary" style="font-size:14px; padding-left:18px; margin:6px 0; line-height:1.8;">
     <li>2018年个人单笔订单：<strong>百万级</strong></li>  
@@ -2497,10 +2524,7 @@ wechatPopup.querySelector('#copy-wechat-btn').onclick = () => {
 
 })(); 
 
-
 </script>  
 
 </body>  
- 
-
 </html>             

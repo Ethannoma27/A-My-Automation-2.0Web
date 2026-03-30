@@ -521,14 +521,15 @@ body {
   /* ===== demo-tip 完全对齐 sidebar + main padding ===== */
   .demo-tip {
     position: fixed;
-    bottom: 10vh;
-    left: calc(90px + 12px + 4px); /* sidebar宽 + main padding + 缓冲 */
-    right: 10px;
-    max-width: calc(100% - 90px - 12px - 4px - 10px); /* 左右总宽减去缓冲 */
-    box-sizing: border-box;
-  }
 
-  #demo-button {
+    bottom: 30vh; 
+    left: calc(90px + 12px + 4px + 20px); /* 在原来基础上右移20px */
+    right: 10px;
+    max-width: calc(100% - 90px - 12px - 4px - 20px - 10px); /* 左右总宽减去额外偏移 */
+    box-sizing: border-box;
+} 
+
+  #demo-button { 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2530,7 +2531,6 @@ wechatPopup.querySelector('#copy-wechat-btn').onclick = () => {
 
 
 </body>   
-
 
 
 </html>              

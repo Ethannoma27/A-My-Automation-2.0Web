@@ -409,7 +409,7 @@ body {
   word-break: break-word;      /* 换行处理 */
 } 
 
-/* ================== 📱 Mobile Final 完全对齐优化版 ================== */
+/* ================== 📱 Mobile Final CSS 完全控制 demo-tip ================== */
 @media (max-width: 768px) {
 
   /* ===== HTML + BODY 全屏 ===== */
@@ -482,8 +482,8 @@ body {
 
   /* ===== 主内容区域 ===== */
   .main {
-    flex: 1;                        /* 占据剩余空间 */
-    padding: 50px 12px 12px 12px;   /* 上50 下左右12 */
+    flex: 1;
+    padding: 50px 12px 12px 12px;
     overflow: auto;
     position: relative;
   }
@@ -492,7 +492,7 @@ body {
   #global-timeline {
     position: fixed;
     top: 0;
-    left: 90px;                     /* 与 sidebar 宽度一致 */
+    left: 90px;
     right: 0;
     height: 36px;
     background: #1f2937;
@@ -507,7 +507,7 @@ body {
     overflow-y: hidden;
   }
 
-  /* ===== 保留原有其他定义 ===== */
+  /* ===== 其他保留原定义 ===== */
   .detail { display: none; }
   .customer { font-size: 14px; padding: 10px; }
   .flow { gap: 14px; }
@@ -516,39 +516,49 @@ body {
   table { font-size: 12px; min-width: 600px; }
   #wechat-popup { width: 95% !important; height: 80% !important; border-radius: 12px; }
   #mini-profile { width: 80% !important; right: 7.5%; bottom: 10px; }
-  .demo-footer { display: none; } 
+  .demo-footer { display: none; }
 
-  /* ===== demo-tip 完全对齐 sidebar + main padding ===== */
-
+  /* ===== demo-tip 完全靠 CSS 控制 ===== */
   .demo-tip {
-    position: absolute;       /* 相对 .main 定位 */
-    top: 20px;                /* 距离 main 顶部，可调整 */
-    left: 36px;               /* 左侧缓冲，不紧贴左栏 */
-    max-width: calc(100% - 36px - 20px); /* 左右缓冲 */
-    padding: 12px 16px;       /* 内部文字缓冲 */
+    position: fixed;                        /* 脱离文档流 */
+    bottom: 10vh;                            /* 距离底部自适应 */
 
+    /* 左边距 = sidebar宽度 + main padding + 额外缓冲 */
+    left: calc(90px + 12px + 24px);          /* 24px 为自定义额外右移 */
+
+    /* 右边距缓冲，避免撑满屏幕 */
+    right: 10px;
+
+    /* 最大宽度自动计算，避免超出屏幕 */
+    max-width: calc(100% - (90px + 12px + 24px + 10px));
+
+    /* 内部文字缓冲 */
+    padding: 12px 16px;
+
+    /* 样式 */
+    background: rgba(0,0,0,0.6);
     color: #fff;
     border-radius: 6px;
     font-size: 14px;
     z-index: 1500;
 
-    display: inline-block;    /* 避免内部文字撑满整个宽度 */
-} 
+    /* 避免内部文字撑满整个盒子 */
+    display: inline-block;
+  }
 
-  #demo-button { 
-    display: flex;
+  /* demo-tip 内部按钮/文字 */
+  #demo-button {
+    display: inline-flex;            /* 避免撑满 */
     flex-direction: column;
     align-items: center;
     justify-content: center;
     white-space: normal;
     text-align: center;
     line-height: 1.4;
-    padding: 12px 18px;
     font-size: 16px;
     word-break: break-word;
+    padding: 12px 18px;
   }
-
-
 } 
 </style> 
 
@@ -2437,7 +2447,7 @@ wechatPopup.querySelector('#copy-wechat-btn').onclick = () => {
 }; 
 } 
 
-/* ================== 📱 Mobile Enhancement Layer (优化 demo-tip 左边距) ================== */
+/* ================== 📱 Mobile JS 完全兼容 CSS 控制 demo-tip ================== */
 
 (function(){
 
@@ -2450,8 +2460,8 @@ wechatPopup.querySelector('#copy-wechat-btn').onclick = () => {
   const mainEl = document.getElementById('main-content');
 
   // ================== 1️⃣ 菜单高亮 ==================
-  sidebarItems.forEach(item=>{
-    item.addEventListener('click', ()=>{
+  sidebarItems.forEach(item => {
+    item.addEventListener('click', () => {
       if(!isMobile()) return; // ✅ 不影响 PC
 
       // 清除所有 active
@@ -2462,20 +2472,20 @@ wechatPopup.querySelector('#copy-wechat-btn').onclick = () => {
   });
 
   // ================== 2️⃣ 自动滚动到顶部 ==================
-  document.addEventListener('click', (e)=>{
+  document.addEventListener('click', (e) => {
     if(!isMobile()) return;
 
     const menu = e.target.closest('.sidebar div[data-page]');
     if(menu){
-      setTimeout(()=>{
+      setTimeout(() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
       }, 50);
     }
   });
 
   // ================== 3️⃣ 菜单自动居中 ==================
-  sidebarItems.forEach(item=>{
-    item.addEventListener('click', ()=>{
+  sidebarItems.forEach(item => {
+    item.addEventListener('click', () => {
       if(!isMobile()) return;
 
       item.scrollIntoView({
@@ -2486,51 +2496,31 @@ wechatPopup.querySelector('#copy-wechat-btn').onclick = () => {
     });
   });
 
-})();
-
-(function() {
-  // ================== 4️⃣ demo-tip 自适应位置 ==================
-  function updateMobileTip() {
-    const tip = document.querySelector('.demo-tip');
-    if (!tip) return;
-
-    if (window.innerWidth <= 768) { // 仅手机端生效
-      const sidebarWidth = 90;    // 左栏宽度
-      const mainPaddingLeft = 12; // main 左内边距（CSS 保持一致）
-      const leftBuffer = 4;       // 额外缓冲
-      const rightBuffer = 10;     // 右边缓冲
-
-      tip.style.position = 'fixed';
-      tip.style.left = `${sidebarWidth + mainPaddingLeft + leftBuffer}px`;
-      tip.style.right = `${rightBuffer}px`;
-      tip.style.bottom = `${window.innerHeight * 0.1}px`; // 底部自适应
-      tip.style.maxWidth = `${window.innerWidth - sidebarWidth - mainPaddingLeft - leftBuffer - rightBuffer}px`;
-      tip.style.boxSizing = 'border-box';
-
-    } else {
-      // PC 端不改动
-      tip.style.position = '';
-      tip.style.left = '';
-      tip.style.right = '';
-      tip.style.bottom = '';
-      tip.style.maxWidth = '';
-    }
-  }
-
-  // 每次显示 tip 时自动调整
+  // ================== 4️⃣ demo-tip 显示/隐藏逻辑 ==================
+  // 不再修改 left/top/right/maxWidth，只控制内容显示
   if (window.showTip) {
     const originalShowTip = window.showTip;
     window.showTip = async function(text, duration) {
-      const result = originalShowTip(text, duration);
-      updateMobileTip(); // 立即调整位置
+      const tip = document.querySelector('.demo-tip');
+      if(tip){
+        tip.textContent = text;
+        tip.style.display = 'inline-block';  // 显示
+      }
+      const result = await originalShowTip(text, duration);
+      if(tip){
+        tip.style.display = 'none';          // 隐藏
+      }
       return result;
     };
   }
 
-  // 监听窗口大小变化
-  window.addEventListener('resize', updateMobileTip);
+  // ================== 5️⃣ 窗口大小监听 ==================
+  // 只保留其他逻辑，不修改 demo-tip 位置
+  window.addEventListener('resize', () => {
+    // 可以放一些响应式逻辑，但不改变 demo-tip
+  });
 
-})(); 
+})();
 
 </script>  
 </body>   

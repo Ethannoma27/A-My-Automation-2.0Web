@@ -520,33 +520,35 @@ body {
 
   /* ===== show-tip 完全靠 CSS 控制 ===== */
  
- .show-tip {
-    position: fixed;
-    bottom: 10vh;
 
-    /* 左右间距，保证和 sidebar + main 有缓冲 */
-    left: calc(90px + 12px + 12px); /* sidebar宽 + main padding + 缓冲 */
-    right: 20px;  
-    max-width: calc(100% - (90px + 12px + 24px + 12px));
+/* ===== show-tip 手机端稳定版 ===== */
+.show-tip {
+  position: fixed;
+  bottom: 10vh;
 
-    /* 样式：低调高级 */
-    background: #2c2c34;   /* 深灰墨色，低调稳重 */
-    color: #dcdcdc;        /* 柔和灰白文字 */
-    border-radius: 8px;
-    padding: 12px 16px;
-    font-size: 14px;
-    line-height: 1.5;
-    text-align: left;
-    word-break: break-word;
+  left: 0;
+  right: auto;
 
-    /* 轻微浮层感 */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  max-width: 280px;
 
-    /* 不炫眼，不眨眼 */
-    transition: all 0.2s ease; 
-    backdrop-filter: blur(2px); /* 可选，轻微毛玻璃效果 */
-    z-index: 1500;
-  } 
+  background: #2c2c34;
+  color: #dcdcdc;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: left;
+  word-break: break-word;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+  transition: opacity 0.2s ease;
+
+  backdrop-filter: blur(2px);
+  z-index: 1500;
+
+  display: none;
+} 
 
    /* ===== 微信弹窗手机端优化 ===== */
   #wechat-popup {
@@ -2456,13 +2458,10 @@ wechatPopup.querySelector('#copy-wechat-btn').onclick = () => {
 } 
 
 /* ================== 📱 Mobile JS 完全兼容 CSS 控制 demo-tip ================== */
-
 (function(){
 
   // ✅ 判断是否手机
-  function isMobile(){
-    return window.innerWidth < 768;
-  }
+  const isMobile = () => window.innerWidth < 768;
 
   const sidebarItems = document.querySelectorAll('.sidebar div[data-page]');
   const mainEl = document.getElementById('main-content');
@@ -2470,107 +2469,93 @@ wechatPopup.querySelector('#copy-wechat-btn').onclick = () => {
   // ================== 1️⃣ 菜单高亮 ==================
   sidebarItems.forEach(item => {
     item.addEventListener('click', () => {
-      if(!isMobile()) return; // ✅ 不影响 PC
+      if(!isMobile()) return;
 
-      // 清除所有 active
       sidebarItems.forEach(i => i.classList.remove('active'));
-      // 当前高亮
       item.classList.add('active');
-    });
-  });
 
-  // ================== 2️⃣ 自动滚动到顶部 ==================
-  document.addEventListener('click', (e) => {
-    if(!isMobile()) return;
-
-    const menu = e.target.closest('.sidebar div[data-page]');
-    if(menu){
+      // 自动滚动到顶部
       setTimeout(() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
       }, 50);
-    }
-  });
 
-  // ================== 3️⃣ 菜单自动居中 ==================
-  sidebarItems.forEach(item => {
-    item.addEventListener('click', () => {
-      if(!isMobile()) return;
-
-      item.scrollIntoView({
-        behavior: "smooth",
-        inline: "center",
-        block: "nearest"
-      });
+      // 菜单自动居中
+      item.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
     });
   });
 
-  // ================== 4️⃣ demo-tip 显示/隐藏逻辑 ==================
+  // ================== 2️⃣ demo-tip 显示/隐藏逻辑 ==================
+  window.showTip = async function(message, duration = 2000) {
+    // 获取或创建 tip 元素
+    const tip = document.querySelector('.show-tip') || (() => {
+      const el = document.createElement('div');
+      el.className = 'show-tip';
+      document.body.appendChild(el);
+      return el;
+    })();
 
-(function(){
+    tip.textContent = message;
 
-  const isMobile = () => window.innerWidth < 768;
+    // ===== 手机端位置调整 =====
+    if(isMobile()){
+      const sidebar = document.querySelector('.sidebar');
+      const main = document.querySelector('.main');
 
-  // 替换全局 showTip
-  if(window.showTip){
-    const originalShowTip = window.showTip;
+      // 左边距 = sidebar宽 + main padding + 自定义缓冲
+      const left = (sidebar ? sidebar.offsetWidth : 90) 
+                 + (main ? parseInt(getComputedStyle(main).paddingLeft) : 12) 
+                 + 12; // 缓冲可调
 
-    window.showTip = async function(text, duration=2000){
-      const tip = document.querySelector('.show-tip') || (() => {
-        const el = document.createElement('div');
-        el.className = 'show-tip';
-        document.body.appendChild(el);
-        return el;
-      })();
+      // 禁用过渡，避免初始滑动
+      tip.style.transition = 'none';
+      tip.style.left = left + 'px';
+      tip.style.right = '20px'; // 右侧间距
+      tip.style.maxWidth = (window.innerWidth - left - 20) + 'px';
 
-      tip.textContent = text;
-
-      // ===== 仅手机端调整位置 =====
-      if(isMobile()){
-        const sidebar = document.querySelector('.sidebar');
-        const main = document.querySelector('.main');
-        const left = (sidebar ? sidebar.offsetWidth : 90) + (main ? parseInt(getComputedStyle(main).paddingLeft) : 12) + 24;
-        tip.style.left = left + 'px';
-        tip.style.right = '12px';
-        tip.style.maxWidth = (window.innerWidth - left - 12) + 'px';
-      } else {
-        // PC端恢复默认样式
-        tip.style.left = '';
-        tip.style.right = '';
-        tip.style.maxWidth = '';
-      }
+      // 触发重绘，保证 transition 生效
+      tip.offsetHeight;
 
       tip.style.display = 'block';
 
-      await new Promise(resolve => setTimeout(resolve, duration));
+      // 恢复平滑过渡
+      tip.style.transition = 'all 0.2s ease';
+    } else {
+      // PC端默认显示
+      tip.style.left = '';
+      tip.style.right = '';
+      tip.style.maxWidth = '';
+      tip.style.display = 'block';
+    }
 
-      tip.style.display = 'none';
-    };
-  }
+    // 等待显示时间
+    await new Promise(resolve => setTimeout(resolve, duration));
 
-  // 可选：监听窗口大小变化，实时调整手机端 tip
+    // 隐藏
+    tip.style.display = 'none';
+  };
+
+  // ================== 3️⃣ 窗口大小变化监听 ==================
   window.addEventListener('resize', () => {
     if(!isMobile()) return;
+
     const tip = document.querySelector('.show-tip');
-    if(tip && tip.style.display === 'block'){
-      const sidebar = document.querySelector('.sidebar');
-      const main = document.querySelector('.main');
-      const left = (sidebar ? sidebar.offsetWidth : 90) + (main ? parseInt(getComputedStyle(main).paddingLeft) : 12) + 24;
-      tip.style.left = left + 'px';
-      tip.style.maxWidth = (window.innerWidth - left - 12) + 'px';
-    }
+    if(!tip || tip.style.display !== 'block') return;
+
+    const sidebar = document.querySelector('.sidebar');
+    const main = document.querySelector('.main');
+    const left = (sidebar ? sidebar.offsetWidth : 90)
+               + (main ? parseInt(getComputedStyle(main).paddingLeft) : 12)
+               + 12;
+
+    tip.style.left = left + 'px';
+    tip.style.maxWidth = (window.innerWidth - left - 20) + 'px';
   });
 
-})();  
-  // ================== 5️⃣ 窗口大小监听 ==================
-  // 只保留其他逻辑，不修改 demo-tip 位置
-  window.addEventListener('resize', () => {
-    // 可以放一些响应式逻辑，但不改变 demo-tip
-  });
-
-})();
+})(); 
 
 </script>  
 </body>   
+
 
 
 </html>              

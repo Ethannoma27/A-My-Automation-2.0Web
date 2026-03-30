@@ -521,17 +521,20 @@ body {
 
 .demo-tip {
   position: fixed;
-  bottom: 20vh;  /* 距离底部 20% 视口高度 */
-  left: calc(90px + 16px);  
-  right: 10px;
-  max-width: calc(100% - 90px - 26px);
+  bottom: 10vh;                      /* 距离底部 10% 视口高度，自适应屏幕 */
+  left: calc(90px + 16px);           /* 左栏 90px + 缓冲 16px */
+  right: 10px;                        /* 右侧缓冲 10px */
+  max-width: calc(100% - 90px - 26px); /* 左栏 + 左右缓冲总和 */
   font-size: 14px;
   z-index: 1500;
   background: rgba(0,0,0,0.6);
   color: #fff;
   padding: 6px 10px;
   border-radius: 6px;
+  line-height: 1.4;
+  box-sizing: border-box;
 }
+ 
 
   #demo-button {
     display: flex;
@@ -2490,11 +2493,8 @@ wechatPopup.querySelector('#copy-wechat-btn').onclick = () => {
 
 })(); 
 
-
 </script>  
 
 </body>   
-
-
 
 </html>              

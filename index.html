@@ -520,13 +520,13 @@ body {
 
 
 .demo-tip {
-    position: fixed !important;
-    bottom: 10vh !important;              /* 底部自适应 */
-    left: calc(90px + 16px) !important;   /* 左栏宽度 + 缓冲 */
-    right: 10px !important;                /* 右边缓冲 */
-    max-width: calc(100% - 90px - 26px) !important; /* 左栏+左右缓冲 */
-    box-sizing: border-box !important;
-  } 
+    position: fixed;
+    bottom: 10vh;
+    left: calc(90px + 12px + 4px); /* sidebar + main padding + 缓冲 */
+    right: 10px;
+    max-width: calc(100% - 90px - 12px - 4px - 10px); /* left + right 缓冲 */
+    box-sizing: border-box;
+}
 
   #demo-button {
     display: flex;

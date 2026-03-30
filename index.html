@@ -407,8 +407,122 @@ body {
 .customer-list-item span.text {
   flex: 1;                     /* 文字自然延伸 */
   word-break: break-word;      /* 换行处理 */
-}
+} 
 
+/* ================== 📱 Mobile Final ================== */
+@media (max-width: 768px) {
+
+  /* ===== 整体结构：纵向 ===== */
+  body {
+    flex-direction: column;
+    height: auto;
+    overflow-x: hidden;
+  }
+
+  /* ===== Sidebar → 顶部横滑导航 ===== */
+  .sidebar {
+    width: 100%;
+    display: flex;
+    overflow-x: auto;
+    gap: 8px;
+    padding: 10px;
+    background: #1f2937;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  /* 隐藏标题 */
+  .sidebar h2 {
+    display: none;
+  }
+
+  /* 菜单按钮 */
+  .sidebar div[data-page] {
+    flex: 0 0 auto;
+    padding: 6px 12px;
+    background: #374151;
+    border-radius: 6px;
+    font-size: 13px;
+    white-space: nowrap;
+    transition: all 0.25s ease;
+  }
+
+  /* 👉 JS 会加 active */
+  .sidebar div[data-page].active {
+    background: #7f00ff;
+    color: #fff;
+  }
+
+  /* ===== Timeline ===== */
+  #global-timeline {
+    left: 0;
+    top: 50px;
+    height: 36px;
+    font-size: 12px;
+    padding: 0 10px;
+    gap: 15px;
+  }
+
+  /* ===== 主内容 ===== */
+  .main {
+    width: 100%;
+    padding: 10px;
+    border-right: none;
+    padding-top: 50px; /* 避开 timeline */
+  }
+
+  /* ❌ 隐藏 detail（由 JS 控制） */
+  .detail {
+    display: none;
+  }
+
+  /* ===== 客户卡片 ===== */
+  .customer {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  /* ===== Flow ===== */
+  .flow {
+    gap: 14px;
+  }
+
+  .node {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  .connector {
+    height: 14px;
+  }
+
+  /* ===== 表格 ===== */
+  table {
+    font-size: 12px;
+    min-width: 600px; /* 👉 保证横向滚动 */
+  }
+
+  /* ===== 微信弹窗 ===== */
+  #wechat-popup {
+    width: 95% !important;
+    height: 80% !important;
+    border-radius: 12px;
+  }
+
+  /* ===== Mini Profile ===== */
+  #mini-profile {
+    width: 90% !important;
+    right: 5%;
+    bottom: 10px;
+  }
+
+  /* ===== Demo 提示 ===== */
+  .demo-footer {
+    display: none; /* 手机隐藏 */
+  }
+
+} 
 </style> 
 </head> 
 
@@ -2298,9 +2412,65 @@ wechatPopup.querySelector('#copy-wechat-btn').onclick = () => {
 }; 
 } 
 
+/* ================== 📱 Mobile Enhancement Layer ================== */
+
+(function(){
+
+  // ✅ 判断是否手机
+  function isMobile(){
+    return window.innerWidth < 768;
+  }
+
+  const sidebarItems = document.querySelectorAll('.sidebar div[data-page]');
+  const mainEl = document.getElementById('main-content');
+
+  // ================== 1️⃣ 菜单高亮 ==================
+  sidebarItems.forEach(item=>{
+    item.addEventListener('click', ()=>{
+
+      if(!isMobile()) return; // ✅ 不影响 PC
+
+      sidebarItems.forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+
+    });
+  });
+
+  // ================== 2️⃣ 自动滚动到顶部 ==================
+  document.addEventListener('click', (e)=>{
+    if(!isMobile()) return;
+
+    const menu = e.target.closest('.sidebar div[data-page]');
+    if(menu){
+      setTimeout(()=>{
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }, 50);
+    }
+  });
+
+  // ================== 3️⃣ 菜单自动居中 ==================
+  sidebarItems.forEach(item=>{
+    item.addEventListener('click', ()=>{
+
+      if(!isMobile()) return;
+
+      item.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest"
+      });
+
+    });
+  });
+
+})(); 
 
 </script>  
 
 </body>   
 
-</html>           
+
+
+
+
+</html>            

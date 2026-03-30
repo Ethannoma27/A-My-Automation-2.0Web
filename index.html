@@ -519,17 +519,30 @@ body {
   .demo-footer { display: none; } 
 
   /* ===== demo-tip 完全对齐 sidebar + main padding ===== */
- .demo-tip {
+.demo-tip {
     position: fixed;
-    bottom: 10vh;
-    left: calc(90px + 12px + 4px + 20px); /* 整体右移20px */
+    bottom: 10vh; 
+
+    /* 左边距 = sidebar + main padding + 额外缓冲 */
+    left: calc(90px + 12px + 24px); /* 24px 为总额外缓冲 */
+    
+    /* 右边距保持一定缓冲 */
     right: 10px;
-    max-width: calc(100% - 90px - 12px - 4px - 20px - 10px);
+
+    /* 最大宽度自动计算，避免超出屏幕 */
+    max-width: calc(100% - (90px + 12px + 24px + 10px));
+
     box-sizing: border-box;
 
-    padding-left: 12px;   /* 内部文字距离左边框有间隙 */
-    padding-right: 12px;  /* 可选，避免靠右太紧 */
-} 
+    /* 内部文字缓冲 */
+    padding: 10px 12px;
+
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    border-radius: 6px;
+    font-size: 14px;
+    z-index: 1500;
+}
 
   #demo-button { 
     display: flex;
@@ -543,7 +556,6 @@ body {
     font-size: 16px;
     word-break: break-word;
   }
-
 
 
 } 
@@ -2529,8 +2541,11 @@ wechatPopup.querySelector('#copy-wechat-btn').onclick = () => {
 
 })(); 
 
-</script>  
-</body>   
 
+
+</script>  
+
+
+</body>   
 
 </html>              

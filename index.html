@@ -420,22 +420,22 @@ body {
     overflow: hidden;          /* 避免横向滚动 body */
   } 
 
-  /* ===== Sidebar → 左侧宽列导航 ===== */
+   /* ===== Sidebar → 左侧窄列导航 ===== */
   .sidebar {
-    width: 100px;                  /* 略宽，让菜单舒展 */
+    width: 90px;   /* 从 70px 改为 90px */ 
     display: flex;
-    flex-direction: column;        /* 纵向排列菜单按钮 */
-    gap: 10px;                     /* 按钮间距稍大 */
-    padding: 16px 12px;            /* 内边距类似 PC 端 */
+    flex-direction: column;    /* 纵向排列菜单按钮 */
+    gap: 8px;
+    padding: 10px 5px;
     background: #1f2937;
     position: sticky;
     top: 0;
     left: 0;
     height: 100vh;
     z-index: 1000;
-    overflow-y: auto;              /* 超出纵向滚动 */
-    box-shadow: 2px 0 6px rgba(0,0,0,0.2); /* 轻微阴影增加层次 */
+    overflow-y: auto;          /* 超出纵向滚动 */
   }
+
 
   /* 隐藏标题 */
   .sidebar h2 {
@@ -565,7 +565,7 @@ body {
 .demo-tip {
     position: fixed;
     bottom: 150px;
-    left: 100px;                 /* 整体右移，避开左栏 */
+    left: 150px !important;     /* 整体右移，避开左栏 */
     right: 20px;                 /* 保持右边间距 */
     max-width: calc(100% - 120px);
     font-size: 14px;
@@ -573,7 +573,7 @@ body {
     background: rgba(0,0,0,0.6);
     color: #fff;
     padding: 6px 10px;
-    border-radius: 6px;
+    border-radius: 6px; 
   } 
 
   #demo-button {

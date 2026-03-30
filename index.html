@@ -546,6 +546,30 @@ body {
     display: inline-block;
   }
 
+    .show-tip {
+    position: fixed;
+    bottom: 10vh;  /* 底部距离 */
+    
+    /* 左边距 = sidebar 宽 + main padding + 额外缓冲 */
+    left: calc(90px + 12px + 24px);
+
+    /* 右边保持缓冲 */
+    right: 12px;
+
+    /* 最大宽度防止超出屏幕 */
+    max-width: calc(100% - (90px + 12px + 24px + 12px));
+
+    padding: 10px 12px;
+    box-sizing: border-box;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    border-radius: 6px;
+    font-size: 14px;
+    z-index: 1500;
+    word-break: break-word;
+    text-align: left;
+  } 
+
   /* demo-tip 内部按钮/文字 */
   #demo-button {
     display: inline-flex;            /* 避免撑满 */
@@ -2497,23 +2521,62 @@ wechatPopup.querySelector('#copy-wechat-btn').onclick = () => {
   });
 
   // ================== 4️⃣ demo-tip 显示/隐藏逻辑 ==================
-  // 不再修改 left/top/right/maxWidth，只控制内容显示
-  if (window.showTip) {
+
+(function(){
+
+  const isMobile = () => window.innerWidth < 768;
+
+  // 替换全局 showTip
+  if(window.showTip){
     const originalShowTip = window.showTip;
-    window.showTip = async function(text, duration) {
-      const tip = document.querySelector('.demo-tip');
-      if(tip){
-        tip.textContent = text;
-        tip.style.display = 'inline-block';  // 显示
+
+    window.showTip = async function(text, duration=2000){
+      const tip = document.querySelector('.show-tip') || (() => {
+        const el = document.createElement('div');
+        el.className = 'show-tip';
+        document.body.appendChild(el);
+        return el;
+      })();
+
+      tip.textContent = text;
+
+      // ===== 仅手机端调整位置 =====
+      if(isMobile()){
+        const sidebar = document.querySelector('.sidebar');
+        const main = document.querySelector('.main');
+        const left = (sidebar ? sidebar.offsetWidth : 90) + (main ? parseInt(getComputedStyle(main).paddingLeft) : 12) + 24;
+        tip.style.left = left + 'px';
+        tip.style.right = '12px';
+        tip.style.maxWidth = (window.innerWidth - left - 12) + 'px';
+      } else {
+        // PC端恢复默认样式
+        tip.style.left = '';
+        tip.style.right = '';
+        tip.style.maxWidth = '';
       }
-      const result = await originalShowTip(text, duration);
-      if(tip){
-        tip.style.display = 'none';          // 隐藏
-      }
-      return result;
+
+      tip.style.display = 'block';
+
+      await new Promise(resolve => setTimeout(resolve, duration));
+
+      tip.style.display = 'none';
     };
   }
 
+  // 可选：监听窗口大小变化，实时调整手机端 tip
+  window.addEventListener('resize', () => {
+    if(!isMobile()) return;
+    const tip = document.querySelector('.show-tip');
+    if(tip && tip.style.display === 'block'){
+      const sidebar = document.querySelector('.sidebar');
+      const main = document.querySelector('.main');
+      const left = (sidebar ? sidebar.offsetWidth : 90) + (main ? parseInt(getComputedStyle(main).paddingLeft) : 12) + 24;
+      tip.style.left = left + 'px';
+      tip.style.maxWidth = (window.innerWidth - left - 12) + 'px';
+    }
+  });
+
+})();  
   // ================== 5️⃣ 窗口大小监听 ==================
   // 只保留其他逻辑，不修改 demo-tip 位置
   window.addEventListener('resize', () => {
@@ -2524,6 +2587,5 @@ wechatPopup.querySelector('#copy-wechat-btn').onclick = () => {
 
 </script>  
 </body>   
-
 
 </html>              

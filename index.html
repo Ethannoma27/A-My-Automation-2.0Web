@@ -522,8 +522,27 @@ body {
     bottom: 10px;
   }
 
+  /* ===== Demo 提示隐藏 ===== */
+  .demo-footer {
+    display: none;
+  }
 
-} 
+  /* Tip / 演示解说文字 */
+  .demo-tip {
+    position: fixed;       /* 固定在屏幕底部上方 */
+    bottom: 60px;          /* 距离底部 60px，上移一些 */
+    left: 80px;            /* 避开左栏 */
+    right: 10px;           /* 保持右边边距 */
+    max-width: calc(100% - 90px);
+    font-size: 14px;
+    z-index: 1500;
+    background: rgba(0,0,0,0.6);  /* 可选，半透明背景更醒目 */ 
+    color: #fff;                  /* 文字颜色 */
+    padding: 6px 10px;            /* 内边距 */
+    border-radius: 6px;           /* 圆角 */
+  } 
+
+}  
 
 </style> 
 </head> 

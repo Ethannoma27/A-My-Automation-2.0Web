@@ -409,31 +409,32 @@ body {
   word-break: break-word;      /* 换行处理 */
 } 
 
-/* ================== 📱 Mobile Final ================== */
-@media (max-width: 768px) { 
+/* ================== 📱 Mobile Final (重构纵向左栏版) ================== */
+@media (max-width: 768px) {
 
-  /* ===== 整体结构：纵向 ===== */
+  /* ===== 整体布局：纵向 + 左栏固定 ===== */
   body {
-    flex-direction: column;
-    height: auto;
-    overflow-x: hidden;
+    display: flex;
+    flex-direction: row;       /* 左栏 + 主内容并排 */
+    height: 100vh;             /* 手机视口全高 */
+    overflow: hidden;          /* 避免横向滚动 */
   }
 
-/* ===== Sidebar → 左侧窄列导航 ===== */
-.sidebar {
-    width: auto;              /* 不占满全宽 */
+  /* ===== Sidebar → 左侧窄列导航 ===== */
+  .sidebar {
+    width: 70px;               /* 左栏窄 */
     display: flex;
-    flex-direction: column;   /* 纵向排列菜单按钮 */
+    flex-direction: column;    /* 纵向排列菜单按钮 */
     gap: 8px;
-    padding: 8px 6px;         /* 左右轻微内边距 */
+    padding: 10px 5px;
     background: #1f2937;
     position: sticky;
     top: 0;
-    left: 0;                  /* 靠左 */
+    left: 0;
+    height: 100vh;
     z-index: 1000;
-    max-width: 80px;          /* 左栏窄一些，保留空间给 Demo 按钮 */
-    overflow-y: auto;         /* 超出纵向滚动 */
-}
+    overflow-y: auto;          /* 超出可滚动 */
+  }
 
   /* 隐藏标题 */
   .sidebar h2 {
@@ -443,36 +444,27 @@ body {
   /* 菜单按钮 */
   .sidebar div[data-page] {
     flex: 0 0 auto;
-    padding: 5px 10px;   /* 略小，更紧凑 */
+    padding: 6px 10px;
     background: #374151;
     border-radius: 6px;
     font-size: 13px;
+    text-align: center;
     white-space: nowrap;
     transition: all 0.25s ease;
   }
 
-  /* 👉 JS 会加 active */
+  /* 当前激活状态 */
   .sidebar div[data-page].active {
     background: #7f00ff;
     color: #fff;
   }
 
-  /* ===== Timeline ===== */
-  #global-timeline {
-    left: 0;
-    top: 50px;
-    height: 36px;
-    font-size: 12px;
-    padding: 0 10px;
-    gap: 15px;
-  }
-
-  /* ===== 主内容 ===== */
+  /* ===== 主内容区域 ===== */
   .main {
-    width: 100%;
-    padding: 10px;
-    border-right: none;
-    padding-top: 50px; /* 避开 timeline */
+    flex: 1;                  /* 占据剩余空间 */
+    padding: 12px;
+    overflow-y: auto;         /* 内容纵向滚动 */
+    position: relative;       /* 让内部绝对元素基于 main 定位 */
   }
 
   /* 隐藏 detail（由 JS 控制） */
@@ -503,7 +495,7 @@ body {
   /* ===== 表格 ===== */
   table {
     font-size: 12px;
-    min-width: 600px; /* 👉 保证横向滚动 */
+    min-width: 500px;         /* 保证横向滚动 */
   }
 
   /* ===== 微信弹窗 ===== */
@@ -520,52 +512,9 @@ body {
     bottom: 10px;
   }
 
-  /* ===== Demo 提示 ===== */
-  .demo-footer {
-    display: none; /* 手机隐藏 */
-  } 
-
-  #demo-button {
-    bottom: 120px;   
-    right: 15px;     
-    padding: 12px 18px; 
-    font-size: 16px;    
-  } 
-
-  /* Tip / 演示解说文字 */
-  .demo-tip {
-    bottom: 180px;  
-    left: 10px;
-    right: 10px;
-    max-width: calc(100% - 20px);
-    font-size: 14px;
-    position: fixed; 
-    z-index: 1500;
-  } 
-
-  /* ===== 手机端 Demo 按钮：左侧固定 ===== */
-  .demo-section #demo-button {
-    position: fixed;
-    top: 60px;          /* 顶部横滑菜单下方 */
-    left: 10px;         
-    z-index: 1200;
-    padding: 12px 18px;
-    font-size: 16px;
-    background: linear-gradient(135deg, #7f00ff, #d93fff);
-    color: #fff;
-    border-radius: 12px; /* 圆角更高级感 */
-    border: none;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    transition: all 0.3s ease;
-  }
-
-  .demo-section #demo-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.35);
-  }
-
 
 }  
+
 </style> 
 </head> 
 
@@ -2512,5 +2461,6 @@ wechatPopup.querySelector('#copy-wechat-btn').onclick = () => {
 
 </body>  
  
+
 
 </html>            

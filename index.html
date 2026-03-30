@@ -409,7 +409,7 @@ body {
   word-break: break-word;      /* 换行处理 */
 } 
 
-/* ================== 📱 Mobile Final (重构纵向左栏版) ================== */
+/* ================== 📱 Mobile Final (左栏质感优化完整版) ================== */
 @media (max-width: 768px) {
 
   /* ===== 整体布局：左栏 + 主内容并排 ===== */
@@ -422,18 +422,19 @@ body {
 
   /* ===== Sidebar → 左侧窄列导航 ===== */
   .sidebar {
-    width: 70px;               /* 左栏窄 */
+    width: 100px;                  /* 略宽，让菜单舒展 */
     display: flex;
-    flex-direction: column;    /* 纵向排列菜单按钮 */
-    gap: 8px;
-    padding: 10px 5px;
+    flex-direction: column;        /* 纵向排列菜单按钮 */
+    gap: 10px;                     /* 按钮间距稍大 */
+    padding: 16px 12px;            /* 内边距类似 PC 端 */
     background: #1f2937;
     position: sticky;
     top: 0;
     left: 0;
     height: 100vh;
     z-index: 1000;
-    overflow-y: auto;          /* 超出纵向滚动 */
+    overflow-y: auto;              /* 超出纵向滚动 */
+    box-shadow: 2px 0 6px rgba(0,0,0,0.2); /* 轻微阴影增加层次 */
   }
 
   /* 隐藏标题 */
@@ -444,35 +445,58 @@ body {
   /* 菜单按钮 */
   .sidebar div[data-page] {
     flex: 0 0 auto;
-    padding: 6px 10px;
+    padding: 10px 12px;            /* 内边距更舒适 */
     background: #374151;
-    border-radius: 6px;
+    border-radius: 8px;             /* 圆角更柔和 */
     font-size: 13px;
+    color: #e5e7eb;                 /* 更明亮文字 */
     text-align: center;
     white-space: nowrap;
     transition: all 0.25s ease;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15); /* 浮起感 */
   }
 
-  /* 当前激活状态 */
+  /* 菜单 hover / active 效果 */
+  .sidebar div[data-page]:hover {
+    background: #4b5563;           /* PC hover 色 */
+    transform: translateX(4px);    /* 微右移，增加层次感 */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+
   .sidebar div[data-page].active {
-    background: #7f00ff;
+    background: #7f00ff;           /* 保持紫色高亮 */
     color: #fff;
+    transform: translateX(0);      /* 激活不偏移 */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  }
+
+  /* 图标 + 文字上下排列 */
+  .sidebar div[data-page] span.icon {
+    display: block;
+    margin-bottom: 4px;
+    text-align: center;
+  }
+  .sidebar div[data-page] span.text {
+    display: block;
+    text-align: center;
   }
 
   /* ===== 主内容区域 ===== */
-  .main {
+  .main { 
+    margin-left: 100px;  /* 与 sidebar 宽度一致 */
     flex: 1;                  /* 占据剩余空间 */
-     padding: 50px 12px 12px 12px; /* 上 50px，下 12px，左右 12px */ 
+    padding: 50px 12px 12px 12px; /* 上 50px，下 12px，左右 12px */ 
     overflow-x: auto;         /* 👉 允许横向滚动 */
     overflow-y: auto;         /* 纵向滚动 */
     position: relative;       /* 让内部绝对元素基于 main 定位 */
   }
 
   /* ===== Timeline 上边栏对齐左栏 ===== */
-   #global-timeline {
+  #global-timeline {
     position: fixed;       /* 固定顶部 */
     top: 0;
-    left: 70px;            /* 左栏宽度 */
+    left: 100px;         /* 与 sidebar 宽度一致 */ 
     right: 0;
     height: 36px;
     background: #1f2937;
@@ -528,9 +552,9 @@ body {
   /* ===== Mini Profile ===== */
   #mini-profile {
     width: 80% !important;      /* 原来 90%，稍微缩小 */
-    right: 7.5%;            /* 右边距适中 */
+    right: 7.5%;                /* 右边距适中 */
     bottom: 10px;
-} 
+  } 
 
   /* ===== Demo 提示隐藏 ===== */
   .demo-footer {
@@ -543,7 +567,7 @@ body {
     bottom: 150px;          /* 距离底部 150px，上移一些 */ 
     left: 80px;            /* 避开左栏 */ 
     right: 10px;           /* 保持右边边距 */ 
-    max-width: calc(100% - 90px);
+    max-width: calc(100% - 100px);
     font-size: 14px;
     z-index: 1500;
     background: rgba(0,0,0,0.6);  /* 可选，半透明背景更醒目 */ 
@@ -552,7 +576,7 @@ body {
     border-radius: 6px;           /* 圆角 */
   } 
 
-    #demo-button {
+  #demo-button {
     display: flex;              /* flex 容器 */
     flex-direction: column;     /* 垂直排列 */
     align-items: center;        /* 水平居中 */
@@ -562,16 +586,12 @@ body {
     line-height: 1.4;           /* 行间距 */
     padding: 12px 18px;         /* 手指触控舒适 */
     font-size: 16px;            /* 手机端字体 */
-  }
-
-  /* 让文字强制拆行：用 br 或 CSS 控制 */
-  #demo-button {
     word-break: break-word;     /* 允许单词断行 */
-  } 
-
-}  
+  }
+}
 
 </style> 
+
 </head> 
 
 <body>  
@@ -2516,4 +2536,4 @@ wechatPopup.querySelector('#copy-wechat-btn').onclick = () => {
 
 </body>   
 
-</html>             
+</html>              

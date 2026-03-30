@@ -483,21 +483,21 @@ body {
   }
 
   /* ===== 主内容区域 ===== */
-  .main { 
-    margin-left: 10px;  
-    flex: 1;                  /* 占据剩余空间 */
-    padding: 50px 20px 12px 12px; /* 上 50px，下 12px，右边缓冲 */
-    overflow-x: auto;         /* 👉 允许横向滚动 */
-    overflow-y: auto;         /* 纵向滚动 */
-    position: relative;       /* 让内部绝对元素基于 main 定位 */
-  }
+.main { 
+    margin-left: 90px;                 /* 与 sidebar 宽度一致 */
+    flex: 1;                            /* 占据剩余空间 */
+    padding: 50px 12px 12px 12px;      /* 上 50px，下 12px，左右 12px */
+    overflow-x: auto;                   /* 横向滚动（必要时） */
+    overflow-y: auto;                   /* 纵向滚动 */
+    position: relative;                 /* 内部绝对元素基于 main 定位 */
+}
 
   /* ===== Timeline 上边栏对齐左栏 ===== */
   #global-timeline {
-    position: fixed;       /* 固定顶部 */
+    position: fixed;        /* 固定顶部 */
     top: 0;
-    left: 100px;           /* 与 sidebar 宽度一致 */ 
-    right: 10px;           /* 右边缓冲 */
+    left: 90px;             /* 与 sidebar 宽度一致 */
+    right: 0;               /* 右边紧贴屏幕，不撑出滚动条 */
     height: 36px;
     background: #1f2937;
     color: #fff;
@@ -507,9 +507,9 @@ body {
     gap: 15px;
     font-size: 12px;
     z-index: 900;
-    overflow-x: auto;      /* 横向滚动 */
-    overflow-y: hidden;    /* 纵向隐藏 */
-  }
+    overflow-x: auto;       /* 横向滚动 */
+    overflow-y: hidden;     /* 纵向隐藏 */
+}
 
   /* ===== 隐藏 detail（由 JS 控制） ===== */
   .detail {
@@ -562,20 +562,19 @@ body {
   }
 
   /* Tip / 演示解说文字 */
-.demo-tip {
-    position: fixed;
-    bottom: 150px;
-    left: 150px !important;     /* 整体右移，避开左栏 */
-    right: 20px;                 /* 保持右边间距 */
-    max-width: calc(100% - 120px);
+  .demo-tip {
+    position: fixed;        /* 固定在屏幕 */
+    bottom: 300px;          /* 距离底部 300px */ 
+    left: 100px;            /* 避开左栏 + 缓冲 */
+    right: 10px;            /* 保持右边间距 */
+    max-width: calc(100% - 110px); /* 总宽度减去左栏宽度 + 缓冲 */
     font-size: 14px;
     z-index: 1500;
     background: rgba(0,0,0,0.6);
     color: #fff;
     padding: 6px 10px;
-    border-radius: 6px; 
-  } 
-
+    border-radius: 6px;
+}
   #demo-button {
     display: flex;              
     flex-direction: column;     
@@ -2531,6 +2530,7 @@ wechatPopup.querySelector('#copy-wechat-btn').onclick = () => {
   });
 
 })(); 
+
 
 </script>  
 

@@ -519,14 +519,16 @@ body {
   .demo-footer { display: none; } 
 
   /* ===== demo-tip 完全对齐 sidebar + main padding ===== */
-  .demo-tip {
+ .demo-tip {
     position: fixed;
-
-    bottom: 30vh; 
-    left: calc(90px + 12px + 4px + 20px); /* 在原来基础上右移20px */
+    bottom: 10vh;
+    left: calc(90px + 12px + 4px + 20px); /* 整体右移20px */
     right: 10px;
-    max-width: calc(100% - 90px - 12px - 4px - 20px - 10px); /* 左右总宽减去额外偏移 */
+    max-width: calc(100% - 90px - 12px - 4px - 20px - 10px);
     box-sizing: border-box;
+
+    padding-left: 12px;   /* 内部文字距离左边框有间隙 */
+    padding-right: 12px;  /* 可选，避免靠右太紧 */
 } 
 
   #demo-button { 
@@ -2528,8 +2530,6 @@ wechatPopup.querySelector('#copy-wechat-btn').onclick = () => {
 })(); 
 
 </script>  
-
-
 </body>   
 
 

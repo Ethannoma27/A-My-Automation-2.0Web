@@ -516,20 +516,21 @@ body {
   table { font-size: 12px; min-width: 600px; }
   #wechat-popup { width: 95% !important; height: 80% !important; border-radius: 12px; }
   #mini-profile { width: 80% !important; right: 7.5%; bottom: 10px; }
-  .demo-footer { display: none; }
+  .demo-footer { display: none; } 
+
   .demo-tip {
-    position: fixed;
-    bottom: 300px!important;
-    left: 150px!important;
-    right: 10px;
-    max-width: calc(100% - 110px);
-    font-size: 14px;
-    z-index: 1500;
-    background: rgba(0,0,0,0.6);
-    color: #fff;
-    padding: 6px 10px;
-    border-radius: 6px;
-  }
+  position: fixed;
+  bottom: 300px !important;
+  left: calc(90px + 12px) !important;  /* 左栏宽度 90px + 12px 缓冲 */
+  right: 10px;
+  max-width: calc(100% - 90px - 22px);  /* 总宽度减去左栏 + 左右间距 */
+  font-size: 14px;
+  z-index: 1500;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
   #demo-button {
     display: flex;
     flex-direction: column;
@@ -2491,7 +2492,6 @@ wechatPopup.querySelector('#copy-wechat-btn').onclick = () => {
 </script>  
 
 </body>   
-
 
 
 

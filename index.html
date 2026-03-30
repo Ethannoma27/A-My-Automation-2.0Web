@@ -419,18 +419,21 @@ body {
     overflow-x: hidden;
   }
 
-  /* ===== Sidebar → 顶部横滑导航 ===== */
-  .sidebar {
-    width: 100%;
+/* ===== Sidebar → 左侧窄列导航 ===== */
+.sidebar {
+    width: auto;              /* 不占满全宽 */
     display: flex;
-    overflow-x: auto;
-    gap: 6px;           /* 略窄一些 */
-    padding: 8px;        /* 较小 padding，轻盈感 */
+    flex-direction: column;   /* 纵向排列菜单按钮 */
+    gap: 8px;
+    padding: 8px 6px;         /* 左右轻微内边距 */
     background: #1f2937;
     position: sticky;
     top: 0;
+    left: 0;                  /* 靠左 */
     z-index: 1000;
-  }
+    max-width: 80px;          /* 左栏窄一些，保留空间给 Demo 按钮 */
+    overflow-y: auto;         /* 超出纵向滚动 */
+}
 
   /* 隐藏标题 */
   .sidebar h2 {
@@ -2507,6 +2510,7 @@ wechatPopup.querySelector('#copy-wechat-btn').onclick = () => {
 
 </script>  
 
-</body>   
+</body>  
+ 
 
 </html>            

@@ -484,13 +484,13 @@ body {
 
   /* ===== 主内容区域 ===== */
 .main { 
-    margin-left: 90px;                 /* 与 sidebar 宽度一致 */
+    margin-left: 70px;                 /* 比 sidebar 宽度略小，内容靠左 */
     flex: 1;                            /* 占据剩余空间 */
     padding: 50px 12px 12px 12px;      /* 上 50px，下 12px，左右 12px */
     overflow-x: auto;                   /* 横向滚动（必要时） */
     overflow-y: auto;                   /* 纵向滚动 */
     position: relative;                 /* 内部绝对元素基于 main 定位 */
-}
+} 
 
   /* ===== Timeline 上边栏对齐左栏 ===== */
   #global-timeline {
@@ -564,8 +564,8 @@ body {
   /* Tip / 演示解说文字 */
   .demo-tip {
     position: fixed;        /* 固定在屏幕 */
-    bottom: 300px;          /* 距离底部 300px */ 
-    left: 100px;            /* 避开左栏 + 缓冲 */
+    bottom: 300px!important;          /* 距离底部 300px */ 
+    left: 150px!important;            /* 避开左栏 + 缓冲 */
     right: 10px;            /* 保持右边间距 */
     max-width: calc(100% - 110px); /* 总宽度减去左栏宽度 + 缓冲 */
     font-size: 14px;

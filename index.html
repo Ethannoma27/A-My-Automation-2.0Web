@@ -292,7 +292,6 @@ body {
   cursor: pointer;
 }
 
-
 /* 容器 */
 .custom-select {
   position: relative;
@@ -379,6 +378,36 @@ body {
   font-family: "Arial", sans-serif;
 } 
 
+/* ================== 轻盈空灵列表（保留原字体） ================== */
+
+/* 每条信息容器 */
+.customer-list-item {
+  display: flex;               /* 图标+文字横向排列 */
+  align-items: flex-start;     /* 图标顶部对齐文字 */
+  gap: 10px;                   /* 图标与文字间距 */
+  margin: 16px 0;              /* 上下呼吸空间 */
+  padding: 4px 0;              /* 内部轻微空隙 */
+  border-radius: 8px;          /* 圆角柔和 */
+  background: transparent;     /* 纯轻盈，无背景 */
+  font-family: inherit;        /* 保留原字体 */
+  font-size: inherit;          /* 保留原字号 */
+  line-height: 1.6;            /* 行高舒适 */
+}
+
+/* 图标部分 */
+.customer-list-item span.icon {
+  width: 22px;                 /* 固定宽度，不干扰文字 */
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 文字部分 */
+.customer-list-item span.text {
+  flex: 1;                     /* 文字自然延伸 */
+  word-break: break-word;      /* 换行处理 */
+}
 
 </style> 
 </head> 
@@ -420,6 +449,7 @@ body {
     <button id="wechat-send" style="padding:8px 12px; background:#07C160; color:white; border:none; border-radius:5px; cursor:pointer;">发送</button>
   </div>
 </div> 
+
 
 
 <!-- 左侧栏（升级版：增长漏斗结构 + 对齐真实系统） -->
@@ -472,15 +502,11 @@ body {
 </div> 
 
 
-
 <script> 
-
-
 
 // ================== 页面数据（动态全链路演示版） ==================  
 
 // ================== 🎬 1️⃣ 客户导入（Inbox） ==================   
-
 
 const pages = {
   inbox: {
@@ -537,7 +563,10 @@ const pages = {
       <h3>Pipeline（客户流转）</h3>
       <div class="customer" data-cid="C001"><strong>ABC Import Ltd</strong><br/>🟢 engaged · score 72</div>
       <div class="customer" data-cid="C002"><strong>Global Trade GmbH</strong><br/>🟡 new · score 40</div>
-      <div>🟣 客户池集中管理 → 自动触发下一步跟进动作</div>
+  <div class="customer-list-item">
+    <span class="icon">🟣</span>
+    <span class="text">客户池集中管理 → 自动触发下一步跟进动作</span>
+  </div> 
     `,
     detail: `
       <h2>客户档案</h2>
@@ -556,7 +585,10 @@ const pages = {
       <div class="customer">🟢 打开邮件</div>
       <div class="customer">🔵 点击产品链接</div>
       <div class="customer">🟣 回复邮件</div>
-      <div>🟡 系统自动捕捉客户行为，形成可分析事件</div>
+   <div class="customer-list-item">
+  <span class="icon">🟡</span>
+  <span class="text">系统自动捕捉客户行为，形成可分析事件</span>
+</div> 
     `,
     detail: `
       <h2>事件记录</h2>
@@ -579,8 +611,12 @@ const pages = {
         <div class="node">状态 → engaged</div>
         <div class="connector"></div>
         <div class="node highlight">3天后发送跟进</div> 
-      </div>
-      <div>🟡 事件驱动触发，无需人工经验判断</div>
+      </div> 
+
+  <div class="customer-list-item">
+     <span class="icon">🟡</span>
+     <span class="text">事件驱动触发，无需人工经验判断</span>
+  </div> 
     `,
     detail: `
       <h2>自动化规则</h2>
@@ -597,7 +633,10 @@ const pages = {
       <h3>Actions（触达执行）</h3>
       <div class="customer">📧 Email（Resend）</div>
       <div class="customer">💬 WhatsApp</div>
-      <div>🟡 自动触发，无需人工逐条操作</div>
+   <div class="customer-list-item">
+    <span class="icon">🟡</span>
+    <span class="text">自动触发，无需人工逐条操作</span>
+   </div>
     `,
     detail: `
       <h2>触达执行</h2>
@@ -605,12 +644,10 @@ const pages = {
       <div class="section">发送记录写回数据库，便于追踪</div>
       <div class="section">提升团队效率，减少客户遗漏</div>
     `
-  },
-
+  }, 
 
 
   // ================== 6️⃣ 发票面板（ PI CI ） ==================
-
 
 deals: { 
   
@@ -707,7 +744,10 @@ deals: {
       <h3>Analytics（分析）</h3>
       <div class="customer">转化率：12.4%</div>
       <div class="customer">跟进覆盖率：92%</div>
-      <div>🟡 全流程数据可追踪，支持持续优化自动化策略</div>
+   <div class="customer-list-item">
+    <span class="icon">🟡</span>
+    <span class="text">全流程数据可追踪，支持持续优化自动化策略</span>
+   </div>
     `,
     detail: `
       <h2>数据分析</h2>
@@ -999,8 +1039,6 @@ for (let p of demoProducts) {
   document.getElementById('invoice-total').textContent = totalSum.toFixed(2);
 }
 
-
-
 // 动态生成自定义下拉
 function renderCustomerSelect() {
   const select = document.getElementById('select-customer');
@@ -1071,7 +1109,6 @@ function bindInvoiceEvents() {
 function initDealsPage(){
   bindInvoiceEvents(); 
    
-
 } 
 
 // loadPage 中调用 initDealsPage() 时即可 
@@ -1090,22 +1127,20 @@ function loadPage(page){
   if(page === 'deals') initDealsPage();
 } 
 
-// ===== 24小时弹窗逻辑 =====
+// ================== 弹窗配置 ==================
 const PROFILE_KEY = 'demoMiniProfileLastClosed';
-const HOURS_24 = 24 * 60 * 60 * 1000;
-
+const DAYS_7 = 7 * 24 * 60 * 60 * 1000; // 7天毫秒数
 const miniProfile = document.getElementById('mini-profile');
 
-// 初始化 HTML
+// ================== 初始化 HTML ==================
 miniProfile.innerHTML = `
   <h3 style="margin-top:0; color:#7f00ff;">🚀 简要背书</h3>
 
-<ul class="mini-summary" style="font-size:14px; padding-left:18px; margin:6px 0; line-height:1.8;">
-  <li>2018年个人单笔订单：<strong>百万级</strong></li>  
-  <li>2021年团队销售额：<strong>1500万+</strong></li> 
-  <li>2026年团队效率提升：<strong>200%+</strong></li>  
-  
-</ul> 
+  <ul class="mini-summary" style="font-size:14px; padding-left:18px; margin:6px 0; line-height:1.8;">
+    <li>2018年个人单笔订单：<strong>百万级</strong></li>  
+    <li>2021年团队销售额：<strong>1500万+</strong></li> 
+    <li>2026年团队效率提升：<strong>200%+</strong></li>  
+  </ul> 
 
   <div class="mini-details" style="
     font-size:13px; 
@@ -1121,10 +1156,8 @@ miniProfile.innerHTML = `
     box-shadow:0 2px 6px rgba(0,0,0,0.05);
     line-height:1.5;
   ">
-    <!-- 标题优化 -->
     <p style="font-weight:bold; color:#7f00ff; margin-bottom:6px;">🏅 简要背书 / 详细案例</p>  
 
-    <!-- 战绩与标签 -->
     <p>外贸创业操盘者，从 0 → 1500万</p>  
     <div style="margin-bottom:6px;">
       <span style="margin-right:4px; background:#eee; padding:2px 6px; border-radius:4px; font-size:12px;">外贸实战</span>
@@ -1132,7 +1165,6 @@ miniProfile.innerHTML = `
       <span style="margin-right:4px; background:#eee; padding:2px 6px; border-radius:4px; font-size:12px;">系统搭建</span>
     </div>
 
-    <!-- 真实经历 -->
     <p>📈 真实经历：</p>
     <ul style="padding-left:18px;">
       <li>2012.7：创维校招会5轮面试过程被选拔到研发部（600人 → 录取6人）</li> 
@@ -1145,20 +1177,16 @@ miniProfile.innerHTML = `
       <li>2021.9：扩大经营（阿里国际站 1四星金品店 1普通店）</li> 
       <li>2021.10：在深圳龙华大区阿里圈战54家企业PK，当月企业业绩178万，并荣获冠军军团长荣誉</li> 
       <li>2021.12：含仓库团队共7人，场地400平，年销售额 1500万</li> 
-
-
-      <li>2022.3：创业4年半，团队管理过度依赖负责人，精力消耗巨大，难以发挥核心价值</li> 
+      <li>2022.3：创业4年半，发现人治驱动的管理模式过度依赖负责人，精力消耗巨大，难以发挥核心价值</li> 
       <li>2022.5：主动解散传统模式团队，决定探索转型</li> 
       <li>2023.8：尝试转型直播，但发现短期红利期有限</li>  
-      <li>2024.9：开始探索技术驱动模式</li>    
+      <li>2024.9：开始探索技术驱动的模式</li>    
       <li>2024.12：正式开始协同研发数字化升级系统架构</li>  
-      <li>2026.3：自研系统测试预计2026.4月上线（历时16个月）</li>    
+      <li>2026.3：自研的系统测试预计2026.4月上线（历时16个月）</li>    
     </ul> 
 
-    <!-- 系统认知 -->
     <p>🧠 为什么做系统：</p>
     <p style="font-style:italic; color:#555;">
-
       我从工科出身到转型业务管理，但是发现人治管理模式<br/>
       成本巨大，转型数字化升级是未来企业核心   
     </p>
@@ -1169,7 +1197,6 @@ miniProfile.innerHTML = `
       <li>✔ 转化不可控 → 数据驱动</li> 
     </ul> 
 
-    <!-- 合作方式 -->
     <p>🤝 合作方式：</p>
     <p style="font-weight:bold; color:#3b82f6;">以外贸数字化升级为核心模式驱动探索合作</p> 
     <ul style="padding-left:18px;">
@@ -1202,14 +1229,16 @@ miniProfile.innerHTML = `
     font-size:16px;
     cursor:pointer;
     color:#999;
-  ">&times;</button>
+  ">&times;</button> 
+
 `;
 
+// ================== 元素引用 ==================
 const expandBtn = miniProfile.querySelector('#expand-profile');
 const detailsDiv = miniProfile.querySelector('.mini-details');
 const summary = miniProfile.querySelector('.mini-summary');
 
-// 原来的展开/收起逻辑 + 折叠简要背书
+// ================== 展开/收起逻辑 ==================
 expandBtn.addEventListener('click', () => {
   if (!detailsDiv.style.maxHeight || detailsDiv.style.maxHeight === '0px') {
     detailsDiv.style.maxHeight = '250px'; // 限制展开最大高度，可滚动
@@ -1220,9 +1249,9 @@ expandBtn.addEventListener('click', () => {
     expandBtn.textContent = '查看更多案例';
     summary.style.display = 'block'; // 收起时显示
   }
-}); 
+});
 
-// 显示弹窗
+// ================== 显示 / 隐藏弹窗 ==================
 function showMiniProfile() {
   miniProfile.style.display = 'block';
   miniProfile.style.transform = 'translateY(20px)';
@@ -1234,39 +1263,35 @@ function showMiniProfile() {
   }, 50);
 }
 
-// 隐藏弹窗
 function hideMiniProfile() {
   miniProfile.style.transform = 'translateY(20px)';
   miniProfile.style.opacity = '0';
-  // 记录关闭时间
-  localStorage.setItem(PROFILE_KEY, Date.now().toString());
+  localStorage.setItem(PROFILE_KEY, Date.now().toString()); // 更新关闭时间
   setTimeout(() => { miniProfile.style.display = 'none'; }, 400);
 }
 
 // 关闭按钮绑定
 miniProfile.querySelector('#close-profile').addEventListener('click', hideMiniProfile);
 
-// 触发弹窗（24小时内显示有效）
+// ================== 触发弹窗逻辑（7天内显示） ==================
 function triggerMiniProfile() {
   const lastClosed = localStorage.getItem(PROFILE_KEY);
   const now = Date.now();
-
-  // 如果没有关闭记录，或者距离上次关闭不到24小时，显示弹窗
-  if (!lastClosed || now - parseInt(lastClosed) <= HOURS_24) {
+  // 7天内自动弹出
+  if (!lastClosed || now - parseInt(lastClosed) <= DAYS_7) {
     showMiniProfile();
   }
 }
 
-// 使用事件委托，动态客户点击也能触发
+// ================== 页面加载延迟 + 客户点击触发 ==================
+setTimeout(triggerMiniProfile, 1000);
+
 document.getElementById('main-content').addEventListener('click', (e) => {
   const customer = e.target.closest('.customer');
   if (customer) {
     triggerMiniProfile();
   }
 });
-
-// 页面加载后延迟触发
-setTimeout(triggerMiniProfile, 1000);  
 
 // ================== 完整优化 Demo Timeline ==================
 demoBtn.addEventListener('click', async () => {
@@ -1342,6 +1367,7 @@ demoBtn.addEventListener('click', async () => {
       setTimeout(() => timeline.removeChild(first), 400);
     }
   }; 
+
 
 
   // ================== Demo 全链路演示 ================== 
@@ -1513,24 +1539,7 @@ for (let n of nodes) {
 
 
 // =========================
-// 🎬 7️⃣ 执行动作（Outreach）
-// ========================= 
-
-await showTip(
-  '系统根据客户阶段与行为自动发送 Email / WhatsApp',
-  1800
-);
-await pause(900);  
-
-await showTip(
-  '不依赖人工逐条操作，大幅降低人工成本',
-  2300
-);
-await pause(600); 
-
-
-// =========================
-// 🎬 7️⃣ 执行动作（Outreach）
+// 🎬 7️⃣ 执行动作（Outreach） 
 // =========================
 
 
@@ -1551,21 +1560,62 @@ await showTip(
   '自动化系统每人可跟进 100–200 个客户，显著减少漏单',
   2000
 );
+await pause(600);  
+
+
+// ================== 8️⃣ 执行动作（Actions / Outreach）================== 
+const actionsPage = document.querySelector('[data-page="actions"]');
+
+// 1️⃣ 点击左侧菜单切换到 Actions 页面
+await safeClick(actionsPage); // 鼠标移动 + 点击
+await pause(600);
+loadPage('actions');
+await pause(600);
+
+// 2️⃣ 定义演示用的 action（保证存在）
+const action = {
+  name: '📧 Email（Resend）',
+  el: document.querySelector('.customer') // Actions 页面第一个动作
+};
+
+// 3️⃣  鼠标移动 + 点击动画
+await safeClick(action.el);
+
+// 4️⃣ 等待短暂停顿再点击下一条
 await pause(600); 
 
 
+await showTip(
+  '系统根据客户阶段与行为自动发送 Email / WhatsApp',
+  1800
+);
+await pause(900);  
+
+await showTip(
+  '不依赖人工逐条操作，大幅降低人工成本',
+  2300
+);
+await pause(600);  
+
+// 5️⃣ 提示批量自动触发
+await showTip(
+  '自动批量触发，效率提升显著',  
+  2000 
+);
+
+await pause(600); 
 
 // =========================
-// 🎬 8️⃣ 成交闭环（Deals）
+// 🎬 9️⃣ 成交闭环（Deals）
 // =========================
 
 // 第一段解说
-await showTip('触达节奏正确时，成交自然发生', 1800);
-demoPushEventFade(`🟠 成交 $5000 → ${firstCustomer.dataset.cid}`);
+await showTip('因触达节奏稳定持续，成交率自然放大', 1800); 
+demoPushEventFade(`🟠 成交 $5000 → ${firstCustomer.dataset.cid}`); 
 await pause(900);
 
 // 第二段解说
-await showTip('系统推动从线索到成交的闭环，实现流程自动化', 2200);
+await showTip('系统推动从线索到成交的闭环，实现流程自动化', 2200); 
 await pause(500);
 
 
@@ -1588,7 +1638,7 @@ await pause(500);
 
 
 await showTip(
-  '业务员只需选择 系统已录入的客户', 
+  '业务员只需选择 已录入系统的 客户', 
   1800 
 ); 
 
@@ -1636,7 +1686,7 @@ await showTip(
 await pause(400);   
 
 // =========================
-// 🎬 9️⃣ 数据分析（Analytics）
+// 🎬 🔟 数据分析（Analytics）
 // =========================   
 
 await showTip(
@@ -1663,20 +1713,20 @@ await pause(600);
 // =========================
 
 await showTip(
-  '研究表明：中小企业主要瓶颈在于，多数企业人治管理模式', 
+  '研究表明：中小企业的主要瓶颈在于，难以摆脱人治管理模式局限',  
   2500
 );
 await pause(600); 
 
 await showTip(
-  '因认知或技术限制，难以升级为系统化管理流程',  
-  2500
+  '受制于认知、资金和技术限制，目前多数企业难以实现数字系统化升级',   
+  2500 
 );
 await pause(600); 
 
 
 await showTip(
-  '数据表明：数字化升级仍占少数企业，但引入 自动化 后',  
+  '数据表明：虽然 数字化升级仍占少数企业，但引入 自动化 后',   
   2500
 );
 await pause(600); 
@@ -1692,7 +1742,6 @@ await showTip(
   2500
 );
 await pause(600); 
-
 
 // =========================
 // 🎬 总结浮层（系统 vs 传统团队）
@@ -1793,7 +1842,6 @@ setTimeout(() => {
 }); 
 
 
-
 // 🎬 Demo 完成后调用 
 
 function switchToContactPopup() { 
@@ -1811,216 +1859,448 @@ setTimeout(() => {
 }, 50);
 
 
+// ===== 1. 清理旧组件（避免白块）===== 
 
-// ===== 插入 HTML（完整不省略）=====
-miniProfile.innerHTML = `
-  <h3 style="margin-top:0; color:#7f00ff;">🚀 合作洽谈</h3>
-  <p style="font-size:14px; color:#555;">
-    欢迎与我们沟通合作 🤝<br>
-    填写信息后即可快速联系：
-  </p>
-  <div id="contact-popup" style="margin-top:10px;">
-    <input type="text" id="user-name" placeholder="姓名（可选）" style="width:100%; padding:6px; margin-bottom:6px;">
-    <textarea id="user-message" placeholder="简单说明您的需求（可选）" style="width:100%; padding:6px; margin-bottom:6px; min-height:60px;"></textarea>
-    <button id="wechat-button" style="width:100%; padding:10px; background:#07C160; color:white; border:none; border-radius:5px; cursor:pointer; font-size:16px;">
-      📱 立即用 WeChat 联系
-    </button>
-    <div style="margin-top:10px; text-align:center; font-size:12px; color:#888;">
-      或国际客户可用：
-      <a id="whatsapp-link" href="#" target="_blank" style="color:#25D366; text-decoration:none; margin-left:5px;">WhatsApp</a>
+const old = document.getElementById('mini-profile');
+if (old) old.remove();
+
+// ===== 2. 插入 UI（挂在 body，关键）=====
+document.body.insertAdjacentHTML('beforeend', `
+  <div id="chat-launcher"></div>
+  <div id="chat-teaser">👋 Need help?</div>
+
+  <div id="chat-messenger">
+    <div class="header">
+      <div class="info">
+        <div class="avatar"></div>
+        <div>
+          <div class="name">Olivia</div>
+          <div class="status">通常几分钟内回复</div>
+        </div>
+      </div>
+      <div class="close">✕</div>
     </div>
-    <p id="status-msg" style="margin-top:6px; color:green;"></p>
+
+    <div class="body" id="chat"></div>
+
+    <div class="input">
+      <input id="user-input" placeholder="输入消息..." />
+    </div>
+
+    <div class="contact-card" id="contactCard">
+      <div class="wechat-btn" id="openBtn">
+        📱 立即用 WeChat 联系
+      </div>
+    </div> 
   </div>
 
-  <button id="close-profile" style="position:absolute; top:8px; right:8px; border:none; background:transparent; font-size:16px; cursor:pointer; color:#999;">&times;</button>
-
-  <!-- 微信弹窗 -->
-  <div id="wechat-popup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width:400px; background:white; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.25); z-index:10000;">
-    <div style="background:#7f00ff; color:white; padding:10px 15px; border-radius:10px 10px 0 0; display:flex; justify-content:space-between; align-items:center;">
-      <div>
-        <strong>客服小助手</strong>
-        <div style="font-size:12px; color:#ddd;">在线</div>
-      </div>
-      <button id="close-wechat-popup" style="background:transparent; border:none; color:white; font-size:18px; cursor:pointer;">&times;</button>
-    </div>
-
-    <div id="wechat-chat-area" style="height:300px; overflow-y:auto; padding:10px; font-size:14px;">
-      <div style="text-align:center; color:#888; margin-bottom:10px;">
-        欢迎与我们沟通合作 🤝
-      </div>
-    </div>
-
-    <div style="padding:10px; display:flex; gap:5px; background:#f5f5f5;">
-      <input id="wechat-input" placeholder="请输入您的信息..." style="flex:1; padding:8px; border-radius:5px; border:1px solid #ccc;">
-      <button id="wechat-send" style="padding:8px 12px; background:#07C160; color:white; border:none; border-radius:5px; cursor:pointer;">发送</button>
-    </div>
-  </div>
-`;
-// ===== 获取元素 =====
-const closeBtn = miniProfile.querySelector('#close-profile');
-const openBtn = miniProfile.querySelector('#wechat-button');
-const whatsappLink = miniProfile.querySelector('#whatsapp-link');
-
-const wechatPopup = miniProfile.querySelector('#wechat-popup');
-const closeWechatBtn = miniProfile.querySelector('#close-wechat-popup');
-
-// ===== 主弹窗关闭 =====
-closeBtn.onclick = () => {
-  miniProfile.style.display = 'none';
-};
-
-// ===== WhatsApp 链接 =====
-whatsappLink.href = "https://wa.me/YOUR_NUMBER";
+  <!-- 预先放置微信弹窗容器 -->
+  <div id="wechat-popup" style="display:none;"></div> 
+`); 
 
 
-// ===== 打开微信弹窗（高级感版）=====
-openBtn.onclick = () => {
-  wechatPopup.innerHTML = `
-    <style>
-      .wechat-card {
-        background: linear-gradient(135deg, #7f00ff, #e100ff);
-        border-radius: 12px;
-        width: 320px;
-        padding: 20px;
-        text-align: center;
-        position: relative;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-        color: white;
-        font-family: sans-serif;
-        overflow: hidden;
-      }
+// ===== 3. 随机头像 =====
+const avatarUrls = [
 
-      .wechat-card::after {
-        content: "";
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: linear-gradient(
-          120deg,
-          rgba(255,255,255,0) 40%,
-          rgba(255,255,255,0.25) 50%,
-          rgba(255,255,255,0) 60%
-        );
-        transform: rotate(25deg);
-        animation: shine 4s ease-in-out infinite;
-      }
 
-      @keyframes shine {
-        0% { transform: translate(-100%, -100%) rotate(25deg); }
-        60% { transform: translate(100%, 100%) rotate(25deg); }
-        100% { transform: translate(100%, 100%) rotate(25deg); }
-      }
+  'https://randomuser.me/api/portraits/women/11.jpg', 
 
-      .qr-code {
-        width: 180px;
-        height: 180px;
-        margin-bottom: 12px;
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-        animation: qr-breath 4s ease-in-out infinite;
-      }
+];
+const randomAvatar = avatarUrls[Math.floor(Math.random() * avatarUrls.length)];
 
-      @keyframes qr-breath {
-        0% {
-          transform: scale(1);
-          box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-        }
-        50% {
-          transform: scale(1.04);
-          box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-        }
-        100% {
-          transform: scale(1);
-          box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-        }
-      }
+// 设置聊天弹窗头像
+const avatarDiv = document.querySelector('.avatar');
+avatarDiv.style.backgroundImage = `url('${randomAvatar}')`;
+avatarDiv.style.backgroundSize = 'cover';
+avatarDiv.style.backgroundPosition = 'center';
 
-      .title {
-        margin-bottom: 15px;
-        font-size: 18px;
-        font-weight: bold;
-        text-shadow: 0 0 4px rgba(0,0,0,0.3);
-      }
+// 设置右下角 launcher 小圆头像
+const launcher = document.getElementById('chat-launcher');
+launcher.style.backgroundImage = `url('${randomAvatar}')`;
+launcher.style.backgroundSize = 'cover';
+launcher.style.backgroundPosition = 'center'; 
 
-      .wechat-text {
-        margin-bottom: 12px;
-        font-size: 14px;
-      }
+// ===== 3. 样式 ===== 
 
-      .copy-btn {
-        padding: 8px 16px;
-        background: #07C160;
-        color: white;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-weight: bold;
-        transition: all 0.2s;
-      }
+const style = document.createElement('style');
+style.innerHTML = `
+#chat-launcher {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: url('https://i.pravatar.cc/100') center/cover;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 9999;
+  transition: 0.3s;
+}
+#chat-launcher:hover {
+  transform: scale(1.05);
+}
 
-      .copy-btn:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      }
+#chat-teaser {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  background: #fff;
+  padding: 10px 14px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  font-size: 13px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: 0.25s;
+  z-index:9999;
+}
+#chat-teaser.show {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-      .close-btn {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        border: none;
-        background: transparent;
-        font-size: 20px;
-        cursor: pointer;
-        color: #fff;
-      }
-    </style>
+#chat-messenger {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 340px;
+  height: 440px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 25px 70px rgba(0,0,0,0.35);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 9999;
+  animation: fadeUp 0.25s ease;
+}
 
-    <div class="wechat-card">
-      <button id="close-wechat-popup" class="close-btn">&times;</button>
+.header {
+  padding: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+.info {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: url('https://i.pravatar.cc/100') center/cover;
+}
+.name { font-weight: 600; font-size: 14px; }
+.status { font-size: 12px; color: #888; }
+.close { cursor: pointer; color: #999; }
 
-      <h3 class="title">📱 添加微信</h3>
+.body {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+}
 
-      <img src="images/QRcode.jpg" alt="微信二维码" class="qr-code"/>
+.chat-msg {
+  padding: 8px 12px;
+  border-radius: 14px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  max-width: 75%;
+}
+.bot { background: #f1f1f1; }
+.me { background: #DCF8C6; margin-left: auto; }
 
-      <p class="wechat-text">
-        微信号：<strong id="wechat-id">HawinMaster</strong>
-      </p>
 
-      <button id="copy-wechat-btn" class="copy-btn">复制微信号</button>
-    </div>
-  `;
+.input {
+  padding: 10px 14px;             /* 左右增加空隙 */
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #ddd;        /* 边框凸显输入框 */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08); /* 轻微浮起感 */
+}
 
-  // 重新绑定关闭按钮
-  const closeBtnInner = wechatPopup.querySelector('#close-wechat-popup');
-  closeBtnInner.onclick = () => {
-    wechatPopup.style.display = 'none';
-  };
-
-  // 绑定复制按钮
-  const copyBtn = wechatPopup.querySelector('#copy-wechat-btn');
-  copyBtn.onclick = () => {
-    const wechatId = wechatPopup.querySelector('#wechat-id').textContent;
-    navigator.clipboard.writeText(wechatId).then(() => {
-      alert('微信号已复制✅'); 
-    }).catch(() => {
-      alert('复制失败，请手动复制微信号');
-    });
-  };
-
-  // 显示弹窗（居中+渐变背景）
-  wechatPopup.style.display = 'flex';
-  wechatPopup.style.justifyContent = 'center';
-  wechatPopup.style.alignItems = 'center';
-  wechatPopup.style.position = 'fixed';
-  wechatPopup.style.inset = '0';
-  wechatPopup.style.background = 'rgba(0,0,0,0.4)'; // 半透明蒙层
-  wechatPopup.style.zIndex = '10000';
-}; 
+.input input {
+  width: 100%;
+  height: 36px;
+  padding: 0 8px;                 /* 输入文字内部也留点空隙 */
+  border: none;
+  outline: none;
+  border-radius: 0;               /* 圆角由父容器控制 */
+  background: transparent;
+  box-sizing: border-box;
+  font-size: 14px;
 
 } 
+
+.actions {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+}
+#openBtn {
+  flex: 1;
+  background: #07C160;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px;
+  cursor: pointer;
+}
+#whatsapp-link {
+  flex: 1;
+  text-align: center;
+  line-height: 32px;
+  border-radius: 6px;
+  background: #25D366;
+  color: white;
+  text-decoration: none;
+}
+
+.typing {
+  font-size: 12px;
+  color: #999;
+} 
+
+/* CTA卡片（默认隐藏） */
+.contact-card {
+  display: none;
+  padding: 12px;
+  border-top: 1px solid #eee;
+  background: #fafafa;
+  animation: fadeUp 0.3s ease;
+}
+
+/* WeChat按钮 */
+.wechat-btn {
+  background: linear-gradient(135deg, #07C160, #05a84f);
+  color: white;
+  text-align: center;
+  padding: 11px;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.wechat-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(7,193,96,0.35);
+}
+
+/* 底部说明 */
+.alt-contact {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #888;
+  text-align: center;
+}
+
+.alt-contact a {
+  color: #25D366;
+  text-decoration: none;
+  margin-left: 4px;
+}
+
+.alt-contact a:hover {
+  text-decoration: underline;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+`;
+document.head.appendChild(style);
+
+// ===== 4. JS逻辑 =====
+const teaser = document.getElementById('chat-teaser');
+const messenger = document.getElementById('chat-messenger');
+const closeBtn = messenger.querySelector('.close');
+const chatArea = document.getElementById('chat');
+const userInput = document.getElementById('user-input');
+const whatsappLink = document.getElementById('whatsapp-link'); 
+const wechatPopup = document.getElementById('wechat-popup'); // 微信弹窗容器
+const contactCard = document.getElementById('contactCard');   // CTA卡片按钮
+
+// teaser 自动初次出现
+setTimeout(() => teaser.classList.add('show'), 3000);
+
+// 打开 messenger
+launcher.onclick = () => {
+  messenger.style.display = 'flex';
+  teaser.classList.remove('show'); // 点击头像隐藏 teaser
+};
+
+// 关闭 messenger 后 20 秒再次显示 teaser
+closeBtn.onclick = () => {
+  messenger.style.display = 'none';
+  setTimeout(() => teaser.classList.add('show'), 20000); // 20 秒后再次出现
+}; 
+
+// 聊天函数
+function addChatMsg(text, cls='bot') {
+  const div = document.createElement('div');
+  div.className = 'chat-msg ' + cls;
+  div.innerText = text;
+  chatArea.appendChild(div);
+  chatArea.scrollTop = chatArea.scrollHeight;
+}
+
+function typingMsg(text, delay=1000, cb) {
+  const div = document.createElement('div');
+  div.className='typing';
+  div.innerText='客服正在输入...'; 
+  chatArea.appendChild(div);
+
+  setTimeout(()=>{
+    div.remove();
+    addChatMsg(text);
+    if(cb) cb();
+  }, delay + Math.random()*800);
+}
+
+// 初始消息
+setTimeout(()=> typingMsg("Hi 👋 I'm Olivia"), 1200);
+setTimeout(()=> typingMsg("How can I help you today?"), 2600);
+
+// 用户输入
+userInput.addEventListener('keydown', e => {
+  if(e.key === 'Enter'){
+    const text = userInput.value.trim();
+    if(!text) return;
+
+    addChatMsg(text, 'me');
+    userInput.value='';
+
+    // 客服回复
+    typingMsg("What can I do for you?", 1000, () => {
+      typingMsg("If you want know more, please contact us via WeChat", 1000, () => {
+        typingMsg("Click below to contact us 👇", 1000, () => {
+          contactCard.style.display = 'block';  // ✅ 显示按钮
+        });
+      });
+    });
+  } 
+
+});
+
+// WhatsApp 链接
+if(whatsappLink) whatsappLink.href = "https://wa.me/YOUR_NUMBER";
+
+// 插入微信弹窗 HTML + 样式 
+
+wechatPopup.innerHTML = `
+  <style>
+/* 蒙版只包裹微信卡片，整个屏幕底层 */
+#wechat-popup {
+  background: linear-gradient(
+    135deg,
+    rgba(10, 10, 20, 0.5),
+    rgba(30, 30, 50, 0.6)
+  ); /* 深色渐变，沉稳高级 */
+  backdrop-filter: blur(12px) saturate(150%); /* 毛玻璃 + 色彩增强 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  pointer-events: auto; /* 拦截点击 */
+}
+
+.wechat-card {
+  background: linear-gradient(135deg, #7f00ff, #e100ff);
+  border-radius: 12px;
+  width: 320px;
+  padding: 20px; 
+  text-align: center;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  color: white;
+  font-family: sans-serif;
+  overflow: hidden;
+ } 
+    .wechat-card::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(120deg, rgba(255,255,255,0) 40%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0) 60%);
+      transform: rotate(25deg);
+      animation: shine 4s ease-in-out infinite;
+    }
+    @keyframes shine {
+      0% { transform: translate(-100%, -100%) rotate(25deg); }
+      60% { transform: translate(100%, 100%) rotate(25deg); }
+      100% { transform: translate(100%, 100%) rotate(25deg); }
+    }
+
+    .qr-code {
+      width: 180px;
+      height: 180px;
+      margin-bottom: 12px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      animation: qr-breath 4s ease-in-out infinite;
+    }
+    @keyframes qr-breath {
+      0% { transform: scale(1); box-shadow: 0 4px 12px rgba(0,0,0,0.25); }
+      50% { transform: scale(1.04); box-shadow: 0 8px 20px rgba(0,0,0,0.35); }
+      100% { transform: scale(1); box-shadow: 0 4px 12px rgba(0,0,0,0.25); }
+    }
+
+    .title { margin-bottom: 15px; font-size: 18px; font-weight: bold; text-shadow: 0 0 4px rgba(0,0,0,0.3); }
+    .wechat-text { margin-bottom: 12px; font-size: 14px; }
+    .copy-btn { padding: 8px 16px; background: #07C160; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: all 0.2s; }
+    .copy-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+    .close-btn { position: absolute; top: 10px; right: 10px; border: none; background: transparent; font-size: 20px; cursor: pointer; color: #fff; }
+  </style>
+
+  <!-- 蒙版只包裹卡片 -->
+  <div class="wechat-mask">
+    <div class="wechat-card">
+      <button id="close-wechat-popup" class="close-btn">&times;</button>
+      <h3 class="title">📱 添加微信</h3>
+      <img src="images/QRcode.jpg" alt="微信二维码" class="qr-code"/>
+      <p class="wechat-text">微信号：<strong id="wechat-id">HawinMaster</strong></p>
+      <button id="copy-wechat-btn" class="copy-btn">复制微信号</button>
+    </div> 
+  </div>
+`;
+
+// 点击 contactCard 显示微信弹窗
+const openBtn = document.getElementById('openBtn');
+openBtn.addEventListener('click', () => {
+  wechatPopup.style.display = 'flex';
+});
+
+// 关闭微信弹窗
+wechatPopup.querySelector('#close-wechat-popup').onclick = () => {
+  wechatPopup.style.display = 'none';
+};
+
+// 复制微信号
+wechatPopup.querySelector('#copy-wechat-btn').onclick = () => {
+  const wechatId = wechatPopup.querySelector('#wechat-id').textContent;
+  navigator.clipboard.writeText(wechatId)
+    .then(() => alert('微信号已复制 ✅'))
+    .catch(() => alert('复制失败'));
+}; 
+} 
+
+
 </script>  
 
-</body> 
-</html>        
+</body>   
+
+</html>           

@@ -104,6 +104,7 @@ body {
   color: white;
   padding: 16px 20px;
 }
+
 .sidebar h2 { font-size: 16px; margin-bottom: 20px; }
 
 /* 左侧菜单分组 */
@@ -314,9 +315,28 @@ body {
   #wechat-popup { width: auto !important; height: auto !important; max-width: 300px; padding: 5px; border-radius: 12px; background: rgba(20, 20, 30, 0.9); display: flex; justify-content: center; align-items: center; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; }
   #mini-profile { width: 80% !important; right: 7.5%; bottom: 10px; }
   .demo-footer { display: none; }
-  .show-tip { position: fixed; bottom: 10vh; left: 0; right: auto; max-width: 280px; background: #2c2c34; color: #dcdcdc; border-radius: 8px; padding: 12px 16px; font-size: 14px; line-height: 1.5; text-align: left; word-break: break-word; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); transition: opacity 0.2s ease; backdrop-filter: blur(2px); z-index: 1500; display: none; }
+ .show-tip { 
+  position: fixed; 
+  bottom: 10vh; 
+  left: 50%;        /* 居中屏幕 */
+  right: auto; 
+  transform: translateX(-50%); /* 让 tip 完全水平居中 */
+  max-width: 280px; 
+  background: #facc15;   /* 黄底 */
+  color: #000;           /* 黑字 */
+  border-radius: 8px; 
+  padding: 12px 16px; 
+  font-size: 14px; 
+  line-height: 1.5; 
+  text-align: left; 
+  word-break: break-word; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); 
+  transition: opacity 0.2s ease; 
+  backdrop-filter: blur(2px); 
+  z-index: 1500; 
+  display: none; 
 }
-
+}
 
 </style> 
 
@@ -2204,9 +2224,8 @@ wechatPopup.querySelector('#copy-wechat-btn').onclick = () => {
     .catch(() => alert('复制失败'));
 }; 
 } 
-
-
 </script>  
+
 </body>   
 
 </html>              

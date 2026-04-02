@@ -336,13 +336,16 @@ body {
   z-index: 1500; 
   display: none; 
 }
-}
+} 
+
 
 </style> 
 
 </head> 
 
 <body>  
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 
   <!-- Mini Profile 容器 -->
 
@@ -377,11 +380,12 @@ body {
   <div style="display:flex; gap:5px; padding:10px; background:#f5f5f5;">
     <input id="wechat-input" placeholder="请输入您的信息..." style="flex:1; padding:8px; border-radius:5px; border:1px solid #ccc;">
     <button id="wechat-send" style="padding:8px 12px; background:#07C160; color:white; border:none; border-radius:5px; cursor:pointer;">发送</button>
-  </div>
+  </div> 
 </div> 
 
 
-<!-- 左侧栏（升级版：增长漏斗结构 + 对齐真实系统） -->
+
+<!-- 左侧栏（升级版：增长漏斗结构 + 对齐真实系统） --> 
 <div class="sidebar">
   <h2>🚀 外贸增长引擎</h2> 
 
@@ -399,19 +403,16 @@ body {
   <div class="menu-group">订单单据</div> 
   <div data-page="deals">💰 PI CI</div> 
 
-
   <div class="menu-group">分析</div>
   <div data-page="analytics">📊 Analytics</div>
 
   <button id="demo-button">▶️ 自动演示 Demo</button> 
 
-
   <!-- 页面右下角 Demo 提示 -->
-<div class="demo-footer">系统为 Demo 版本，仅供演示</div> 
-
+  <div class="demo-footer">系统为 Demo 版本，仅供演示</div> 
 </div>  
 
-<!-- 顶部全局事件流（新增） -->
+<!-- 顶部全局事件流 -->
 <div id="global-timeline"></div>
 
 <!-- 中间 -->
@@ -427,13 +428,541 @@ body {
 <div id="virtual-mouse" class="cursor">
   <div class="arrow"></div>
   <div class="tail"></div> 
+</div>
 
+<script>  
+
+
+// ================== 🚀 发布会级高奢开场 Overlay（完整版-优化节奏版） ==================
+function createOpeningOverlay() {
+  const overlay = document.createElement('div');
+  overlay.id = 'overlay-root';
+
+  overlay.innerHTML = `
+    <!-- 第一场景 -->
+    <div class="overlay-scene" id="overlay-scene-1">
+      <span id="typewriter-container"></span><br/><br/>
+      企业的组织形式，正在发生质变
+    </div>
+
+    <!-- 第二场景（带停顿的第一行） -->
+    <div class="overlay-scene" id="overlay-scene-2">
+      <!-- 第一行：打字机 -->
+      <div class="scene-line">
+        <span id="typewriter-2"></span>
+      </div>
+      <!-- 第二行：放大文字 -->
+      <div class="scene-line">
+        <span id="highlight-2" class="overlay-highlight" style="opacity:0;">倍数级跃升</span>
+      </div>
+    </div> 
+
+  <!-- 第三场景 -->
+<div class="overlay-scene" id="overlay-scene-3">
+  <span class="overlay-keyword">ROI</span> 并不是玄学<br><br>
+
+  <!-- 每行公式单独包裹 class="formula-line" -->
+  <div class="formula-line">=（产出收益 - 投入成本）</div>
+  <div class="formula-line">/ 投入成本</div>
+  <div class="formula-line formula-line-large">= 年化收益</div> 
 </div> 
 
 
-<script> 
+<!-- 第四场景（优化版-整行弹入+保持放大效果） -->
+<div class="overlay-scene" id="overlay-scene-4">
+  <div class="scene-content">
+    <!-- line1：同样的行业，ROI 有的仅为 1x -->
+    <div class="scene-line" id="line-1">
+      同样的行业，<span class="overlay-keyword">ROI</span> 有的仅为 1x
+    </div>
+
+    <!-- line2：为什么有的跃升至 -->
+    <div class="scene-line" id="line-2">
+      为什么有的跃升至
+    </div>
+
+    <!-- line3：3x / 5x / 10x 增长？ 保留放大效果 -->
+    <div class="scene-line" id="typewriter-growth">
+      <span class="overlay-keyword">3x / 5x / 10x</span> 增长 ?
+    </div>
+
+    <!-- 打字机效果，只用于“进入系统，答案即将揭晓” -->
+    <div id="typewriter-answer" class="scene-line"></div>
+  </div>
+
+  <!-- 按钮 -->
+  <button id="overlay-demo-button">进入系统</button>
+</div> 
+  `;
+
+  document.body.appendChild(overlay);
+
+  // ================== 🎨 样式 ==================
+  const style = document.createElement('style');
+  style.innerHTML = `
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+ 
+    #overlay-root {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 99999;
+  background: radial-gradient(circle at 30% 30%, #1a1a2e, #000);
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+  animation: bgZoom 12s ease forwards;
+}
+
+.large-keyword {
+  display: inline-block;
+  animation: keyWordPulse 2s ease-in-out infinite;
+}
+
+@keyframes keyWordPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); } /* 放大幅度微调，更柔和 */
+}
+
+.formula-line {
+  opacity: 0;
+  font-size: 1.15em;  /* 微调稍小 */
+  margin: 0.5em 0;
+}
+
+.formula-line-large {
+  font-size: 1.45em;   /* 放大行，略微调小 */
+  margin-top: 1em;     /* 上方间距适中 */
+  font-weight: 700;
+}
+
+#overlay-scene-4 .scene-content {
+  display: inline-block;
+  transform: translateY(-20px); /* 上移幅度减小 */
+  transition: transform 0.5s ease;
+  gap: 0.5em;  /* 行间距 */
+  font-size: 30px;  /* 主体文字略小 */
+}
+
+/* 保留原来的背景动画 */
+@keyframes bgZoom { 0% { background-size: 100%; } 100% { background-size: 110%; } }
+
+.overlay-scene { 
+  position: absolute; 
+  opacity: 0; 
+  transform: translateY(30px) scale(0.95); 
+  transition: all 0.8s cubic-bezier(0.22,1,0.36,1); 
+  max-width: 820px; 
+  font-size: 34px; 
+  line-height: 1.5; 
+  letter-spacing: 0.5px; 
+}
+
+.overlay-scene.active { 
+  opacity: 1; 
+  transform: translateY(0) scale(1.04); 
+}
+
+.overlay-scene br { line-height: 2.2; }
+
+.overlay-keyword { 
+  display: inline-block; 
+  font-size: 2.1em; /* 微调稍小 */
+  font-weight: 700; 
+  margin: 0 6px; 
+  position: relative; 
+}
+
+.overlay-keyword-char { 
+  display: inline-block; 
+  opacity: 0; 
+  transform: translateY(10px) scale(0.9); 
+}
+
+.overlay-keyword-char.show { 
+  animation: charIn 0.6s cubic-bezier(0.22,1.4,0.36,1) forwards; 
+}
+
+@keyframes charIn { 
+  0% { opacity: 0; transform: translateY(12px) scale(0.9); } 
+  60% { opacity: 1; transform: translateY(-4px) scale(1.1); } 
+  100% { opacity: 1; transform: translateY(0) scale(1); } 
+}
+
+.overlay-keyword::after { 
+  content: ''; 
+  position: absolute; 
+  top: 0; 
+  left: -60%; 
+  width: 50%; 
+  height: 100%; 
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.8), transparent); 
+  transform: skewX(-20deg); 
+  opacity: 0; 
+}
+
+.overlay-keyword.sheen::after { 
+  animation: sheenMove 1.2s ease forwards; 
+}
+
+@keyframes sheenMove { 
+  0% { left: -60%; opacity: 0; } 
+  30% { opacity: 1; } 
+  100% { left: 120%; opacity: 0; } 
+}
+
+.overlay-keyword.breathing { 
+  animation: breathing 3s ease-in-out infinite; 
+}
+
+@keyframes breathing { 
+  0%,100% { transform: scale(1); } 
+  50% { transform: scale(1.05); } 
+}
+
+.overlay-highlight { 
+  display: inline-block; 
+  font-size: 3em; 
+  font-weight: 700; 
+  letter-spacing: 2px; 
+  margin-top: 0.1em; 
+  background: linear-gradient(90deg,#facc15,#f59e0b); 
+  -webkit-background-clip: text; 
+  -webkit-text-fill-color: transparent; 
+  transition: all 0.8s ease; 
+}
+
+.inline-number { font-size: 2.6em; }
+
+#typewriter-answer span, #typewriter-2 span { 
+  display: inline-block; 
+  opacity: 0; 
+  transform: translateY(10px); 
+  transition: 0.3s; 
+}
+
+.scene-line { 
+  margin-top: 0.4em; 
+}
+
+#highlight-2 { 
+  display: inline-block; 
+  transform: scale(1); 
+  transition: all 0.8s ease; 
+}
+
+/* 初始状态：居中 + 下移 20px */
+#overlay-demo-button {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px); /* 初始下移20px */
+  opacity: 0;
+  padding: 14px 32px;
+  background: #3b82f6;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  font-size: 18px;
+}
+
+/* 第四页文字容器，增加底部空间给按钮 */
+#overlay-scene-4 .scene-content {
+  display: inline-block;
+  transform: translateY(-20px);
+  transition: transform 0.5s ease;
+  gap: 0.5em;      /* 行间距 */
+  font-size: 30px;
+  margin-bottom: 120px; /* 为按钮留空间 */
+}
+
+/* 打字机文字容器 */
+#typewriter-answer {
+  display: block;
+  margin: 0 auto;
+  line-height: 1.8;  /* 保证行距正常 */
+  margin-bottom: 0;  /* 由 scene-content 的 margin-bottom 决定 */
+}
+
+#overlay-demo-button.show { opacity: 1; } 
+  `;
+  document.head.appendChild(style);
+
+  // ================== 🎬 场景逻辑 ==================
+  const scenes = overlay.querySelectorAll('.overlay-scene');
+  const btn = overlay.querySelector('#overlay-demo-button');
+  let index = 0;
+  const timings = [5200, 3800, 3800, 4600]; // 第一页和第四页保留原定时器，但不再影响第二三页
+
+  function showScene(i) {
+    scenes.forEach(s => s.classList.remove('active'));
+    if (scenes[i]) {
+      scenes[i].classList.add('active');
+      animateKeywordsAdvanced(scenes[i], i);
+    }
+
+// ================== 第一页 ==================
+if (i === 0) {
+  const sentence = '新质生产力 驱动的时代'; // 注意关键字后面加空格
+  const containerId = 'typewriter-container';
+  const keyWord = '新质生产力'; // 放大关键词
+  const container = document.getElementById(containerId);
+  let iChar = 0;
+
+  function typeChar() {
+    if (iChar >= sentence.length) return;
+
+    const span = document.createElement('span');
+    const char = sentence[iChar];
+
+    // 判断是否在关键字范围内
+    if (iChar < keyWord.length && sentence.slice(iChar, keyWord.length) === keyWord.slice(iChar)) {
+      span.style.fontSize = '2em'; // 调小字体，比原来的 2.6em 更协调
+      span.style.fontWeight = '700';
+      span.classList.add('large-keyword'); // 呼吸动画
+    }
+
+    span.textContent = char;
+    span.style.opacity = '0';
+    span.style.transition = '0.3s';
+    container.appendChild(span);
+
+    setTimeout(() => (span.style.opacity = '1'), 50);
+    iChar++;
+    setTimeout(typeChar, 180);
+  }
+
+  typeChar();
+
+  // 页面切换保持原定时间
+  setTimeout(nextScene, timings[0]);
+}
+
+    // ================== 第二页 ==================
+    if (i === 1) {
+      const highlight = document.getElementById('highlight-2');
+      highlight.style.opacity = 0;
+      highlight.style.transform = 'scale(1)';
+
+      const typewriterContainer = 'typewriter-2';
+      const part1 = '与此同时';          
+      const part2 = '\u00A0数字化升级企业\u00A0ROI 正在';  
+
+      startTypewriterSlow(part1, typewriterContainer, 180, () => {
+        setTimeout(() => {
+          startTypewriterSlow(part2, typewriterContainer, 180, () => {
+            highlight.style.transition = 'opacity 1s ease, transform 1s ease';
+            highlight.style.opacity = 1;
+            highlight.style.transform = 'scale(1.3)';
+
+            // 第二页停顿 1.5 秒后切换第三页
+            setTimeout(nextScene, 1500); 
+          });
+        }, 500);
+      });
+    }
+
+// ================== 第三页 ==================
+if (i === 2) {
+  const scene = scenes[i];
+  const keyword = scene.querySelector('.overlay-keyword');
+  const formulaLines = scene.querySelectorAll('.formula-line');
+
+  // 1️⃣ ROI 关键词先出现 + 呼吸动画
+  keyword.style.opacity = 0;
+  keyword.style.transform = 'translateY(20px)';
+  setTimeout(() => {
+    keyword.style.transition = 'all 0.8s ease';
+    keyword.style.opacity = 1;
+    keyword.style.transform = 'translateY(0)';
+    keyword.classList.add('breathing');
+  }, 400); // 提前出现，视觉更自然
+
+  // 2️⃣ 每行公式依次弹入
+  formulaLines.forEach((line, idx) => {
+    line.style.opacity = 0;
+    line.style.transform = 'translateY(20px)';
+    setTimeout(() => {
+      line.style.transition = 'all 0.8s ease';
+      line.style.opacity = 1;
+      line.style.transform = 'translateY(0)';
+    }, 1000 + idx * 600); // 每行间隔 600ms
+  });
+
+  // 3️⃣ 总体停顿后切换第四页
+  const totalDelay = 1000 + formulaLines.length * 600 + 800; // ROI + 公式弹完 + 小停顿
+  setTimeout(nextScene, totalDelay);
+} 
+
+// ================== 第四页动画（优化按钮位置） ==================
+if (i === 3) {
+  const scene = scenes[i];
+  const btn = document.getElementById('overlay-demo-button');
+
+  // 文字整体下移动画（按钮不动）
+  const content = scene.querySelector('.scene-content');
+  content.style.position = 'relative';
+  content.style.transform = 'translateY(40px)'; // 初始下移
+  content.style.transition = 'transform 0.8s ease';
+  setTimeout(() => {
+    content.style.transform = 'translateY(0)'; // 上移到目标位置
+  }, 200);
+
+  // line1 & line2 逐行弹入
+  const line1 = document.getElementById('line-1');
+  const line2 = document.getElementById('line-2');
+  [line1, line2].forEach((line, idx) => {
+    line.style.opacity = 0;
+    line.style.transform = 'translateY(20px)';
+    setTimeout(() => {
+      line.style.transition = 'all 0.8s ease';
+      line.style.opacity = 1;
+      line.style.transform = 'translateY(0)';
+    }, idx * 500);
+  });
+
+  // line3：3x / 5x / 10x 数字逐字显示
+  const growthContainer = document.getElementById('typewriter-growth');
+  const growthText = "3x / 5x / 10x";
+  const growthSpan = growthContainer.querySelector('.overlay-keyword');
+  growthSpan.textContent = "";
+
+  setTimeout(() => {
+    let idx = 0;
+    function typeGrowth() {
+      if (idx >= growthText.length) {
+        // 数字显示完成后添加呼吸动画
+        growthSpan.classList.add('breathing');
+
+        // line4：打字机效果显示答案，按钮保持在下方
+        setTimeout(() => {
+          startTypewriterSlow('进入系统，答案即将揭晓', 'typewriter-answer', 140, () => {
+            btn.classList.add('show'); // 按钮显示
+          });
+        }, 500);
+        return;
+      }
+      const span = document.createElement('span');
+      span.textContent = growthText[idx];
+      span.style.opacity = '0';
+      span.style.transition = '0.3s';
+      growthSpan.appendChild(span);
+      setTimeout(() => (span.style.opacity = '1'), 50);
+      idx++;
+      setTimeout(typeGrowth, 120);
+    }
+    typeGrowth();
+  }, 1000);
+
+  // ✅ 为 line3 & line4 留出按钮空间，防止重叠
+  content.style.marginBottom = '120px';
+} 
+
+  } 
+
+  // ================== 切换下一页 ==================
+  function nextScene() {
+    index++;
+    if (index < scenes.length) {
+      showScene(index);
+    } else {
+      const scene4 = document.getElementById('overlay-scene-4');
+      if (scene4) scene4.classList.add('active');
+      setTimeout(() => btn.classList.add('show'), 1200);
+    }
+  }
+
+  // ================== 初始化第一页 ==================
+  showScene(0);
+
+  // ================== 打字机函数 ==================
+  function startTypewriterSlow(sentence, containerId, speed = 180, callback) {
+    const container = document.getElementById(containerId);
+    let i = 0;
+
+    function type() {
+      if (i >= sentence.length) {
+        if (callback) callback();
+        return;
+      }
+      const span = document.createElement('span');
+      span.textContent = sentence[i];
+      span.style.opacity = '0';
+      span.style.transition = '0.3s';
+      container.appendChild(span);
+      setTimeout(() => (span.style.opacity = '1'), 50);
+      i++;
+      setTimeout(type, speed);
+    }
+
+    type();
+  }
+
+  // ================== 关键词动画 ==================
+  function animateKeywordsAdvanced(scene, sceneIndex) {
+    const keywords = scene.querySelectorAll('.overlay-keyword');
+    keywords.forEach((el) => {
+      const text = el.textContent;
+      el.innerHTML = '';
+
+      if (sceneIndex === 1) {
+        text.split('').forEach((char, i) => {
+          const span = document.createElement('span');
+          span.textContent = char;
+          span.className = 'overlay-keyword-char';
+          el.appendChild(span);
+          setTimeout(() => span.classList.add('show'), i * 80);
+        });
+        setTimeout(() => el.classList.add('sheen'), text.length * 80 + 200);
+        setTimeout(() => el.classList.add('breathing'), text.length * 80 + 800);
+      } else if (sceneIndex === 2) {
+        el.textContent = text;
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(10px)';
+        setTimeout(() => {
+          el.style.transition = 'all 1s ease'; // 原 0.8s → 1s
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        }, 400); // 延迟 400ms
+        setTimeout(() => el.classList.add('breathing'), 1200);
+      } else if (sceneIndex === 3) {
+        text.split('').forEach((char, i) => {
+          const span = document.createElement('span');
+          span.textContent = char;
+          span.style.display = 'inline-block';
+          span.style.opacity = '0';
+          span.style.transform = 'scale(0.6)';
+          el.appendChild(span);
+          setTimeout(() => {
+            span.style.transition = 'all 0.4s cubic-bezier(0.22,1.4,0.36,1)';
+            span.style.opacity = '1';
+            span.style.transform = 'scale(1.2)';
+          }, i * 60);
+          setTimeout(() => {
+            span.style.transform = 'scale(1)';
+          }, i * 60 + 300);
+        });
+        setTimeout(() => {
+          el.style.animation = 'breathing 1.8s ease-in-out infinite';
+        }, text.length * 60 + 400);
+      }
+    });
+  }
+
+  // ================== 按钮点击事件 ==================
+  btn.addEventListener('click', () => {
+    overlay.style.display = 'none';
+    if (typeof startDemo === 'function') startDemo();
+  });
+} 
 
 // ================== 页面数据（动态全链路演示版） ==================  
+
 
 // ================== 🎬 1️⃣ 客户导入（Inbox） ==================   
 
@@ -687,7 +1216,8 @@ deals: {
     `
   }
 
-};
+}; 
+
 
 // ================== DOM ==================
 const mainEl = document.getElementById('main-content');
@@ -725,6 +1255,7 @@ sidebarItems.forEach(item=>{
 // 初始加载页面
 loadPage('pipeline');   
 
+
 // ================== 全局事件 Timeline ==================
 const timelineEvents = [
   "🟢 John 打开邮件",
@@ -738,27 +1269,19 @@ let lastEventIndex = -1;
 function pushEvent(){
   const timeline = document.getElementById("global-timeline");
   if(!timeline) return;
-
   let index;
-  do{
-    index = Math.floor(Math.random()*timelineEvents.length);
-  }while(index===lastEventIndex && timelineEvents.length>1);
-
+  do { index = Math.floor(Math.random()*timelineEvents.length); } while(index===lastEventIndex && timelineEvents.length>1);
   lastEventIndex = index;
-
   const el = document.createElement("div");
   el.className="event";
   el.textContent = timelineEvents[index];
   timeline.appendChild(el);
-
   if(timeline.children.length>5) timeline.removeChild(timeline.firstChild);
-
-  const nextInterval = 1500 + Math.random()*1500;
-  setTimeout(pushEvent, nextInterval);
+  setTimeout(pushEvent, 1500 + Math.random()*1500);
 }
 
 // 启动全局 Timeline
-setTimeout(pushEvent, 1000);   
+setTimeout(pushEvent, 1000);
 
 // ================== Demo Timeline ==================
 function demoPushEvent(msg){
@@ -795,6 +1318,12 @@ function demoPushEventFade(msg) {
     setTimeout(() => timeline.removeChild(first), 400);
   }
 }
+
+
+// ================== 页面加载初始化 ==================
+window.addEventListener('DOMContentLoaded', ()=>{
+  createOpeningOverlay();
+});
 
 
 // ================== 工具函数 ==================
@@ -836,6 +1365,9 @@ async function safeClick(el) {
   await sleep(150);
   el.style.transform = '';
   await sleep(150);
+
+
+
 }
 
 
@@ -1067,7 +1599,7 @@ miniProfile.innerHTML = `
   <ul class="mini-summary" style="font-size:14px; padding-left:18px; margin:6px 0; line-height:1.8;">
     <li>2018年个人单笔订单：<strong>百万级</strong></li>  
     <li>2021年团队销售额：<strong>1500万+</strong></li> 
-    <li>2026年团队效率提升：<strong>200%+</strong></li>  
+    <li>2026年化ROI提升：<strong>300%+</strong></li>    
   </ul> 
 
   <div class="mini-details" style="
@@ -1110,29 +1642,31 @@ miniProfile.innerHTML = `
       <li>2023.8：尝试转型直播，但发现短期红利期有限</li>  
       <li>2024.9：开始探索技术驱动的模式</li>    
       <li>2024.12：正式开始协同研发数字化升级系统架构</li>  
-      <li>2026.3：自研的系统测试预计2026.4月上线（历时16个月）</li>    
+  
+      <li>2026.3：完成独立数字版权自动化架构系统开发，预计2026.4上线（历时16个月）</li> 
     </ul> 
 
     <p>🧠 为什么做系统：</p>
     <p style="font-style:italic; color:#555;">
       我从工科出身到转型业务管理，但是发现人治管理模式<br/>
       成本巨大，转型数字化升级是未来企业核心   
-    </p>
-    <ul style="padding-left:18px;">
-      <li>✔ 客户跟进混乱 → 标准化</li> 
-      <li>✔ 人员不稳定 → 自动化</li> 
-      <li>✔ 平台客户易流失 → 自建系统</li> 
-      <li>✔ 转化不可控 → 数据驱动</li> 
+    </p>  
+
+    <ul style="padding-left:18px;"> 
+      <li>✔ 客户跟进混乱 → 流程标准化</li> 
+      <li>✔ 人员流动频繁 → 自动化作业</li> 
+      <li>✔ 平台客户易流失 → 自建系统护航</li> 
+      <li>✔ 转化不可控 → 数据驱动决策</li> 
     </ul> 
 
-    <p>🤝 合作方式：</p>
-    <p style="font-weight:bold; color:#3b82f6;">以外贸数字化升级为核心模式驱动探索合作</p> 
+    <p>🤝 合作共赢方向：</p>
+    <p style="font-weight:bold; color:#3b82f6;">以数字化升级驱动 ROI 倍数跃升</p>  
     <ul style="padding-left:18px;">
       <li>✔ 提升转化率</li> 
-      <li>✔ 降低人工依赖</li> 
-      <li>✔ 优化成本效率</li> 
-      <li>✔ 实现自动化跟进</li> 
-    </ul>
+      <li>✔ 降低人工依赖，释放核心团队精力</li> 
+      <li>✔ 架构迭代效能，实现更高投入产出比</li> 
+      <li>✔ 流程管理自动化</li> 
+    </ul> 
 
     <p>更多合作详谈可在 Demo 后联系我</p>
   </div>
@@ -1220,6 +1754,7 @@ document.getElementById('main-content').addEventListener('click', (e) => {
     triggerMiniProfile();
   }
 });
+
 
 // ================== 完整优化 Demo Timeline ==================
 demoBtn.addEventListener('click', async () => {
@@ -1465,11 +2000,9 @@ for (let n of nodes) {
 
 }
 
-
 // =========================
 // 🎬 7️⃣ 执行动作（Outreach） 
 // =========================
-
 
 demoPushEventFade(`🟣 已发送报价 → ${firstCustomer.dataset.cid}`);
 
@@ -2222,10 +2755,12 @@ wechatPopup.querySelector('#copy-wechat-btn').onclick = () => {
   navigator.clipboard.writeText(wechatId)
     .then(() => alert('微信号已复制 ✅'))
     .catch(() => alert('复制失败'));
-}; 
-} 
+};  
+
+}  
+
 </script>  
 
-</body>   
 
-</html>              
+</body>   
+</html>                

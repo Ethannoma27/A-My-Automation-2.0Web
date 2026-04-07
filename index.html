@@ -1110,6 +1110,10 @@ break;
   showScene(0);
 } 
 
+
+
+
+
 // ================== 页面数据（动态全链路演示版） ==================  
 
 
@@ -1980,14 +1984,16 @@ demoBtn.addEventListener('click', async () => {
 // =========================
 // 🎬 1️⃣ 客户导入（Inbox）
 // ========================= 
-await showTip('大多数团队以为，增长的问题来自客户不足', 2200);
-await pause(500);
 
-await showTip('但真正的瓶颈，是客户管理无法被系统化驱动', 2000);
-await pause(500);
-
-await showTip('当客户只是“名单”，而不是“可计算资产”，增长就无法被放大', 2400);
+await showTip('大多数企业的问题，不在于缺少客户', 2600); 
 await pause(600);
+
+await showTip('而在于客户关系未被企业自主掌控', 3000);   
+await pause(600);
+
+await showTip('当客户进入企业自主系统，才真正成为可追踪、可管理的资产', 3200);  
+await pause(600); 
+
 
 loadPage('inbox');
 await pause(700);
@@ -2008,13 +2014,12 @@ for (let src of inboxSources) {
 // =========================
 // 🎬 2️⃣ 客户标准化 + 唯一ID（Pipeline）
 // =========================  
-await showTip('在系统中，所有客户被统一接入，进入同一数据结构', 2200);
-await pause(500);
 
-await showTip('每一个客户，被赋予唯一标识，并成为可追踪的数据对象', 2400);
-await pause(600);
+await showTip('当客户关系不再零散，而开始成为可追踪、可管理的资产', 3000);
+await pause(600); 
 
-await showTip('可以被记录、识别与调用', 2600);
+
+await showTip('企业第一次，获得对客户客户行为的掌控与调用能力', 3200); 
 await pause(700);
 
 const customers = [
@@ -2032,21 +2037,21 @@ await pause(700);
 
 // =========================
 // 🎬 3️⃣ 客户池流转（Pipeline）
-// =========================
-await showTip('传统销售依赖经验判断，但经验无法规模化复制', 2000);
-await pause(500);
+// ========================= 
 
-await showTip('系统将客户行为转化为连续的数据事件', 2200);
-await pause(500);
+await showTip('在平台模式下，成交依赖流量分配', 2600); 
+await pause(600);
 
-await showTip('打开、点击、回复，每一个动作，都成为可计算的信号', 2400);
+await showTip('而当客户进入企业自主系统后，每一次跟进都被主动推进', 3000);
+await pause(600); 
+
+await showTip('流程开始由企业控制，而不是外部规则决定', 3200); 
 await pause(600);
 
 for (let c of customers) {
   demoPushEventFade(`🟡 ${c.cid} 已进入客户池`);
   await pause(500);
 }
-
 
 // =========================
 // 🎬 4️⃣ 查看客户档案（Pipeline → 客户详情）
@@ -2072,14 +2077,15 @@ await safeClick(firstCustomer);
 
 // =========================
 // 🎬 5️⃣ 行为事件捕捉（Events）
-// =========================
-await showTip('在人工模式下，销售逐条执行，每一步都受限于时间', 2200);
-await pause(500);
+// ========================= 
 
-await showTip('而系统可以同时处理上百个客户，持续执行跟进动作', 2400);
-await pause(500);
+await showTip('在依赖平台模式中，用户行为难以沉淀', 2600); 
+await pause(600);
 
-await showTip('执行，从线性，变为并行', 2600);
+await showTip('而在自主系统中，每一次点击与互动都会被记录', 3000); 
+await pause(600);
+
+await showTip('行为，开始变成可复用的数据资产', 3200); 
 await pause(600);
 
 const menuEvents = document.querySelector('[data-page="events"]');
@@ -2119,14 +2125,13 @@ await showTip(
 );
 
 await showTip(
-  '当执行方式改变，结果就不再是提升，而是跃迁',
+  '当执行方式改变，结果就不再是提升，而是跃升',
   2200
 ); 
 
 // =========================
 // 🎬 7️⃣ 自动化触发（Automation）
 // ========================= 
-
 
 
 demoPushEventFade(`🔵 自动化触发 ${firstCustomer.dataset.cid}`);
@@ -2164,7 +2169,6 @@ loadPage('outreach');
 await pause(700);
 
 
-
 const actionsPage = document.querySelector('[data-page="actions"]');
 await safeClick(actionsPage);
 await pause(700);
@@ -2183,11 +2187,12 @@ await showTip('系统根据客户阶段与行为自动发送 Email / WhatsApp', 
 
 await pause(900);  
 
-await showTip('不依赖人工逐条操作，大幅降低人工成本', 2000);
-await pause(700);  
+await showTip('流程开始由规则驱动 而不是逐条人为判断', 3000); 
+await pause(600);
 
-await showTip('自动批量触发，效率提升显著', 2000);
-await pause(700); 
+
+await showTip('当决策被系统接管 执行才开始具备规模能力', 3200); 
+await pause(600);
 
 
 
@@ -2247,7 +2252,6 @@ await pause(2000);
 vMouse.style.left = `${rectOption.left + rectOption.width + 50}px`;
 vMouse.style.top = `${rectOption.top}px`; 
 
-
 await showTip(
   '系统自动填充 公司、联系人、邮箱与国家信息等内容',  
    1500 
@@ -2285,59 +2289,56 @@ for (let s of stats) {
   await pause(600); 
 } 
 
-
 // =========================
 // 🎬 11️⃣ 系统进化（优化后的版本）
 // =========================
 
-await showTip(
-  '这意味着，系统会随着时间持续进化',
-  2200
-);
+await showTip('当数据持续积累，系统持续优化', 2600);
+await pause(600);
 
-await showTip(
-  '而仍依赖人工的团队，则停留在原地',
-  2200
-);
+await showTip('企业开始形成自己的转化路径与决策模型', 3000);
+await pause(600);
 
-await showTip(
-  '差距，不再来自努力程度',
-  2000
-);
+await showTip('能力，被沉淀在自主系统中，而不是平台 或 个人身上', 3200); 
+await pause(600);
 
-await showTip(
-  '而来自是否具备系统能力',
-  2000
-);
 
-await showTip(
-  '当一部分企业进入系统驱动阶段',
-  2200
-); 
-await pause(600);  
+await showTip('这种能力，不依赖流量分配', 2600); 
+await pause(600);
 
-await showTip(
-  '另一部分，仍依赖原有方式运转 ',
-  2400
-);  
-await pause(600);  
 
-await showTip('差距 将不可避免地被拉开', 2200);
-await pause(700); 
+await showTip('也不会随着人员流动而消失', 3000); 
+await pause(600);
+
+
 
 // =========================
 // 🎬 13️⃣ 收口（最终落点）
 // ========================= 
 
-await showTip('变化不仅在于工具本身，而是工作方式被系统化接管', 2200);
-await pause(500);
 
-await showTip('进而改变了结果产生的路径和决策逻辑', 2200); 
-await pause(600);  
+await showTip('但拥有独立站，并不等于拥有自动运转的系统', 2600);  
+await pause(600);
 
-await showTip('这种系统化运行方式，是差距逐步形成并被放大的根本原因', 3200); 
+await showTip('很多企业，停留在“我有独立站”的表象阶段', 2600);  
+await pause(600);
+
+await showTip('页面存在，但没有数据记录、行为追踪或自动化决策', 3000); 
+await pause(600);
+
+await showTip('本质上，依然只是一个展示页' , 
+
+2600);  
 await pause(600); 
 
+await showTip('无法复制增长 或 形成壁垒', 2800);
+await pause(600); 
+
+
+await showTip('只有自动化系统 才让增长不再受制于平台 个人 或 运气', 2800); 
+await pause(600);
+
+await showTip('而是可复制的系统能力 这就是企业的核心壁垒', 3200);  
 
 // =========================
 // 🎬  数据洞察（痛点 + 系统价值强化）
@@ -2926,6 +2927,8 @@ wechatPopup.querySelector('#copy-wechat-btn').onclick = () => {
     .catch(() => alert('复制失败'));
 };  
 }    
+
+
 
 </script>   
 

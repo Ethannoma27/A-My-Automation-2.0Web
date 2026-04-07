@@ -97,37 +97,49 @@ body {
   cursor: pointer;
 }
 
-/* ===== 左侧栏 ===== */
+
+ /* ===== 左侧栏（缩小 10% + 内容自然右移） ===== */
 .sidebar {
   width: 220px;
   background: #1f2937;
   color: white;
-  padding: 16px 20px;
+  padding: 14px 18px;     /* 保留原 padding */
+  font-size: 90%;
+  box-sizing: border-box; /* 确保 padding 不影响总宽度 */
 }
 
-.sidebar h2 { font-size: 16px; margin-bottom: 20px; }
+/* 内部内容自然右移 10px，背景不动 */
+.sidebar * {
+  padding-left: 10px;     /* 仅内部元素右移 */
+}
 
-/* 左侧菜单分组 */
+/* 左侧栏标题、分组、菜单项 */
+.sidebar h2 {
+  font-size: 14.4px;      /* 缩小 10% */
+  margin-bottom: 18px;
+}
+
 .menu-group {
-  margin-top: 18px;
-  font-size: 12px;
+  margin-top: 16px;
+  font-size: 10.8px;
   color: #9ca3af;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.9px;
 }
 
-/* 左侧菜单项 */
 .sidebar div[data-page] {
-  margin: 8px 0;
-  padding: 6px 8px;
-  border-radius: 6px;
+  margin: 7.2px 0;
+  padding: 5.4px 7.2px;
+  border-radius: 5.4px;
   cursor: pointer;
   transition: all 0.25s ease;
 }
+
 .sidebar div[data-page]:hover {
   background: #374151;
-  transform: translateX(4px);
-}
+  transform: translateX(3.6px);
+} 
+
 
 /* ===== 提示框 ===== */
 #demo-tip {
@@ -161,7 +173,7 @@ body {
 #global-timeline {
   position: fixed;
   top: 0;
-  left: 260px;
+  left: 220px; /* 和 sidebar 宽度一致 */
   right: 0;
   height: 40px;
   background: #111827;  
@@ -273,7 +285,8 @@ body {
   color: white;
   border: none;
   border-radius: 5px;
-  cursor: pointer;
+  cursor: pointer; 
+
 }
 
 /* ===== 自定义 select ===== */
@@ -296,14 +309,64 @@ body {
 /* ================== 📱 手机端样式 ================== */
 @media (max-width: 768px) {
   html, body { width: 100%; height: 100%; margin: 0; padding: 0; }
-  body { flex-direction: row; overflow: hidden; }
-  .sidebar { width: 90px; display: flex; flex-direction: column; gap: 8px; padding: 10px 5px; position: sticky; top: 0; left: 0; height: 100%; z-index: 1000; overflow-y: auto; }
-  .sidebar h2 { display: none; }
-  .sidebar div[data-page] { flex: 0 0 auto; padding: 10px 12px; background: #374151; border-radius: 8px; font-size: 13px; color: #e5e7eb; text-align: center; white-space: nowrap; transition: all 0.25s ease; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15); }
-  .sidebar div[data-page]:hover { background: #4b5563; transform: translateX(4px); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
-  .sidebar div[data-page].active { background: #7f00ff; color: #fff; transform: translateX(0); box-shadow: 0 4px 12px rgba(0,0,0,0.25); }
-  .sidebar div[data-page] span.icon, .sidebar div[data-page] span.text { display: block; text-align: center; }
-  .sidebar div[data-page] span.icon { margin-bottom: 4px; }
+  body { flex-direction: row; overflow: hidden; } 
+
+
+/* ===== 手机端左侧栏（自然右移 + 背景固定） ===== */
+.sidebar {
+  width: 90px;
+  display: flex;
+  flex-direction: column;
+  gap: 7.2px;
+  padding: 9px 4.5px;  /* 原 padding 保留 */
+  position: sticky;
+  top: 0;
+  left: 0;              /* 背景固定 */
+  height: 100%;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.sidebar h2 {
+  display: none;
+}
+
+.sidebar div[data-page] {
+  flex: 0 0 auto;
+  padding: 9px 10.8px;            /* 原 10px 12px，缩小 10% */
+  background: #374151;
+  border-radius: 7.2px;           /* 原 8px，缩小 10% */
+  font-size: 11.7px;              /* 原 13px，缩小 10% */
+  color: #e5e7eb;
+  text-align: center;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  box-shadow: 0 1.8px 3.6px rgba(0,0,0,0.15); /* 原 2px 4px */
+}
+
+.sidebar div[data-page]:hover {
+  background: #4b5563;
+  transform: translateX(3.6px);   /* 原 4px，缩小 10% */
+  box-shadow: 0 3.6px 7.2px rgba(0,0,0,0.2); /* 原 4px 8px */
+}
+
+.sidebar div[data-page].active {
+  background: #7f00ff;
+  color: #fff;
+  transform: translateX(0);
+  box-shadow: 0 3.6px 10.8px rgba(0,0,0,0.25); /* 原 4px 12px */
+}
+
+.sidebar div[data-page] span.icon,
+.sidebar div[data-page] span.text {
+  display: block;
+  text-align: center;
+}
+
+.sidebar div[data-page] span.icon {
+  margin-bottom: 3.6px;           /* 原 4px，缩小 10% */
+} 
   .main { flex: 1; padding: 50px 12px 12px 12px; overflow: auto; position: relative; }
   #global-timeline { position: fixed; top: 0; left: 90px; right: 0; height: 36px; background: #1f2937; color: #fff; display: flex; align-items: center; padding: 0 10px; gap: 15px; font-size: 12px; z-index: 900; overflow-x: auto; overflow-y: hidden; }
   .detail { display: none; }
@@ -385,28 +448,33 @@ body {
 
 <!-- 左侧栏（升级版：增长漏斗结构 + 对齐真实系统） --> 
 <div class="sidebar">
-  <h2>🚀 外贸增长引擎</h2> 
+  <h2>🚀 外贸自动增长引擎</h2> 
 
-  <div class="menu-group">数据入口</div>
+  <div class="menu-group">数据入口</div> 
   <div data-page="inbox">📥 Inbox</div>
 
   <div class="menu-group">客户管理</div>
   <div data-page="pipeline">👥 Customers</div>  
   <div data-page="events">📊 Events</div>
 
-  <div class="menu-group">自动化流程</div>
-  <div data-page="automation">⚙️ Automation</div> 
+  <div class="menu-group">客户自动化</div> 
+  <div data-page="automation">⚙️ Workflows</div> 
   <div data-page="actions">📡 Actions</div>
 
-  <div class="menu-group">订单单据</div> 
-  <div data-page="deals">💰 PI CI</div> 
+  <div class="menu-group">单据自动化</div> 
+  <div data-page="deals">💰 Trade Docs</div> 
+
+
+  <div class="menu-group">SEO自动化</div> 
+  <div data-page="seo">📈 SEO Hub</div>  
 
   <div class="menu-group">分析</div>
-  <div data-page="analytics">📊 Analytics</div>
+  <div data-page="analytics">📊 Analytics</div> 
 
   <button id="demo-button">▶️ 自动演示 Demo</button> 
 
-  <!-- 页面右下角 Demo 提示 -->
+  <!-- 页面右下角 Demo 提示 --> 
+
   <div class="demo-footer">系统为 Demo 版本，仅供演示</div> 
 </div>  
 
@@ -426,11 +494,12 @@ body {
 <div id="virtual-mouse" class="cursor">
   <div class="arrow"></div>
   <div class="tail"></div> 
-</div>
+
+
+</div> 
+
 
 <script>  
-
-
 
 
 // ================== 🎨 样式 ==================
@@ -1111,9 +1180,6 @@ break;
 } 
 
 
-
-
-
 // ================== 页面数据（动态全链路演示版） ==================  
 
 
@@ -1272,6 +1338,7 @@ deals: {
   </select>
 </div> 
 
+
 <!-- 发票面板 -->
 <div id="invoice-panel" style="border:1px solid #ccc;padding:20px;background:#fff;min-height:500px;">
   <div style="font-family:Arial;">
@@ -1292,6 +1359,7 @@ deals: {
       <div><strong>国家:</strong> <span id="invoice-customer-country">-</span></div>
     </div>
 
+
     <!-- 商品表格 -->
     <table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse:collapse; text-align:center;">
       <thead>
@@ -1311,7 +1379,7 @@ deals: {
           <td style="font-weight:bold;" id="invoice-total">--</td>
         </tr>
       </tfoot>
-    </table>
+    </table> 
 
     <div style="margin-top:10px; font-size:12px; color:#666;">
       此为形式发票，仅供报价参考
@@ -1345,8 +1413,9 @@ deals: {
 <div class="section">可直接导出为 PDF</div>  
 
   `
+
 }, 
-  // ================== 7️⃣ 数据分析（Analytics） ==================
+  // ================== 7️⃣ 数据分析（Analytics） ================== 
   analytics: {
     main: `
       <h3>Analytics（分析）</h3>
@@ -1364,10 +1433,88 @@ deals: {
       <div class="section">系统价值：销售转化率提升、客户跟进遗漏率明显下降</div> 
 
     `
-  }
+  },  
 
-}; 
 
+// ================== 8️⃣ SEO ==================   
+seo: {
+  main: `
+    <h3>SEO Hub</h3>
+    <div class="seo-metric">站点索引页数：1,256</div>
+    <div class="seo-metric">自然搜索流量：3,872 次/月</div>
+    <div class="seo-metric">关键词排名 Top10：126 个</div> 
+    <div class="seo-item">
+      <span class="icon">🟢</span>
+      <span class="text">千页自动生成 + Sitemap + JSON-LD 自动填充</span>
+    </div>
+    <div class="seo-item">
+      <span class="icon">🟡</span>
+      <span class="text">评论系统 + Notion 数据同步，全流程 SEO 数据可追踪</span>
+    </div>
+
+    <!-- SEO 系统面板 -->
+    <div id="seo-panel" style="border:1px solid #ccc;padding:20px;background:#fff;min-height:500px;">
+      <div style="font-family:Arial;">
+
+        <!-- 顶部 -->
+        <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
+          <div><strong>SEO Automation System</strong></div>
+          <div style="text-align:right;">
+            <div><strong>Variant Engine</strong></div>
+            <div>Status: Active</div>
+            <div>Sync: Real-time</div>
+          </div>
+        </div>
+
+        <!-- 说明 -->
+        <div style="margin-bottom:20px;">
+          <div><strong>系统说明:</strong> 自动生成产品变体页面</div>
+          <div><strong>SEO能力:</strong> JSON-LD / Sitemap 自动同步</div>
+          <div><strong>数据追踪:</strong> 每个页面可追踪状态</div>
+        </div>
+
+        <!-- ⭐ 核心表格 -->
+        <table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse:collapse; text-align:center; table-layout: fixed;">
+          <thead>
+            <tr style="background:#f5f5f5;">
+              <th>变体</th>
+              <th>Slug</th>
+              <th style="width:200px; max-width:200px; white-space: normal; word-break: break-word; overflow-wrap: break-word;">URL</th>
+              <th>状态</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="seo-variant-body"></tbody>
+        </table>
+
+      </div>
+    </div> 
+  `,
+  detail: `
+    <h2>SEO 全流程概览</h2>
+    <div class="section">
+      <strong>页面生成：</strong>自动生成千页产品变体，支持不同 Intent 和关键词组合
+    </div>
+    <div class="section">
+      <strong>搜索引擎优化：</strong>自动生成 JSON-LD Schema，Sitemap 自动更新
+    </div>
+    <div class="section">
+      <strong>数据追踪：</strong>每个页面点击、流量、排名变化实时记录
+    </div>
+    <div class="section">
+      <strong>系统价值：</strong>SEO 流量长期积累形成不可复制的增长通道，碾压普通独立站
+    </div> 
+
+    <!-- 内容展示区 -->
+    <div id="variant-content" style="margin-top:20px;"></div>
+
+    <!-- 页面预览 -->
+    <div id="iframe-container" style="margin-top:20px;"></div> 
+  `
+}
+
+
+}  
 // ================== DOM ==================
 const mainEl = document.getElementById('main-content');
 const detailEl = document.getElementById('detail-content');
@@ -1571,6 +1718,8 @@ function bindInboxButtons() {
   }
 }
 
+
+
 // ================== Demo 客户导入 ==================
 const demoCustomers = [
   { customerId: 'c001', name: '张三', company: 'ABC Import Ltd', email: 'abc@mail.com', country: 'USA', source: '阿里巴巴询盘', status: '新客户' },
@@ -1594,7 +1743,8 @@ const demoProducts = [
   { name: 'Product A' },
   { name: 'Product B' },
   { name: 'Product C' }
-];
+];  
+
 
 // 暂停函数
 function sleep(ms){ return new Promise(resolve => setTimeout(resolve, ms)); }
@@ -1716,23 +1866,126 @@ function bindInvoiceEvents() {
 function initDealsPage(){
   bindInvoiceEvents(); 
    
+
+}  
+
+
+// 👉 可自定义展示域名（核心）
+const DISPLAY_DOMAIN = 'https://hawinmaster.com';
+
+// Demo SEO 变体数据
+const demoSEOVariants = [
+  { variant: '首页A', slug: 'home-a', url: 'https://www.hiwinasicminer.com/product/bitmainantminer-s19jpro-ZRW/trusted-sellers-guide', status: '上线', content: '<h2>首页 A 内容</h2><p>欢迎访问首页 A</p>' }, 
+  { variant: '首页B', slug: 'home-b', url: 'https://www.hiwinasicminer.com/product/bitmainantminer-s19jpro-ZRW/profitability-forecast-guide', status: '草稿', content: '<h2>首页 B 内容</h2><p>这是首页 B 的预览</p>' },
+  { variant: '产品页A', slug: 'product-a', url: 'https://www.hiwinasicminer.com/product/bitmainantminer-s19jpro-ZRW/price-trend-2025-guide', status: '上线', content: '<h2>产品 A 内容</h2><p>产品 A 描述信息</p>' },
+  { variant: '产品页B', slug: 'product-b', url: 'https://www.hiwinasicminer.com/product/bitmainantminer-s19jpro-ZRW/data-center-comparison-comparison', status: '草稿', content: '<h2>产品 B 内容</h2><p>产品 B 描述信息</p>' }
+];
+
+// 渲染 SEO 表格
+async function renderSEOVariants() {
+  const tbody = document.getElementById('seo-variant-body');
+  const contentEl = document.getElementById('variant-content');
+  const iframeContainer = document.getElementById('iframe-container');
+
+  if (!tbody || !contentEl || !iframeContainer) return;
+  tbody.innerHTML = '';
+
+  for (let i = 0; i < demoSEOVariants.length; i++) {
+    const v = demoSEOVariants[i];
+
+    // 👉 生成“展示用 URL”（替换域名）
+    const displayUrl = `${DISPLAY_DOMAIN}/${v.slug}`;
+
+    const tr = document.createElement('tr');
+    tr.style.opacity = 0;
+    tr.style.transform = 'translateY(6px)';
+
+    tr.innerHTML = `
+      <td>${v.variant}</td>
+      <td>${v.slug}</td>
+      <td style="max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+        <a href="#" class="fake-url" data-url="${v.url}">
+          ${displayUrl}
+        </a>
+      </td>
+      <td>${v.status}</td>
+      <td><button data-index="${i}">查看</button></td>
+    `;
+
+    tbody.appendChild(tr);
+
+    // 淡入动画
+    await sleep(50);
+    tr.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    tr.style.opacity = 1;
+    tr.style.transform = 'translateY(0)';
+
+    // 点击“伪装 URL”
+    const link = tr.querySelector('.fake-url');
+    link.onclick = (e) => {
+      e.preventDefault();
+      const realUrl = link.dataset.url;
+
+      contentEl.innerHTML = v.content;
+      iframeContainer.innerHTML = `
+        <iframe src="${realUrl}" style="width:100%; height:300px; border:1px solid #ccc;"></iframe>
+      `;
+    };
+
+    // 点击按钮
+    const btn = tr.querySelector('button');
+    btn.onclick = () => {
+      contentEl.innerHTML = v.content;
+      iframeContainer.innerHTML = `
+        <iframe src="${v.url}" style="width:100%; height:300px; border:1px solid #ccc;"></iframe>
+      `;
+    };
+  }
+
+  // 默认展示
+  if (demoSEOVariants[0]) {
+    contentEl.innerHTML = demoSEOVariants[0].content;
+    iframeContainer.innerHTML = `
+      <iframe src="${demoSEOVariants[0].url}" style="width:100%; height:300px; border:1px solid #ccc;"></iframe>
+    `;
+  }
+}
+
+// 初始化
+function initSEOPage() {
+  renderSEOVariants();
 } 
 
 // loadPage 中调用 initDealsPage() 时即可 
 
-// ================== 修改 loadPage 调用 ==================
-// 假设你原本的 loadPage 函数里：
+// ================== 页面加载 ==================
 function loadPage(page){
   if(!pages[page]) return;
+
+  // 渲染 main / detail
   mainEl.innerHTML = pages[page].main;
   detailEl.innerHTML = pages[page].detail;
 
-  // Inbox 页面绑定
-  if(page === 'inbox') bindInboxButtons();
+  // Flow节点点击
+  document.querySelectorAll('.node').forEach(n=>{
+    n.onclick = ()=>alert("编辑自动化节点");
+  });
 
-  // Deals 页面绑定
-  if(page === 'deals') initDealsPage();
-} 
+  // 页面初始化逻辑
+  if(page === 'inbox') bindInboxButtons();     // Inbox 页面绑定
+  if(page === 'deals') initDealsPage();        // PI/CI 发票初始化
+  if(page === 'seo') initSEOPage();            // ✅ SEO Dashboard 初始化
+}
+
+// 绑定左侧菜单点击
+sidebarItems.forEach(item=>{
+  item.addEventListener('click', ()=>{
+    loadPage(item.getAttribute('data-page'));
+  });
+});
+
+// 初始加载页面
+loadPage('pipeline');   
 
 // ================== 弹窗配置 ==================
 const PROFILE_KEY = 'demoMiniProfileLastClosed';
@@ -1903,6 +2156,8 @@ document.getElementById('main-content').addEventListener('click', (e) => {
 });
 
 
+
+
 // ================== 完整优化 Demo Timeline ==================
 demoBtn.addEventListener('click', async () => {
   demoBtn.disabled = true;
@@ -1989,10 +2244,10 @@ demoBtn.addEventListener('click', async () => {
 await showTip('大多数团队的问题，不是缺少客户，而是客户线索未被高效管理', 2600);  
 await pause(600);
 
-await showTip('当客户数据分散，掌控权本质被托管给 平台 或 业务员', 3000);   
+await showTip('当客户数据分散，属于企业的掌控权被托管给 平台 或 业务员', 3000);   
 await pause(600);
 
-await showTip('客户因此未能成为可追踪、可管理的企业资产', 3200);  
+await showTip('客户因此未能成为 可追踪、可管理的企业资产', 3200);  
 await pause(600); 
 
 await showTip('只有将客户纳入企业自主的独立站系统', 2800); 
@@ -2073,7 +2328,7 @@ firstCustomer.dataset.cid = 'C001';
 await safeClick(firstCustomer); 
 
 
-await showTip('当行为被量化，决策就不再依赖人工判断', 2200);
+await showTip('当客户行为被量化，决策就不再依赖人工判断', 2200); 
 await pause(700); 
 
 await showTip('系统根据数据自动评估客户状态，并触发下一步动作', 2200);
@@ -2086,14 +2341,12 @@ await pause(700);
 // 🎬 5️⃣ 行为事件捕捉（Events）
 // ========================= 
 
-await showTip('在依赖平台模式中，用户行为难以沉淀', 2600); 
+await showTip('在单纯依赖平台模式中，用户被平台算法而驱动', 2600); 
+await pause(600); 
+
+await showTip('而只有在企业自主系统中，客户的行为，开始变成可复用的数据资产', 3200);  
 await pause(600);
 
-await showTip('而在自主系统中，每一次点击与互动都会被记录', 3000); 
-await pause(600);
-
-await showTip('客户的行为，开始变成可复用的数据资产', 3200);  
-await pause(600);
 
 const menuEvents = document.querySelector('[data-page="events"]');
 await safeClick(menuEvents);
@@ -2156,7 +2409,7 @@ for (let n of nodes) {
 } 
 
 await showTip(
-  '这也是为什么，同样的团队，有的只能实现 1x 增长',
+  '这也是为什么，同样的行业，有的只能实现 1x 增长',
   2200
 );
 
@@ -2203,27 +2456,44 @@ await pause(600);
 
 
 // =========================
-// 🎬 9️⃣ ROI / 成交闭环（Deals）
+// 🎬 9️⃣ 成交闭环（Deals）
 // =========================
+
+// 第一段解说
+await showTip('因触达节奏稳定持续，成交率自然放大', 1800); 
+demoPushEventFade(`🟠 成交 $5000 → ${firstCustomer.dataset.cid}`); 
+await pause(900);
+
+// 第二段解说
+await showTip('系统推动从线索到成交的闭环，实现流程自动化', 2200); 
+await pause(500);
+
+
+await showTip(
+  '当客户进入成交阶段，系统可一键生成标准化 PI / CI 发票',
+  2000
+); 
 
 const menuDeals = document.querySelector('[data-page="deals"]');
 await safeClick(menuDeals);
 loadPage('deals');
 await pause(800);
 
-// ① 销售链路可视化
-await showTip(
-  '当客户进入成交阶段，系统可一键生成标准化 PI / CI 发票', 
-  2000
-);  
-await pause(600);
 
-// ② 无需人工整理
 await showTip(
-  '业务员无需手动整理或计算 只需选择与审核',  
- 1800); 
+  '让整个销售链路清晰可视、易于追踪',  
+  1500 
+);
+await pause(500); 
+
+
+await showTip(
+  '业务员只需选择 已录入系统的 客户', 
+  1800 
+); 
 
 await pause(900);  
+
 
 // =========================
 // 模拟鼠标真实操作选择客户
@@ -2258,18 +2528,76 @@ await pause(2000);
 vMouse.style.left = `${rectOption.left + rectOption.width + 50}px`;
 vMouse.style.top = `${rectOption.top}px`; 
 
+
 await showTip(
   '系统自动填充 公司、联系人、邮箱与国家信息等内容',  
    1500 
 );
-await pause(400);    
+await pause(400);   
 
-// 6️⃣ 审核 & 减少人工风险
+// =========================
+// 🎬 SEO 页面操作演示 
+// =========================
+
+
+// 切换到 SEO 页面
+const menuSEO = document.querySelector('[data-page="seo"]');
+await safeClick(menuSEO);
+loadPage('seo');
+await pause(300);
+initSEOPage();  // ✅ 初始化表格
+await pause(500);
+
+await showTip('页面内容自动生成，SEO 数据自动填充', 1500); 
+await pause(500);
+
+// 模拟鼠标真实操作选择变体
+const seoTbody = document.querySelector('#seo-variant-body');
+const variantRows = seoTbody.querySelectorAll('tr');
+
+if (variantRows.length > 1) {
+  const targetRow = variantRows[1]; // 选择第二个变体
+  const viewBtn = targetRow.querySelector('button');
+
+  // 鼠标移动到按钮中心
+  const rectBtn = viewBtn.getBoundingClientRect();
+  vMouse.style.left = `${rectBtn.left + rectBtn.width / 2}px`;
+  vMouse.style.top = `${rectBtn.top + rectBtn.height / 2}px`;
+  await pause(300);
+
+  // 点击查看按钮
+  await safeClick(viewBtn);
+  demoPushEventFade(`🟢 预览 ${demoSEOVariants[1].variant} (${demoSEOVariants[1].slug})`);
+
+  // 鼠标停留
+  await pause(2000);
+  vMouse.style.left = `${rectBtn.left + rectBtn.width + 50}px`;
+  vMouse.style.top = `${rectBtn.top}px`;
+} 
+
+await showTip('SEO 系统通过母产品的intent 生成规模化变体 Notion 页面', 1800); 
+demoPushEventFade(`🟢 系统加载 ${demoSEOVariants.length} 个变体`); 
+await pause(900);
+
+
 await showTip(
-  '大幅减少手工操作时间 和避免错误',  
-    2200 
-);  
-await pause(500);  
+  '系统通过 Notion 即可同步千页数据变体信息',  
+  2000
+);
+await pause(500); 
+
+await showTip(
+  '具备千页系统级同步的 大规模自动化能力',   
+  2000
+);
+await pause(500); 
+
+await showTip(
+  '这种极高难度自动化系统 对普通中小企业来说是难以复制的“碾压级别”优势',   
+  2000
+);
+await pause(500); 
+
 
 // =========================
 // 🎬 🔟 数据分析（Analytics）
@@ -2280,36 +2608,27 @@ await safeClick(menuAnalytics);
 loadPage('analytics');
 await pause(700);
 
-await showTip('当客户、行为、决策与结果全部被记录', 2200);
+
+await showTip('当全链路自动化，形成完整闭环，数据将持续积累，决策链逐步优化', 2000);
 await pause(400);
 
-await showTip('系统形成完整闭环，决策逐步优化', 2000);
-await pause(400);
 
-await showTip('每一次成交，都会反向优化下一次行动策略', 2200);
-await pause(400); 
+await showTip('企业开始形成自己的 转化路径与决策模型', 3000);
+await pause(600);
+
+await showTip('企业系统级能力，被沉淀在自主系统中，而不是平台 或 个人身上', 3200); 
+await pause(600); 
+
+
+await showTip('这种能力，不依赖流量分配 也不会随着人员流动而消失', 3000);
+await pause(600); 
+
 
 const stats = mainEl.querySelectorAll('.customer');
 for (let s of stats) {
   await safeMove(s);
   await pause(600); 
 } 
-
-// =========================
-// 🎬 11️⃣ 系统进化（优化后的版本）
-// =========================
-
-await showTip('数据持续积累，系统持续优化', 2600);
-await pause(600);
-
-await showTip('企业开始形成自己的转化路径与决策模型', 3000);
-await pause(600);
-
-await showTip('能力，被沉淀在自主系统中，而不是平台 或 个人身上', 3200); 
-await pause(600);
-
-await showTip('这种能力，不依赖流量分配 也不会随着人员流动而消失', 3000); 
-await pause(600);
 
 
 // =========================
@@ -2328,17 +2647,23 @@ await pause(600);
 await showTip('这需要跨模块开发能力：数据流设计、事件追踪、自动化逻辑与前端展示同步', 3200);  
 await pause(600); 
 
-await showTip('通常需要 1–2 名前端开发、1 后端工程师、1 系统/数据架构师', 3200);  
-await showTip('以及 1 产品/系统设计师协作完成', 3200);   
+await showTip('通常需要 1–2 名前端开发、1名 后端工程师', 3200);  
+await pause(600); 
+await showTip('1名 系统/数据架构师 以及 1名 产品/系统设计师 才能协作完成', 3200);   
+
 await pause(600); 
 
 await showTip('约 80% 的中小企业难以实现，因为缺乏跨模块开发人才、系统设计经验', 3200);  
-await showTip('且难以承担持续维护成本', 3400);  
-await pause(600); 
+await pause(600);  
+await showTip('难以构建成企业自主的系统级独立站', 3200);  
+await pause(600);  
 
-await showTip('因此，只有系统级独立站 才能形成真正可控的闭环 沉淀企业能力', 3000);  
+await showTip('而系统级独立站 如今越来越受到企业重视 是真正自主可控的', 3000);  
 
-await showTip('构建出可复制、长期积累的数字资产型商业壁垒', 3400);
+await pause(600);  
+
+await showTip('闭环沉淀企业能力的 长期积累的数字资产型商业壁垒', 3000);  
+
 await pause(600); 
 
 // =========================
@@ -2926,11 +3251,11 @@ wechatPopup.querySelector('#copy-wechat-btn').onclick = () => {
   navigator.clipboard.writeText(wechatId)
     .then(() => alert('微信号已复制 ✅'))
     .catch(() => alert('复制失败'));
+    
 };  
 }    
 </script>   
+
 </body>    
-
-
 
 </html>                   

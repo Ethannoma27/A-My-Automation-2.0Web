@@ -1981,19 +1981,26 @@ demoBtn.addEventListener('click', async () => {
 
 // ================== Demo 全链路演示（舒适节奏完整版） ================== 
 
+
 // =========================
 // 🎬 1️⃣ 客户导入（Inbox）
 // ========================= 
 
-await showTip('大多数企业的问题，不在于缺少客户', 2600); 
+await showTip('大多数团队的问题，不是缺少客户，而是客户线索未被高效管理', 2600);  
 await pause(600);
 
-await showTip('而在于客户关系未被企业自主掌控', 3000);   
+await showTip('当客户数据分散，掌控权被托管给 平台 或 业务员', 3000);   
 await pause(600);
 
-await showTip('当客户进入企业自主系统，才真正成为可追踪、可管理的资产', 3200);  
+await showTip('客户因此未能成为可追踪、可管理的企业资产', 3200);  
 await pause(600); 
 
+await showTip('只有将客户纳入企业自主系统', 2800); 
+await pause(600);
+
+await showTip('每一个线索才开始沉淀为企业可调用的数据', 3000);  
+
+await pause(600); 
 
 loadPage('inbox');
 await pause(700);
@@ -2015,12 +2022,11 @@ for (let src of inboxSources) {
 // 🎬 2️⃣ 客户标准化 + 唯一ID（Pipeline）
 // =========================  
 
-await showTip('当客户关系不再零散，而开始成为可追踪、可管理的资产', 3000);
-await pause(600); 
 
 
-await showTip('企业第一次，获得对客户客户行为的掌控与调用能力', 3200); 
-await pause(700);
+await showTip('系统自动记录、触发和管理客户行为，形成可持续增长闭环', 3200);  
+await pause(600);  
+
 
 const customers = [
   { name: 'ABC Import Ltd', cid: 'C001', status: 'engaged', score: 72 },
@@ -2032,21 +2038,22 @@ for (let c of customers) {
   await pause(600); 
 }
 
-await showTip('通过自动化跟进，实现业务价值最大化', 2200);
-await pause(700);
+await showTip('借助自动化流程，实现客户价值最大化与持续增长', 2200);
+await pause(700); 
 
 // =========================
 // 🎬 3️⃣ 客户池流转（Pipeline）
 // ========================= 
 
-await showTip('在平台模式下，成交依赖流量分配', 2600); 
+
+await showTip('在传统模式下，企业依赖平台，客户流量由外部分配', 2600); 
 await pause(600);
 
-await showTip('而当客户进入企业自主系统后，每一次跟进都被主动推进', 3000);
+await showTip('而进入企业自主系统后，每一次客户跟进都被主动触发', 3000); 
+await pause(600);
+
+await showTip('流程和决策由企业掌控，不再受平台或外部规则限制', 3200); 
 await pause(600); 
-
-await showTip('流程开始由企业控制，而不是外部规则决定', 3200); 
-await pause(600);
 
 for (let c of customers) {
   demoPushEventFade(`🟡 ${c.cid} 已进入客户池`);
@@ -2057,15 +2064,6 @@ for (let c of customers) {
 // 🎬 4️⃣ 查看客户档案（Pipeline → 客户详情）
 // =========================
 
-await showTip('当行为被量化，决策就不再依赖人工判断', 2200);
-await pause(700); 
-
-await showTip('系统根据数据自动评估客户状态，并触发下一步动作', 2200);
-await pause(700); 
-
-await showTip('这是从“人驱动流程”，转向“系统驱动决策”的本质变化', 2200);
-await pause(700);   
-
 const menuPipeline = document.querySelector('[data-page="pipeline"]');
 await safeClick(menuPipeline);
 loadPage('pipeline');
@@ -2073,7 +2071,17 @@ await pause(700);
 
 const firstCustomer = mainEl.querySelector('.customer');
 firstCustomer.dataset.cid = 'C001';
-await safeClick(firstCustomer);
+await safeClick(firstCustomer); 
+
+
+await showTip('当行为被量化，决策就不再依赖人工判断', 2200);
+await pause(700); 
+
+await showTip('系统根据数据自动评估客户状态，并触发下一步动作', 2200);
+await pause(700); 
+
+await showTip('这是从 “人驱动流程” 升级为 “系统驱动决策” 的本质变化', 2200); 
+await pause(700);    
 
 // =========================
 // 🎬 5️⃣ 行为事件捕捉（Events）
@@ -2195,7 +2203,6 @@ await showTip('当决策被系统接管 执行才开始具备规模能力', 3200
 await pause(600);
 
 
-
 // =========================
 // 🎬 9️⃣ ROI / 成交闭环（Deals）
 // =========================
@@ -2214,7 +2221,7 @@ await pause(600);
 
 // ② 无需人工整理
 await showTip(
-  '业务员无需手动整理或计算 只需选择与审核，', 
+  '业务员无需手动整理或计算 只需选择与审核',  
  1800); 
 
 await pause(900);  
@@ -2260,7 +2267,7 @@ await pause(400);
 
 // 6️⃣ 审核 & 减少人工风险
 await showTip(
-  '大幅减少手工操作时间和避免错误',  
+  '大幅减少手工操作时间 和避免错误',  
     2200 
 );  
 await pause(500);  
@@ -2293,7 +2300,7 @@ for (let s of stats) {
 // 🎬 11️⃣ 系统进化（优化后的版本）
 // =========================
 
-await showTip('当数据持续积累，系统持续优化', 2600);
+await showTip('数据持续积累，系统持续优化', 2600);
 await pause(600);
 
 await showTip('企业开始形成自己的转化路径与决策模型', 3000);
@@ -2302,43 +2309,38 @@ await pause(600);
 await showTip('能力，被沉淀在自主系统中，而不是平台 或 个人身上', 3200); 
 await pause(600);
 
-
-await showTip('这种能力，不依赖流量分配', 2600); 
+await showTip('这种能力，不依赖流量分配 也不会随着人员流动而消失', 3000); 
 await pause(600);
-
-
-await showTip('也不会随着人员流动而消失', 3000); 
-await pause(600);
-
 
 
 // =========================
 // 🎬 13️⃣ 收口（最终落点）
 // ========================= 
 
+await showTip('数据显示，约 70–80% 的中小企业拥有的只是展示级别的普通独立站', 3000);  
+await pause(600);  
 
-await showTip('但拥有独立站，并不等于拥有自动运转的系统', 2600);  
-await pause(600);
-
-await showTip('很多企业，停留在“我有独立站”的表象阶段', 2600);  
-await pause(600);
-
-await showTip('页面存在，但没有数据记录、行为追踪或自动化决策', 3000); 
-await pause(600);
-
-await showTip('本质上，依然只是一个展示页' , 
-
-2600);  
+await showTip('而普通独立站：只是页面存在，无法自动记录数据、追踪行为或执行自动化决策', 3200);  
 await pause(600); 
 
-await showTip('无法复制增长 或 形成壁垒', 2800);
+await showTip('而系统级独立站：是完整业务系统，每个模块协作，实现数据驱动闭环', 3200);  
 await pause(600); 
 
+await showTip('这需要跨模块开发能力：数据流设计、事件追踪、自动化逻辑与前端展示同步', 3200);  
+await pause(600); 
 
-await showTip('只有自动化系统 才让增长不再受制于平台 个人 或 运气', 2800); 
-await pause(600);
+await showTip('通常需要 1–2 名前端开发、1 后端工程师、1 系统/数据架构师', 3200);  
+await showTip('以及 1 产品/系统设计师协作完成', 3200);   
+await pause(600); 
 
-await showTip('而是可复制的系统能力 这就是企业的核心壁垒', 3200);  
+await showTip('约 80% 的中小企业难以实现，因为缺乏跨模块开发人才、系统设计经验', 3200);  
+await showTip('且难以承担持续维护成本', 3400);  
+await pause(600); 
+
+await showTip('因此，只有系统级独立站 才能形成真正可控的闭环 沉淀企业能力', 3000);  
+
+await showTip('构建出可复制、长期积累的数字资产型商业壁垒', 3400);
+await pause(600); 
 
 // =========================
 // 🎬  数据洞察（痛点 + 系统价值强化）
@@ -2932,8 +2934,6 @@ wechatPopup.querySelector('#copy-wechat-btn').onclick = () => {
 
 </script>   
 
-
 </body>    
-
 
 </html>                   

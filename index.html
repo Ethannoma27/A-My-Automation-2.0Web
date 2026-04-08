@@ -495,12 +495,9 @@ body {
   <div class="arrow"></div>
   <div class="tail"></div> 
 
-
 </div> 
 
-
 <script>  
-
 
 // ================== 🎨 样式 ==================
 const style = document.createElement('style');
@@ -1382,7 +1379,7 @@ deals: {
     </table> 
 
     <div style="margin-top:10px; font-size:12px; color:#666;">
-      此为形式发票，仅供报价参考
+      此为简版形式发票，仅供参考 
     </div>
   </div>
 </div>
@@ -1414,105 +1411,196 @@ deals: {
 
   `
 
-}, 
-  // ================== 7️⃣ 数据分析（Analytics） ================== 
-  analytics: {
-    main: `
-      <h3>Analytics（分析）</h3>
-      <div class="customer">转化率：12.4%</div>
-      <div class="customer">跟进覆盖率：92%</div>
-   <div class="customer-list-item">
-    <span class="icon">🟡</span>
-    <span class="text">全流程数据可追踪，支持持续优化自动化策略</span>
-   </div>
-    `,
-    detail: `
-      <h2>数据分析</h2>
-      <div class="section">展示全流程可追踪数据</div>
-      <div class="section">支持持续优化自动化策略</div>
-      <div class="section">系统价值：销售转化率提升、客户跟进遗漏率明显下降</div> 
+},  
 
-    `
-  },  
+
+// ================== 7️⃣ 数据分析（Analytics） ================== 
+
+analytics: {
+  main: `
+    <h3>ChatGPT 评估</h3> 
+
+    <!-- 顶部 KPI 卡片 -->
+    <div style="display:flex; gap:20px; margin-bottom:20px;">
+      <div style="flex:1; background:#1f2937; color:#fff; padding:16px; border-radius:8px; text-align:center;">
+        <div style="font-weight:bold; font-size:1rem;">技术深度</div>
+        <div style="font-size:1.5rem; font-weight:bold;">高级</div>
+      </div>
+      <div style="flex:1; background:#047857; color:#fff; padding:16px; border-radius:8px; text-align:center;">
+        <div style="font-weight:bold; font-size:1rem;">架构复杂度</div>
+        <div style="font-size:1.5rem; font-weight:bold;">高</div>
+      </div>
+      <div style="flex:1; background:#b45309; color:#fff; padding:16px; border-radius:8px; text-align:center;">
+        <div style="font-weight:bold; font-size:1rem;">功能实现难度</div>
+        <div style="font-size:1.5rem; font-weight:bold;">高</div>
+      </div>
+      <div style="flex:1; background:#065f46; color:#fff; padding:16px; border-radius:8px; text-align:center;">
+        <div style="font-weight:bold; font-size:1rem;">工程团队要求</div>
+        <div style="font-size:1.5rem; font-weight:bold;">中大型</div>
+      </div>
+    </div>
+
+<div style="display:flex; height:500px;">
+  <!-- 左侧表格 -->
+  <div style="width:380px; background:#fff; border-right:1px solid #ddd; overflow-y:auto; padding:12px;">
+    <table id="analytics-variant-body" style="width:100%; border-collapse:collapse;">
+      <thead>
+        <tr style="background:#f3f4f6;">
+          <th style="width:50%;">维度</th>
+          <th style="width:50%;">评价</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- 右侧内容 -->
+  <div style="flex:1; padding:12px; background:#f9fafb; overflow-y:auto;">
+    <div id="analytics-content" style="line-height:1.6; font-size:0.95rem;"></div>
+    <div id="analytics-iframe-container" style="margin-top:12px;">
+      <iframe src="" style="width:100%; height:300px; border:1px solid #ccc; border-radius:6px;"></iframe>
+    </div>
+  </div>
+</div> 
+
+  `, 
+
+
+  detail: `
+    <h2>系统级技术评估</h2>
+    <div style="margin-bottom:12px;"><strong>前端技术：</strong>Next.js SSR/SSG、模块化组件、Tailwind/CSS Modules、动画与交互</div>
+    <div style="margin-bottom:12px;"><strong>后端/API：</strong>Node.js Serverless、多数据源整合、Shopify 支付、Notion 同步、延迟更新</div>
+    <div style="margin-bottom:12px;"><strong>自动化脚本：</strong>千页级 SEO 自动生成、事件驱动全链路、批量处理与安全管理</div>
+    <div style="margin-bottom:12px;"><strong>运维部署：</strong>Serverless Functions、.env 管理、缓存路径、跨系统整合</div>
+
+    <h3>高难度点</h3>
+    <ol>
+      <li>千页级 SEO 内容生成 + Notion 数据同步</li>
+      <li>Shopify 全自定义支付系统</li>
+      <li>全链路自动化事件驱动系统</li>
+      <li>前端复杂交互与演示动画</li>
+      <li>数据闭环 + 决策驱动逻辑</li>
+    </ol>
+
+    <h3>综合评估</h3>
+    <table border="1" cellpadding="6" cellspacing="0" style="width:100%; border-collapse:collapse;">
+      <thead style="background:#f3f4f6;">
+        <tr><th>维度</th><th>评估</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>技术深度</td><td>高级：SSR/SSG + Serverless + 自动化脚本 + 数据整合</td></tr>
+        <tr><td>架构复杂度</td><td>高：事件驱动 + 全链路闭环 + 多模块协作</td></tr>
+        <tr><td>功能实现难度</td><td>高：千页 SEO、自动化营销、数据闭环</td></tr>
+        <tr><td>工程团队要求</td><td>中大型团队：4 人以上跨职能合作</td></tr>
+        <tr><td>企业价值</td><td>极高：系统级自动化 + 数据沉淀 + 可规模化</td></tr>
+      </tbody>
+    </table>
+  `
+  },   
+
+
 
 
 // ================== 8️⃣ SEO ==================   
 seo: {
   main: `
-    <h3>SEO Hub</h3>
-    <div class="seo-metric">站点索引页数：1,256</div>
-    <div class="seo-metric">自然搜索流量：3,872 次/月</div>
-    <div class="seo-metric">关键词排名 Top10：126 个</div> 
-    <div class="seo-item">
-      <span class="icon">🟢</span>
-      <span class="text">千页自动生成 + Sitemap + JSON-LD 自动填充</span>
-    </div>
-    <div class="seo-item">
-      <span class="icon">🟡</span>
-      <span class="text">评论系统 + Notion 数据同步，全流程 SEO 数据可追踪</span>
-    </div>
+   <h3>SEO Hub</h3>
 
-    <!-- SEO 系统面板 -->
-    <div id="seo-panel" style="border:1px solid #ccc;padding:20px;background:#fff;min-height:500px;">
-      <div style="font-family:Arial;">
+<!-- 核心指标 -->
+<div class="seo-metric">站点索引页数：1,256</div>
+<div class="seo-metric">自然搜索流量：3,872 次/月</div>
+<div class="seo-metric">关键词排名 Top10：126 个</div> 
 
-        <!-- 顶部 -->
-        <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
-          <div><strong>SEO Automation System</strong></div>
-          <div style="text-align:right;">
-            <div><strong>Variant Engine</strong></div>
-            <div>Status: Active</div>
-            <div>Sync: Real-time</div>
-          </div>
-        </div>
+<!-- 系统功能概览 -->
+<div class="seo-item">
+  <span class="icon">🟢</span>
+  <span class="text">千页自动生成变体页面，支持不同 Intent 和关键词组合</span>
+</div>
+<div class="seo-item">
+  <span class="icon">🟡</span>
+  <span class="text">JSON-LD / Sitemap 自动生成与同步，SEO 数据全程可追踪</span>
+</div>
+<div class="seo-item">
+  <span class="icon">🟡</span>
+  <span class="text">评论系统与 Notion 数据同步，实现用户反馈闭环</span>
+</div>
 
-        <!-- 说明 -->
-        <div style="margin-bottom:20px;">
-          <div><strong>系统说明:</strong> 自动生成产品变体页面</div>
-          <div><strong>SEO能力:</strong> JSON-LD / Sitemap 自动同步</div>
-          <div><strong>数据追踪:</strong> 每个页面可追踪状态</div>
-        </div>
-
-        <!-- ⭐ 核心表格 -->
-        <table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse:collapse; text-align:center; table-layout: fixed;">
-          <thead>
-            <tr style="background:#f5f5f5;">
-              <th>变体</th>
-              <th>Slug</th>
-              <th style="width:200px; max-width:200px; white-space: normal; word-break: break-word; overflow-wrap: break-word;">URL</th>
-              <th>状态</th>
-              <th>操作</th>
-            </tr>
-          </thead>
-          <tbody id="seo-variant-body"></tbody>
-        </table>
-
+<!-- SEO 系统面板 -->
+<div id="seo-panel" style="border:1px solid #ccc;padding:20px;background:#fff;min-height:500px;">
+  <div style="font-family:Arial;">
+    <!-- 顶部状态 -->
+    <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
+      <div><strong>SEO Automation System</strong></div>
+      <div style="text-align:right;">
+        <div><strong>Variant Engine</strong></div>
+        <div>Status: Active</div>
+        <div>Sync: Real-time</div>
       </div>
-    </div> 
+    </div>
+
+    <!-- 系统说明 -->
+    <div style="margin-bottom:20px;">
+      <div><strong>系统说明:</strong> 自动生成产品变体页面，并管理对应的 Notion 页面</div>
+      <div><strong>SEO 能力:</strong> JSON-LD / Sitemap 自动同步，支持千页级数据</div>
+      <div><strong>数据追踪:</strong> 每个页面的流量、排名、用户行为可实时追踪</div>
+    </div>
+
+    <!-- 核心表格 -->
+    <table border="1" cellspacing="0" cellpadding="6" style="width:100%; border-collapse:collapse; text-align:center; table-layout: fixed;">
+      <thead>
+        <tr style="background:#f5f5f5;">
+          <th>变体</th>
+          <th>Slug</th>
+          <th style="width:200px; max-width:200px; white-space: normal; word-break: break-word; overflow-wrap: break-word;">URL</th>
+          <th>状态</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody id="seo-variant-body"></tbody>
+    </table>
+  </div>
+</div> 
   `,
   detail: `
-    <h2>SEO 全流程概览</h2>
-    <div class="section">
-      <strong>页面生成：</strong>自动生成千页产品变体，支持不同 Intent 和关键词组合
-    </div>
-    <div class="section">
-      <strong>搜索引擎优化：</strong>自动生成 JSON-LD Schema，Sitemap 自动更新
-    </div>
-    <div class="section">
-      <strong>数据追踪：</strong>每个页面点击、流量、排名变化实时记录
-    </div>
-    <div class="section">
-      <strong>系统价值：</strong>SEO 流量长期积累形成不可复制的增长通道，碾压普通独立站
-    </div> 
+<h2>SEO 全流程概览</h2>
 
-    <!-- 内容展示区 -->
-    <div id="variant-content" style="margin-top:20px;"></div>
+<div class="section">
+  <strong>页面生成：</strong>自动生成千页产品变体，支持不同 Intent 与关键词组合，并生成对应 Notion 页面
+</div>
 
-    <!-- 页面预览 -->
-    <div id="iframe-container" style="margin-top:20px;"></div> 
+<div class="section">
+  <strong>搜索引擎优化：</strong>JSON-LD Schema 自动生成，Sitemap 自动更新，SEO 数据全程可追踪
+</div>
+
+<div class="section">
+  <strong>用户反馈闭环：</strong>评论系统与 Notion 数据同步，自动统计用户评分与反馈
+</div>
+
+<div class="section">
+  <strong>数据追踪：</strong>每个页面的点击、流量、排名变化和用户行为均可实时监控
+</div>
+
+<div class="section">
+  <strong>系统级优势：</strong>
+  <ul>
+    <li>千页变体可自动生成与同步，缩短人工操作时间 90% 以上</li> 
+    <li>SEO 数据闭环可长期沉淀企业资产，实现持续流量增长</li> 
+    <li>评论和用户行为实时同步，支持快速迭代内容策略</li> 
+    <li>系统架构可扩展，支持跨模块数据自动化，无需依赖外部平台或人工分散操作</li>
+  </ul>
+</div>
+
+<div class="section">
+  <strong>商业价值：</strong>系统能力超越85%普通独立站，形成不可轻易复制的长期可积累的数字资产型壁垒 
+</div>
+
+<!-- 内容展示区 -->
+<div id="variant-content" style="margin-top:20px;"></div>
+
+<!-- 页面预览 -->
+<div id="iframe-container" style="margin-top:20px;"></div> 
   `
 }
-
 
 }  
 // ================== DOM ==================
@@ -1550,7 +1638,6 @@ sidebarItems.forEach(item=>{
 
 // 初始加载页面
 loadPage('pipeline');   
-
 
 // ================== 全局事件 Timeline ==================
 const timelineEvents = [
@@ -1866,8 +1953,8 @@ function bindInvoiceEvents() {
 function initDealsPage(){
   bindInvoiceEvents(); 
    
-
 }  
+
 
 
 // 👉 可自定义展示域名（核心）
@@ -1953,8 +2040,71 @@ async function renderSEOVariants() {
 
 // 初始化
 function initSEOPage() {
-  renderSEOVariants();
+  renderSEOVariants(); 
+
 } 
+
+
+
+// 左侧短内容
+const demoAnalyticsShort = [
+  { metric: '技术深度', short: '高级' },
+  { metric: '架构复杂度', short: '高' },
+  { metric: '功能实现难度', short: '高' },
+  { metric: '工程团队要求', short: '中大型' },
+  { metric: '企业价值', short: '极高' }
+];
+
+// 右侧完整内容
+const demoAnalyticsVariants = [
+  { content: '前端SSR/SSG、Serverless、自动化脚本、数据整合等体现高技术水平。', url: 'https://example.com/tech' },
+  { content: '事件驱动、多模块协作、全链路闭环，体现系统设计复杂性。', url: 'https://example.com/architecture' },
+  { content: '千页级SEO自动化、自动化营销、数据闭环，高难度实现。', url: 'https://example.com/complexity' },
+  { content: '4人以上跨职能团队，前端、后端、数据和产品协作必不可少。', url: 'https://example.com/team' },
+  { content: '系统级自动化+数据沉淀，可规模化，商业价值极高。', url: 'https://example.com/value' }
+];
+
+function renderAnalyticsVariants() {
+  const tbody = document.getElementById('analytics-variant-body').querySelector('tbody');
+  const rightContainer = document.getElementById('analytics-iframe-container').parentElement; // 整个右侧容器
+
+  if (!tbody || !rightContainer) return;
+
+  // 清空表格
+  tbody.innerHTML = '';
+
+  // 初始隐藏右侧整个容器
+  rightContainer.style.display = 'none';
+
+  demoAnalyticsShort.forEach((v, idx) => {
+    const tr = document.createElement('tr');
+    tr.style.cursor = 'pointer';
+
+    tr.innerHTML = `
+      <td style="white-space:nowrap; padding:6px;">${v.metric}</td>
+      <td style="padding:6px;">${v.short}</td>
+    `;
+
+    // 点击左侧行显示右侧内容
+    tr.onclick = () => {
+      // 显示右侧容器
+      rightContainer.style.display = 'block';
+
+      const contentEl = document.getElementById('analytics-content');
+      const iframeEl = document.getElementById('analytics-iframe-container').querySelector('iframe');
+
+      contentEl.innerHTML = `<p>${demoAnalyticsVariants[idx].content}</p>`;
+      iframeEl.src = demoAnalyticsVariants[idx].url;
+    };
+
+    tbody.appendChild(tr);
+  });
+}
+
+function initAnalyticsPage() {
+  renderAnalyticsVariants(); 
+} 
+
 
 // loadPage 中调用 initDealsPage() 时即可 
 
@@ -1974,13 +2124,14 @@ function loadPage(page){
   // 页面初始化逻辑
   if(page === 'inbox') bindInboxButtons();     // Inbox 页面绑定
   if(page === 'deals') initDealsPage();        // PI/CI 发票初始化
-  if(page === 'seo') initSEOPage();            // ✅ SEO Dashboard 初始化
+  if(page === 'seo') initSEOPage();            // ✅ SEO Dashboard 初始化 
+  if(page === 'analytics') initAnalyticsPage();  // Analytics Dashboard 初始化
 }
 
 // 绑定左侧菜单点击
 sidebarItems.forEach(item=>{
   item.addEventListener('click', ()=>{
-    loadPage(item.getAttribute('data-page'));
+    loadPage(item.getAttribute('data-page')); 
   });
 });
 
@@ -2156,8 +2307,6 @@ document.getElementById('main-content').addEventListener('click', (e) => {
 });
 
 
-
-
 // ================== 完整优化 Demo Timeline ==================
 demoBtn.addEventListener('click', async () => {
   demoBtn.disabled = true;
@@ -2241,20 +2390,19 @@ demoBtn.addEventListener('click', async () => {
 // 🎬 1️⃣ 客户导入（Inbox）
 // ========================= 
 
-await showTip('大多数团队的问题，不是缺少客户，而是客户线索未被高效管理', 2600);  
+await showTip('多数企业的问题，不是缺少客户，而是传统模式限制了线索的规模化管理', 2600);
 await pause(600);
 
-await showTip('当客户数据分散，属于企业的掌控权被托管给 平台 或 业务员', 3000);   
+await showTip('线索分散在平台或业务员手中，企业无法全面掌控', 3000);
 await pause(600);
 
-await showTip('客户因此未能成为 可追踪、可管理的企业资产', 3200);  
-await pause(600); 
-
-await showTip('只有将客户纳入企业自主的独立站系统', 2800); 
+await showTip('因此客户无法转化为可追踪、可管理、并能显著提升价值的企业资产', 3200);
 await pause(600);
 
-await showTip('每一个线索才开始沉淀为企业可调用的数据', 3000);  
+await showTip('只有少数建立自主系统的企业，才能真正自动化驱动线索', 2800);
+await pause(600);
 
+await showTip('每条线索才开始沉淀为可调用的数据，真正成为企业资产', 3000);
 await pause(600); 
 
 loadPage('inbox');
@@ -2375,24 +2523,20 @@ vMouse.style.display = 'none';
 
 
 await showTip(
-  '这并不是简单的效率优化',
-  1800
+  '这并不是简单的效率优化', 1800
 );
 
 await showTip(
-  '而是执行能力的结构性改变',
-  2000
+  '而是执行能力的结构性改变', 2000
 );
 
 await showTip(
-  '当执行方式改变，结果就不再是提升，而是跃升',
-  2200
+  '当执行方式改变，结果就不再是提升，而是跃升', 2200
 ); 
 
 // =========================
 // 🎬 7️⃣ 自动化触发（Automation）
 // ========================= 
-
 
 demoPushEventFade(`🔵 自动化触发 ${firstCustomer.dataset.cid}`);
 
@@ -2409,13 +2553,11 @@ for (let n of nodes) {
 } 
 
 await showTip(
-  '这也是为什么，同样的行业，有的只能实现 1x 增长',
-  2200
+  '这也是为什么，同样的行业，有的只能实现 1x 增长', 2200
 );
 
 await showTip(
-  '而有的，可以达到 3倍、5倍，甚至 10倍',
-  2400
+  '而有的，可以达到 3倍、5倍，甚至 10倍', 2400
 );  
 
 // =========================
@@ -2450,10 +2592,8 @@ await pause(900);
 await showTip('流程开始由规则驱动 而不是逐条人为判断', 3000); 
 await pause(600);
 
-
 await showTip('当决策被系统接管 执行才开始具备规模能力', 3200); 
 await pause(600);
-
 
 // =========================
 // 🎬 9️⃣ 成交闭环（Deals）
@@ -2467,7 +2607,6 @@ await pause(900);
 // 第二段解说
 await showTip('系统推动从线索到成交的闭环，实现流程自动化', 2200); 
 await pause(500);
-
 
 await showTip(
   '当客户进入成交阶段，系统可一键生成标准化 PI / CI 发票',
@@ -2486,14 +2625,12 @@ await showTip(
 );
 await pause(500); 
 
-
 await showTip(
   '业务员只需选择 已录入系统的 客户', 
   1800 
 ); 
 
 await pause(900);  
-
 
 // =========================
 // 模拟鼠标真实操作选择客户
@@ -2532,7 +2669,9 @@ vMouse.style.top = `${rectOption.top}px`;
 await showTip(
   '系统自动填充 公司、联系人、邮箱与国家信息等内容',  
    1500 
-);
+); 
+
+
 await pause(400);   
 
 // =========================
@@ -2548,8 +2687,12 @@ await pause(300);
 initSEOPage();  // ✅ 初始化表格
 await pause(500);
 
-await showTip('页面内容自动生成，SEO 数据自动填充', 1500); 
-await pause(500);
+await showTip(
+  '在数字化执行中，内容与数据的自动化生成，是能力跃升的关键环节', 
+  1800
+); 
+
+await pause(500); 
 
 // 模拟鼠标真实操作选择变体
 const seoTbody = document.querySelector('#seo-variant-body');
@@ -2575,29 +2718,21 @@ if (variantRows.length > 1) {
   vMouse.style.top = `${rectBtn.top}px`;
 } 
 
-await showTip('SEO 系统通过母产品的intent 生成规模化变体 Notion 页面', 1800); 
+await showTip('SEO 系统通过母产品的 intent 自动生成千页级变体', 1800); 
 demoPushEventFade(`🟢 系统加载 ${demoSEOVariants.length} 个变体`); 
 await pause(900);
 
 
-await showTip(
-  '系统通过 Notion 即可同步千页数据变体信息',  
-  2000
-);
+
+await showTip('系统可将这些变体同步至 Notion，保持数据闭环', 2000);
 await pause(500); 
 
-await showTip(
-  '具备千页系统级同步的 大规模自动化能力',   
-  2000
-);
-await pause(500); 
+await showTip('这种千页系统级同步能力，让内容变体的生成与管理具备规模化', 2000);
 
-await showTip(
-  '这种极高难度自动化系统 对普通中小企业来说是难以复制的“碾压级别”优势',   
-  2000
-);
-await pause(500); 
+await pause(500);
 
+await showTip('它是普通企业难以复制的“碾压级别”竞争优势', 2000); 
+await pause(500); 
 
 // =========================
 // 🎬 🔟 数据分析（Analytics）
@@ -2647,23 +2782,26 @@ await pause(600);
 await showTip('这需要跨模块开发能力：数据流设计、事件追踪、自动化逻辑与前端展示同步', 3200);  
 await pause(600); 
 
-await showTip('通常需要 1–2 名前端开发、1名 后端工程师', 3200);  
+await showTip('通常需要 1–2 名前端开发、1名 后端工程师、1名 系统/数据架构师 ', 3200);  
 await pause(600); 
-await showTip('1名 系统/数据架构师 以及 1名 产品/系统设计师 才能协作完成', 3200);   
+await showTip('以及 1名 产品/系统设计师 才能协作完成', 3200);   
 
 await pause(600); 
 
-await showTip('约 80% 的中小企业难以实现，因为缺乏跨模块开发人才、系统设计经验', 3200);  
-await pause(600);  
-await showTip('难以构建成企业自主的系统级独立站', 3200);  
-await pause(600);  
+await showTip('约 80% 的中小企业难以搭建系统级独立站', 3200);  
+await pause(600);
 
-await showTip('而系统级独立站 如今越来越受到企业重视 是真正自主可控的', 3000);  
 
-await pause(600);  
+await showTip('跨模块开发与系统设计的复合型人才极度稀缺，且大多掌握在大型平台手中', 3200);  
+await pause(600); 
 
-await showTip('闭环沉淀企业能力的 长期积累的数字资产型商业壁垒', 3000);  
+await showTip('因此，中小企业很难构建自主、可持续运营的系统级平台', 3200);  
+await pause(600);
 
+await showTip('系统级独立站正成为企业的重要技术优势', 3000);  
+await pause(600); 
+
+await showTip('可闭环沉淀企业能力，形成长期积累的数字资产型商业壁垒', 3000);  
 await pause(600); 
 
 // =========================
@@ -3253,9 +3391,9 @@ wechatPopup.querySelector('#copy-wechat-btn').onclick = () => {
     .catch(() => alert('复制失败'));
     
 };  
+
 }    
 </script>   
-
-</body>    
-
+              
+</body>                
 </html>                   
